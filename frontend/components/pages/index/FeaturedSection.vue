@@ -36,10 +36,10 @@
 import OfferListItem from '@/components/global/OfferListItem'
 export default {
   components: { 'offer-list-item': OfferListItem },
-  props: { heading: String },
 
   data() {
     return {
+      heading: null,
       offerListItems: [],
     }
   },
@@ -86,6 +86,22 @@ export default {
   },
 
   async fetch() {
+    //Fetching the heading
+    const homepageResponse = (
+      await this.$prismic.api.query(
+        this.$prismic.predicates.at('document.type', 'homepage'),
+        {
+          lang: this.localeIso,
+          fetch: 'homepage.featured_section_heading',
+        }
+      )
+    ).results[0].data
+
+    try {
+      this.heading = homepageResponse.featured_section_heading
+    } catch {}
+
+    // Fetching recommended offer items
     let course = this.fetchOneByTypeHelper('course')
     let event = this.fetchOneByTypeHelper('event')
     let blog_post = this.fetchOneByTypeHelper('blog_post')
@@ -154,7 +170,7 @@ export default {
         > article {
           flex: 1;
         }
-        
+
         > article + article {
           margin-left: 2rem;
         }

@@ -2,8 +2,8 @@
   <div class="in-a-nutshell-section">
     <div class="in-a-nutshell-section__body">
       <h2>{{heading}}</h2>
-      <video controls class="in-a-nutshell-section__body__video">
-        <source src="@/assets/video/placeholder.mp4" type="video/mp4" />Your browser does not support HTML video.
+      <video controls class="in-a-nutshell-section__body__video" v-if="videoUrl">
+        <source :src="videoUrl" type="video/mp4" />
       </video>
     </div>
   </div>
@@ -11,7 +11,33 @@
 
 <script>
 export default {
-  props: { heading: String, src: String, paragraphs: Array },
+  data() {
+    return {
+      heading: null,
+      videoUrl: null,
+      paragraphs: null,
+    }
+  },
+
+  async fetch() {
+    const dataResponse = (
+      await this.$prismic.api.query(
+        this.$prismic.predicates.at('document.type', 'homepage'),
+        {
+          lang: this.localeIso,
+          fetch: [
+            'homepage.in_a_nutshell_section_heading',
+            'homepage.in_a_nutshell_section_video',
+          ],
+        }
+      )
+    ).results[0].data
+
+    try {
+      this.heading = dataResponse.in_a_nutshell_section_heading
+      this.videoUrl = dataResponse.in_a_nutshell_section_video.url
+    } catch {}
+  },
 }
 </script>
 

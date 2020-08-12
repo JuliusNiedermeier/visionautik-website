@@ -1,7 +1,8 @@
 <template>
   <div class="default-layout">
     <va-header />
-    <Nuxt class="default-layout__page-content" keep-alive :keep-alive-props="{max: 5}" />
+    <!-- <Nuxt class="default-layout__page-content" keep-alive :keep-alive-props="{max: 5}" /> -->
+    <Nuxt class="default-layout__page-content" />
     <va-footer />
   </div>
 </template>

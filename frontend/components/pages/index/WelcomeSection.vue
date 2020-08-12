@@ -54,15 +54,39 @@
 import Icon from '@/components/global/Icon'
 export default {
   components: { 'va-icon': Icon },
-  props: {
-    videoUrl: String,
-    heading: String,
-    subHeading: String,
-    targetGroupLinks: Array,
-  },
+
   activated() {
-    console.log('Play Video')
     this.$refs.welcomeSectionVideo.play()
+  },
+
+  data() {
+    return {
+      videoUrl: null,
+      heading: null,
+      subHeading: null,
+    }
+  },
+
+  async fetch() {
+    const responseData = (this.prismicDocument = (
+      await this.$prismic.api.query(
+        this.$prismic.predicates.at('document.type', 'homepage'),
+        {
+          lang: this.localeIso,
+          fetch: [
+            'homepage.welcome_section_background_video',
+            'homepage.welcome_section_heading',
+            'homepage.welcome_section_sub_heading',
+          ],
+        }
+      )
+    ).results[0].data)
+
+    try {
+      this.videoUrl = responseData.welcome_section_background_video.url
+      this.heading = responseData.welcome_section_heading
+      this.subHeading = responseData.welcome_section_sub_heading
+    } catch {}
   },
 }
 </script>
