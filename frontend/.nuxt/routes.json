@@ -1,0 +1,22 @@
+[
+  {
+    "name": "prismic-preview",
+    "path": "/preview",
+    "component": "C:\\\\Users\\\\Juliu\\\\OneDrive\\\\Dokumente\\\\Projekte\\\\Aufträge\\\\Visionautik Akademie - Seiten-Relaunch\\\\Repository\\\\frontend\\\\.nuxt\\\\prismic\\\\pages\\\\preview.vue",
+    "_name": "_065951b5"
+  },
+  {
+    "name": "test",
+    "path": "/test",
+    "component": "C:\\\\Users\\\\Juliu\\\\OneDrive\\\\Dokumente\\\\Projekte\\\\Aufträge\\\\Visionautik Akademie - Seiten-Relaunch\\\\Repository\\\\frontend\\\\pages\\\\test.vue",
+    "chunkName": "pages/test",
+    "_name": "_91964282"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\Juliu\\\\OneDrive\\\\Dokumente\\\\Projekte\\\\Aufträge\\\\Visionautik Akademie - Seiten-Relaunch\\\\Repository\\\\frontend\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_483cb475"
+  }
+]

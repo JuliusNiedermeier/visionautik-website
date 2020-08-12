@@ -1,0 +1,43 @@
+// Century Gothic
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('../fonts/CenturyGothic.woff2') format('woff2'),
+    url('../fonts/CenturyGothic.woff') format('woff'),
+    url('../fonts/CenturyGothic.ttf') format('truetype');
+
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Century Gothic Italic
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('../fonts/CenturyGothicItalic.woff2') format('woff2'),
+    url('../fonts/CenturyGothicItalic.woff') format('woff'),
+    url('../fonts/CenturyGothicItalic.ttf') format('truetype');
+
+  font-weight: normal;
+  font-style: italic;
+}
+
+// Century Gothic Bold
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('../fonts/CenturyGothicBold.woff2') format('woff2'),
+    url('../fonts/CenturyGothicBold.woff') format('woff'),
+    url('../fonts/CenturyGothicBold.ttf') format('truetype');
+
+  font-weight: bold;
+  font-style: normal;
+}
+
+// Century Gothic Bold Italic
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('../fonts/CenturyGothicBoldItalic.woff2') format('woff2'),
+    url('../fonts/CenturyGothicBoldItalic.woff') format('woff'),
+    url('../fonts/CenturyGothicBoldItalic.ttf') format('truetype');
+
+  font-weight: bold;
+  font-style: italic;
+}

@@ -1,0 +1,18 @@
+// Colors
+$color--red--base: #d1020b;
+$color--red--lighter: #e53535;
+$color--red--light: lighten($color--red--base, 20);
+
+$color--blue--base: #05006e;
+$color--blue--lighter: #051986;
+$color--blue--light: lighten($color--blue--base, 10);
+
+$color--grey--light: #f0f0f0;
+$color--grey--dark: #e6e6e6;
+
+$color--lilac--base: #e3e2f3;
+
+// Motion
+$duration--slow: 800ms;
+$duration--medium: 500ms;
+$duration--fast: 200ms;
