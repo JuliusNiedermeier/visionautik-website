@@ -9,7 +9,7 @@
         palysinline
         class="welcome-section__hero-section__video-background"
       >
-        <source :src="videoUrl" type="video/mp4" />
+        <source :src="videoUrl" type="video/mp4" v-if="videoUrl" />
       </video>
       <div class="welcome-section__hero-section__body">
         <h1>{{heading}}</h1>
