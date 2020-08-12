@@ -150,11 +150,13 @@ export default {
 
       @include desktops {
         flex-direction: row;
+
+        > article {
+          flex: 1;
+        }
+        
         > article + article {
           margin-left: 2rem;
-          > article {
-            flex: 1;
-          }
         }
       }
     }
