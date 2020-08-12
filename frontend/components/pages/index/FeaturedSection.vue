@@ -128,6 +128,8 @@ export default {
       })
     }
 
+    if (this.offerListItems.length > 0) this.offerListItems = []
+
     responses.forEach((response) => {
       if (response.results_size > 0) {
         this.offerListItems = [
