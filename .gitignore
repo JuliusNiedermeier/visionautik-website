@@ -1,7 +1,6 @@
 *.code-workspace
 *.env
-
-.nuxt
 node_modules
 
-./functions/nuxt
+src/.nuxt
+functions/nuxt
