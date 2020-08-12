@@ -1,3 +1,5 @@
 *.code-workspace
 *.env
+
+.nuxt
 node_modules
