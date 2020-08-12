@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      activeSlideIndex: 0,
+      activeSlideIndex: null,
       slideCount: 0,
       initialXPosition: null,
       manualDrag: 0,
