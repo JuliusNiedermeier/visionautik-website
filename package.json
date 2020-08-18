@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "deploy": "node ./scripts/deploy.js",
+    "dev:host": "npm run --prefix nuxt-fixed dev:host",
+    "dev:local": "npm run --prefix nuxt-fixed dev"
+  }
+}

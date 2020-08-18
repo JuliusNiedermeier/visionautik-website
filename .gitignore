@@ -1,6 +1,10 @@
+# File extensions
 *.code-workspace
 *.env
+
+# Folder names
 node_modules
 
-src/.nuxt
-functions/nuxt
+# Exact paths
+/functions/ssr/nuxt
+/public
