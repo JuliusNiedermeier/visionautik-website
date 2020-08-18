@@ -31,11 +31,11 @@ cd < your project directory >
 git clone https://github.com/Visionautik-Akademie/Visionautik-de
 ```
 
-The **frontend** folder contains the nuxt.js project that is responsible for rendering the websites frontend.
+The **src** folder contains the nuxt.js project that is responsible for rendering the websites frontend.
 Navigate into that directory and install all node dependencies.
 
 ```
-cd Visionautik-de/frontend
+cd Visionautik-de/src
 npm install
 ```
 
