@@ -48,7 +48,7 @@ export default {
   props: {
     src: String,
     thumbnail: String,
-    aspectRatio: Number,
+    aspectRatio: String | Number,
   },
 
   data() {

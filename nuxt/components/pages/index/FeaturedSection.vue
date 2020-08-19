@@ -150,7 +150,7 @@ export default {
 .featured-section-component {
   background-color: $color--grey--dark;
   @include fill-screen-width;
-  padding: 10rem 0;
+  padding: 20rem 0;
 
   &__body {
     @include page-margin;

@@ -27,10 +27,10 @@ export default {
   background-color: $color--grey--light;
   @include fill-screen-width;
   overflow: hidden;
+  padding: 10rem 0;
 
   &__carousel {
     @include page-margin;
-    margin-bottom: 5rem;
 
     li {
       text-align: center;
