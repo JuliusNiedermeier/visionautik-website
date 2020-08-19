@@ -2,15 +2,7 @@
   <div class="in-a-nutshell-section">
     <div class="in-a-nutshell-section__body">
       <h2>{{heading}}</h2>
-      <!-- <video
-        controls
-        class="in-a-nutshell-section__body__video"
-        :poster="videoThumbnailUrl"
-        v-if="videoUrl"
-      >
-        <source :src="videoUrl" type="video/mp4" />
-      </video>-->
-      <va-video :src="videoUrl" :thumbnail="videoThumbnailUrl" />
+      <va-video :src="videoUrl" :thumbnail="videoThumbnailUrl" v-if="videoUrl" />
     </div>
   </div>
 </template>

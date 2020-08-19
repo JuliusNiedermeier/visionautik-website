@@ -56,7 +56,7 @@ export default {
       calculatedAspectRatio: 1.778,
       playStateIconName: 'play',
       currentTime: 0,
-      duration: 0,
+      duration: null,
       bottomControlsMouseoverProgress: 0,
     }
   },
@@ -90,6 +90,8 @@ export default {
 
     handleVideoTimeUpdate(event) {
       this.currentTime = event.target.currentTime
+      // if (this.duration) return
+      // this.duration = event.target.duration
     },
 
     handleBottomControlsMouseover(event) {
@@ -100,14 +102,19 @@ export default {
     handleBottomControlsClick(event) {
       this.$refs.video.currentTime =
         (event.offsetX / event.target.offsetWidth) * this.duration
-      console.log(event)
     },
   },
 
   mounted() {
     const video = this.$refs.video
     this.calculatedAspectRatio = video.videoWidth / video.videoHeight
+
     this.duration = video.duration
+
+    const _vm = this
+    video.addEventListener('loadedmetadata', function () {
+      _vm.duration = video.duration
+    })
 
     const bottomControls = this.$refs.controls.querySelector(
       '.video-component__controls__bottom-controls'
