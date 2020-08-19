@@ -1,6 +1,6 @@
 <template>
   <div class="press-quote-section">
-    <va-carousel class="press-quote-section__carousel" randomize autoplayInterval="5000">
+    <va-carousel class="press-quote-section__carousel" randomize autoplayInterval="5000" loop>
       <li>
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Welt_kompakt_Logo_2015.png" />
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum id aliquid autem nemo. Laudantium, maiores a sapiente adipisci perspiciatis amet molestias itaque expedita, ex quia mollitia omnis enim illum esse!</p>

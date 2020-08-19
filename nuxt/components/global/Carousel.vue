@@ -3,13 +3,13 @@
     <ul
       class="carousel-component__track noselect"
       ref="carouselTrack"
-      :style="`width: ${slideCount * 100}%; transform: translateX(-${100 / slideCount * activeSlideIndex}%) translateX(${manualDrag}px)`"
+      :style="`width: ${slideCount * 100 / slidesPerFrame}%; transform: translateX(-${100 / slideCount * activeSlideIndex}%) translateX(${manualDrag}px)`"
     >
       <slot />
     </ul>
     <div class="carousel-component__navigation-controls">
       <va-slider-navigation-controls
-        :number="slideCount"
+        :number="slideCount < slidesPerFrame ? 1 : slideCount - (slidesPerFrame - 1)"
         :activeIndex="activeSlideIndex"
         @prev="handleNavClick('prev')"
         @next="handleNavClick('next')"
@@ -31,6 +31,12 @@ export default {
   props: {
     randomize: Boolean,
     autoplayInterval: String,
+    loop: Boolean,
+    slidesPerFrame: {
+      type: String | Number,
+      required: false,
+      default: 1,
+    },
   },
   data() {
     return {
@@ -43,15 +49,32 @@ export default {
   },
   watch: {
     activeSlideIndex(index, previousIndex) {
-      if (index > this.slideCount - 1) this.activeSlideIndex = 0
-      if (index < 0) this.activeSlideIndex = this.slideCount - 1
+      const offset = this.slidesPerFrame - 1
+      if (index + offset > this.slideCount - 1) {
+        if (this.loop) this.activeSlideIndex = 0
+        else {
+          this.activeSlideIndex = previousIndex
+          this.stopAutoplay()
+        }
+      }
+      if (index < 0) {
+        if (this.loop) this.activeSlideIndex = this.slideCount - 1
+        else {
+          this.activeSlideIndex = previousIndex
+          this.stopAutoplay()
+        }
+      }
 
       const slides = this.$refs.carouselTrack.children
+      const activeSlides = []
+      for (let i = 0; i < this.slidesPerFrame; i++) {
+        activeSlides.push(this.activeSlideIndex + i)
+      }
 
-      try {
-        slides[this.activeSlideIndex].classList.add('active')
-        slides[previousIndex].classList.remove('active')
-      } catch {}
+      for (let i = 0; i < this.slideCount; i++) {
+        if (activeSlides.includes(i)) slides[i].classList.add('active')
+        else slides[i].classList.remove('active')
+      }
     },
   },
 
