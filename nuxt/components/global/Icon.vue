@@ -15,12 +15,24 @@ export default {
     }
   },
 
+  watch: {
+    name(newName) {
+      this.html = this.loadIconAsInlineSvg(newName)
+    },
+  },
+
+  methods: {
+    loadIconAsInlineSvg(name) {
+      const svgBase64 = require(`@/assets/svg/icons/${name}.svg`).replace(
+        'data:image/svg+xml;base64,',
+        ''
+      )
+      return Base64.atob(svgBase64)
+    },
+  },
+
   mounted() {
-    const svgBase64 = require(`@/assets/svg/icons/${this.name}.svg`).replace(
-      'data:image/svg+xml;base64,',
-      ''
-    )
-    this.html = Base64.atob(svgBase64)
+    this.html = this.loadIconAsInlineSvg(this.name)
   },
 }
 </script>
