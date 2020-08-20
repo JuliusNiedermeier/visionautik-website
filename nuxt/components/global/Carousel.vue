@@ -1,15 +1,17 @@
 <template>
   <div class="carousel-component">
-    <ul
-      class="carousel-component__track noselect"
-      ref="carouselTrack"
-      :style="`width: ${slideCount * 100 / slidesPerFrame}%; transform: translateX(-${100 / slideCount * activeSlideIndex}%) translateX(${manualDrag}px)`"
-    >
-      <slot />
-    </ul>
+    <div class="carousel-component__track-wrapper" :style="`width: ${slideCount * 100}%;`">
+      <ul
+        class="carousel-component__track-wrapper__track noselect"
+        ref="carouselTrack"
+        :style="`width: ${100 / slidesPerFrame}%; transform: translateX(-${100 / slideCount * activeSlideIndex}%) translateX(${manualDrag}px)`"
+      >
+        <slot />
+      </ul>
+    </div>
     <div class="carousel-component__navigation-controls">
       <va-slider-navigation-controls
-        :number="slideCount < slidesPerFrame ? 1 : slideCount - (slidesPerFrame - 1)"
+        :number="slideCount < slidesPerFrame ? 1 : slideCount - offset"
         :activeIndex="activeSlideIndex"
         @prev="handleNavClick('prev')"
         @next="handleNavClick('next')"
@@ -45,12 +47,15 @@ export default {
       initialXPosition: null,
       manualDrag: 0,
       autoplayIntervalId: null,
+      offset: null,
     }
   },
   watch: {
     activeSlideIndex(index, previousIndex) {
-      const offset = this.slidesPerFrame - 1
-      if (index + offset > this.slideCount - 1) {
+      this.offset = this.slidesPerFrame - 1
+      if (this.checkIfMobileModeIsActive()) this.offset = 0
+
+      if (index + this.offset > this.slideCount - 1) {
         if (this.loop) this.activeSlideIndex = 0
         else {
           this.activeSlideIndex = previousIndex
@@ -67,7 +72,7 @@ export default {
 
       const slides = this.$refs.carouselTrack.children
       const activeSlides = []
-      for (let i = 0; i < this.slidesPerFrame; i++) {
+      for (let i = 0; i < this.offset + 1; i++) {
         activeSlides.push(this.activeSlideIndex + i)
       }
 
@@ -76,6 +81,10 @@ export default {
         else slides[i].classList.remove('active')
       }
     },
+
+    // 'this.$refs.carouselTrack.offsetWidth'(val) {
+    //   console.log('Changed', val)
+    // },
   },
 
   methods: {
@@ -176,6 +185,23 @@ export default {
     stopAutoplay() {
       clearInterval(this.autoplayIntervalId)
     },
+
+    checkIfMobileModeIsActive() {
+      const carouselTrack = this.$refs.carouselTrack
+      const carouselTrackWrapper = carouselTrack.closest(
+        '.carousel-component__track-wrapper'
+      )
+      const expectedTrackWidth = Math.round(
+        (carouselTrackWrapper.offsetWidth / 100) *
+          parseFloat(carouselTrack.style.width)
+      )
+      const actualTrackWidth = carouselTrack.offsetWidth
+      return expectedTrackWidth !== actualTrackWidth
+    },
+
+    handleTrackResize() {
+      console.log('Tracksize changed')
+    },
   },
 
   mounted() {
@@ -201,27 +227,33 @@ export default {
 <style lang="scss" scoped>
 .carousel-component {
   position: relative;
-  // overflow-x: hidden;
+  overflow-x: hidden;
   cursor: pointer;
 
-  &__track {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    transition: transform $duration--fast ease;
+  &__track-wrapper {
+    &__track {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      transition: transform $duration--fast ease;
 
-    &.scrolling {
-      transition: none;
-    }
+      &.scrolling {
+        transition: none;
+      }
 
-    > * {
-      flex-basis: 100%;
-      opacity: 0;
-      transition: opacity $duration--fast ease;
+      > * {
+        flex-basis: 100%;
+        opacity: 0;
+        transition: opacity $duration--fast ease;
 
-      &.active {
-        opacity: 1;
+        &.active {
+          opacity: 1;
+        }
+      }
+
+      @include mobile {
+        width: 100% !important;
       }
     }
   }

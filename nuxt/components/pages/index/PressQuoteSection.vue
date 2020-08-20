@@ -26,7 +26,7 @@ export default {
 .press-quote-section {
   background-color: $color--grey--light;
   @include fill-screen-width;
-  overflow: hidden;
+  overflow-x: hidden;
   padding: 10rem 0;
 
   &__carousel {

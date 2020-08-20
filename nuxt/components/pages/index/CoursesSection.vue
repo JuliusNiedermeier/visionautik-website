@@ -78,6 +78,7 @@ export default {
   background-color: $color--grey--dark;
   @include fill-screen-width;
   padding: 20rem 0;
+  // overflow-x: hidden;
 
   &__body {
     @include page-margin;
