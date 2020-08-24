@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-component">
+  <div class="carousel-component" :key="slideCount">
     <div class="carousel-component__track-wrapper" :style="`width: ${slideCount * 100}%;`">
       <ul
         class="carousel-component__track-wrapper__track noselect"
@@ -220,6 +220,11 @@ export default {
     carouselTrack.addEventListener('mouseup', this.handleMouseUp)
     carouselTrack.addEventListener('touchstart', this.handleTouchStart)
     carouselTrack.addEventListener('touchend', this.handleMouseUp)
+
+    let carouselTrackObserver = new MutationObserver(() => {
+      this.slideCount = carouselTrack.children.length
+    })
+    carouselTrackObserver.observe(carouselTrack, { childList: true })
   },
 }
 </script>
