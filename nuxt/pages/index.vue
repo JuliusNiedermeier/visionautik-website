@@ -5,6 +5,7 @@
     <featured-section />
     <in-a-nutshell-section />
     <courses-section />
+    <our-vision />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import PressQuoteSection from '@/components/pages/index/PressQuoteSection'
 import FeaturedSection from '@/components/pages/index/FeaturedSection'
 import InANutshell from '@/components/pages/index/InANutshell'
 import CoursesSection from '@/components/pages/index/CoursesSection'
+import OurVision from '@/components/pages/index/OurVision'
 export default {
   name: 'home-page',
   components: {
@@ -22,6 +24,7 @@ export default {
     'featured-section': FeaturedSection,
     'in-a-nutshell-section': InANutshell,
     'courses-section': CoursesSection,
+    'our-vision': OurVision,
   },
 }
 </script>
