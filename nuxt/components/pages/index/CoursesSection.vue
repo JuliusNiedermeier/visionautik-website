@@ -78,7 +78,7 @@ export default {
 
 <style lang="scss" scoped>
 .courses-section-component {
-  background-color: $color--grey--dark;
+  background-color: $color--grey--light;
   @include fill-screen-width;
   padding: 20rem 0;
   // overflow-x: hidden;
