@@ -39,12 +39,43 @@ cd Visionautik-de/src
 npm install
 ```
 
-To start the dev server on localhost run `npm run dev`. 
+To start the dev server on localhost run `npm run dev`.
 The server should now serve the page on `localhost:3000`.
+
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
 ## Deployment
 
-Instructions on how to deploy the app will be added in the future!
+### Pre deployment steps
+
+**functions.predeploy**
+
+- npm run build
+- clean functions/nuxt
+- copy .nuxt to functions/nuxt
+- copy nuxt.config.js to functions
+- convert nuxt.config.js from ES6 to ES5 standard
+- merge nuxt dependencies with functions dependencies
+- npm install
+
+**hosting.predeploy**
+
+- clean public directory
+- copy .nuxt/dist/client to public/\_nuxt
+- copy static directory to public directory
+
+### Deployment
+
+```bash
+# deploy functions
+firebase deploy --only functions
+
+# deploy hosting
+firebase deploy --only hosting
+
+# deploy everything
+firebase deploy
+```
 
 ## Versioning
 
