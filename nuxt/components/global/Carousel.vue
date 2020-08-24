@@ -55,13 +55,17 @@ export default {
       this.offset = this.slidesPerFrame - 1
       if (this.checkIfMobileModeIsActive()) this.offset = 0
 
-      if (index + this.offset > this.slideCount - 1) {
+      if (
+        !(this.slideCount < this.slidesPerFrame) &&
+        index + this.offset > this.slideCount - 1
+      ) {
         if (this.loop) this.activeSlideIndex = 0
         else {
           this.activeSlideIndex = previousIndex
           this.stopAutoplay()
         }
       }
+
       if (index < 0) {
         if (this.loop) this.activeSlideIndex = this.slideCount - 1
         else {
@@ -81,10 +85,6 @@ export default {
         else slides[i].classList.remove('active')
       }
     },
-
-    // 'this.$refs.carouselTrack.offsetWidth'(val) {
-    //   console.log('Changed', val)
-    // },
   },
 
   methods: {

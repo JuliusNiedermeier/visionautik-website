@@ -7,25 +7,25 @@
           v-for="(courseOfferListItem, index) in offerListItems.filter(item => item.type === 'course')"
           :key="index"
           :link="`/offers/${courseOfferListItem.uid}`"
-          :image="courseOfferListItem.course_cover_image.url"
-          :title="courseOfferListItem.course_name"
-          :description="courseOfferListItem.course_brief_description"
+          :image="courseOfferListItem.cover_image.url"
+          :title="courseOfferListItem.name"
+          :description="courseOfferListItem.brief_description"
         />
         <offer-list-item
           v-for="(eventOfferListItem, index) in offerListItems.filter(item => item.type === 'event')"
           :key="index"
           :link="`/offers/${eventOfferListItem.uid}`"
-          :image="eventOfferListItem.event_cover_image.url"
-          :title="eventOfferListItem.event_name"
-          :description="eventOfferListItem.event_brief_description"
+          :image="eventOfferListItem.cover_image.url"
+          :title="eventOfferListItem.name"
+          :description="eventOfferListItem.brief_description"
         />
         <offer-list-item
           v-for="(blogPostOfferListItem, index) in offerListItems.filter(item => item.type === 'blog_post')"
           :key="index"
           :link="`/offers/${blogPostOfferListItem.uid}`"
-          :image="blogPostOfferListItem.post_featured_image.url"
-          :title="blogPostOfferListItem.post_headline"
-          description="Bitragsauszüge werden zurzeit noch nicht unterstützt."
+          :image="blogPostOfferListItem.featured_image.url"
+          :title="blogPostOfferListItem.headline"
+          :description="blogPostOfferListItem.excerpt"
         />
       </div>
     </div>
@@ -34,8 +34,10 @@
 
 <script>
 import OfferListItem from '@/components/global/OfferListItem'
+import { missingContent } from '@/mixins/nuxtError'
 export default {
   components: { 'offer-list-item': OfferListItem },
+  mixins: [missingContent],
 
   data() {
     return {
@@ -45,6 +47,32 @@ export default {
   },
 
   methods: {
+    getRequiredFieldsByType(types) {
+      let fields = []
+      if (types.includes('course')) {
+        fields.push(
+          'course.name',
+          'course.cover_image',
+          'course.brief_description'
+        )
+      }
+      if (types.includes('event')) {
+        fields.push(
+          'event.name',
+          'event.cover_image',
+          'event.brief_description'
+        )
+      }
+      if (types.includes('blog_post')) {
+        fields.push(
+          'blog_post.headline',
+          'blog_post.featured_image',
+          'blog_post.excerpt'
+        )
+      }
+      return fields
+    },
+
     fetchOneByTypeHelper(documentType) {
       return this.$prismic.api.query(
         this.$prismic.predicates.at('document.type', documentType),
@@ -52,6 +80,7 @@ export default {
           lang: this.localeIso,
           orderings: '[document.first_publication_date desc]',
           pageSize: 1,
+          fetch: this.getRequiredFieldsByType([documentType]),
         }
       )
     },
@@ -67,81 +96,78 @@ export default {
           ]
         )
       })
+      const types = ['course', 'event', 'blog_post']
       return this.$prismic.api.query(
-        [
-          this.$prismic.predicates.any('document.type', [
-            'course',
-            'event',
-            'blog_post',
-          ]),
-          ...idPredicates,
-        ],
+        [this.$prismic.predicates.any('document.type', types), ...idPredicates],
         {
           lang: this.localeIso,
           orderings: '[document.first_publication_date desc]',
           pageSize: max || 1,
+          fetch: this.getRequiredFieldsByType(types),
         }
       )
     },
   },
 
   async fetch() {
-    //Fetching the heading
-    const homepageResponse = (
-      await this.$prismic.api.query(
-        this.$prismic.predicates.at('document.type', 'homepage'),
-        {
-          lang: this.localeIso,
-          fetch: 'homepage.featured_section_heading',
-        }
-      )
-    ).results[0].data
-
     try {
-      this.heading = homepageResponse.featured_section_heading
-    } catch {}
-
-    // Fetching recommended offer items
-    let course = this.fetchOneByTypeHelper('course')
-    let event = this.fetchOneByTypeHelper('event')
-    let blog_post = this.fetchOneByTypeHelper('blog_post')
-
-    let responses = await Promise.all([course, event, blog_post])
-
-    let fetchedIds = []
-    responses.forEach((response) => {
-      if (response.results_size > 0) fetchedIds.push(response.results[0].id)
-    })
-
-    if (fetchedIds.length < 3) {
-      const missingDocumentsCount = 3 - fetchedIds.length
-
-      const newResponse = await this.fetchByExcludingIdsHelper(
-        fetchedIds,
-        missingDocumentsCount
-      )
-
-      newResponse.results.forEach((result, index) => {
-        responses[
-          responses.findIndex((response) => response.results_size === 0)
-        ] = { results: [result], results_size: 1 }
-      })
-    }
-
-    if (this.offerListItems.length > 0) this.offerListItems = []
-
-    responses.forEach((response) => {
-      if (response.results_size > 0) {
-        this.offerListItems = [
-          ...this.offerListItems,
+      //Fetching the heading
+      const homepageResponse = (
+        await this.$prismic.api.query(
+          this.$prismic.predicates.at('document.type', 'homepage'),
           {
-            ...response.results[0].data,
-            uid: response.results[0].uid,
-            type: response.results[0].type,
-          },
-        ]
+            lang: this.localeIso,
+            fetch: 'homepage.featured_section_heading',
+          }
+        )
+      ).results[0].data
+
+      this.heading = homepageResponse.featured_section_heading
+
+      // Fetching recommended offer items
+      let course = this.fetchOneByTypeHelper('course')
+      let event = this.fetchOneByTypeHelper('event')
+      let blog_post = this.fetchOneByTypeHelper('blog_post')
+
+      let responses = await Promise.all([course, event, blog_post])
+
+      let fetchedIds = []
+      responses.forEach((response) => {
+        if (response.results_size > 0) fetchedIds.push(response.results[0].id)
+      })
+
+      if (fetchedIds.length < 3) {
+        const missingDocumentsCount = 3 - fetchedIds.length
+
+        const newResponse = await this.fetchByExcludingIdsHelper(
+          fetchedIds,
+          missingDocumentsCount
+        )
+
+        newResponse.results.forEach((result, index) => {
+          responses[
+            responses.findIndex((response) => response.results_size === 0)
+          ] = { results: [result], results_size: 1 }
+        })
       }
-    })
+
+      if (this.offerListItems.length > 0) this.offerListItems = []
+
+      responses.forEach((response) => {
+        if (response.results_size > 0) {
+          this.offerListItems = [
+            ...this.offerListItems,
+            {
+              ...response.results[0].data,
+              uid: response.results[0].uid,
+              type: response.results[0].type,
+            },
+          ]
+        }
+      })
+    } catch {
+      this.missingContent()
+    }
   },
 }
 </script>

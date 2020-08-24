@@ -42,10 +42,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [
-    '@/plugins/nuxt-i18n-fetch',
-    // "@/plugins/global-mixin"
-  ],
+  plugins: ['@/plugins/nuxt-i18n-fetch'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

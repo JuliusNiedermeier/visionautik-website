@@ -18,8 +18,10 @@
 
 <script>
 import Video from '@/components/global/Video'
+import { missingContent } from '@/mixins/nuxtError'
 export default {
   components: { 'va-video': Video },
+  mixins: [missingContent],
   data() {
     return {
       heading: null,
@@ -31,29 +33,31 @@ export default {
   },
 
   async fetch() {
-    const dataResponse = (
-      await this.$prismic.api.query(
-        this.$prismic.predicates.at('document.type', 'homepage'),
-        {
-          lang: this.localeIso,
-          fetch: [
-            'homepage.in_a_nutshell__heading',
-            'homepage.in_a_nutshell__video',
-            'homepage.in_a_nutshell__video_thumbnail',
-            'homepage.in_a_nutshell__text',
-            'homepage.in_a_nutshell__text_columns',
-          ],
-        }
-      )
-    ).results[0].data
-
     try {
+      const dataResponse = (
+        await this.$prismic.api.query(
+          this.$prismic.predicates.at('document.type', 'homepage'),
+          {
+            lang: this.localeIso,
+            fetch: [
+              'homepage.in_a_nutshell__heading',
+              'homepage.in_a_nutshell__video',
+              'homepage.in_a_nutshell__video_thumbnail',
+              'homepage.in_a_nutshell__text',
+              'homepage.in_a_nutshell__text_columns',
+            ],
+          }
+        )
+      ).results[0].data
+
       this.heading = dataResponse.in_a_nutshell__heading
       this.videoUrl = dataResponse.in_a_nutshell__video.url
       this.videoThumbnailUrl = dataResponse.in_a_nutshell__video_thumbnail.url
       this.text = dataResponse.in_a_nutshell__text
       this.textColumns = dataResponse.in_a_nutshell__text_columns
-    } catch {}
+    } catch {
+      this.missingContent()
+    }
   },
 }
 </script>

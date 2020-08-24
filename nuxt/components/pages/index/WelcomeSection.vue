@@ -52,8 +52,10 @@
 
 <script>
 import Icon from '@/components/global/Icon'
+import { missingContent } from '@/mixins/nuxtError.js'
 export default {
   components: { 'va-icon': Icon },
+  mixins: [missingContent],
 
   activated() {
     this.$refs.welcomeSectionVideo.play()
@@ -68,25 +70,27 @@ export default {
   },
 
   async fetch() {
-    const responseData = (this.prismicDocument = (
-      await this.$prismic.api.query(
-        this.$prismic.predicates.at('document.type', 'homepage'),
-        {
-          lang: this.localeIso,
-          fetch: [
-            'homepage.welcome_section_background_video',
-            'homepage.welcome_section_heading',
-            'homepage.welcome_section_sub_heading',
-          ],
-        }
-      )
-    ).results[0].data)
-
     try {
-      this.videoUrl = responseData.welcome_section_background_video.url
-      this.heading = responseData.welcome_section_heading
-      this.subHeading = responseData.welcome_section_sub_heading
-    } catch {}
+      const responseData = (
+        await this.$prismic.api.query(
+          this.$prismic.predicates.at('document.type', 'homepage'),
+          {
+            lang: this.localeIso,
+            fetch: [
+              'homepage.welcome__background_video',
+              'homepage.welcome__heading',
+              'homepage.welcome__sub_heading',
+            ],
+          }
+        )
+      ).results[0].data
+
+      this.videoUrl = responseData.welcome__background_video.url
+      this.heading = responseData.welcome__heading
+      this.subHeading = responseData.welcome__sub_heading
+    } catch {
+      this.missingContent()
+    }
   },
 }
 </script>

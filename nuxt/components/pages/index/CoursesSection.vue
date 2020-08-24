@@ -10,9 +10,9 @@
           <li v-for="(course, index) in courses" :key="index">
             <offer-list-item
               :link="`/courses/${course.uid}`"
-              :image="course.course_cover_image.url"
-              :title="course.course_name"
-              :description="course.course_brief_description"
+              :image="course.cover_image.url"
+              :title="course.name"
+              :description="course.brief_description"
             />
           </li>
         </va-carousel>
@@ -24,8 +24,10 @@
 <script>
 import Carousel from '@/components/global/Carousel'
 import OfferListItem from '@/components/global/OfferListItem'
+import { missingContent } from '@/mixins/nuxtError'
 export default {
   components: { 'offer-list-item': OfferListItem, 'va-carousel': Carousel },
+  mixins: [missingContent],
 
   data() {
     return {
@@ -42,13 +44,13 @@ export default {
         this.$prismic.predicates.at('document.type', 'homepage'),
         {
           lang: this.localeIso,
-          fetch: 'homepage.courses_section_heading',
+          fetch: 'homepage.courses__heading',
         }
       )
     ).results[0].data
 
     try {
-      this.heading = homepageResponse.courses_section_heading
+      this.heading = homepageResponse.courses__heading
     } catch {}
 
     // Fetching courses
@@ -57,10 +59,11 @@ export default {
         this.$prismic.predicates.at('document.type', 'course'),
         {
           lang: this.localeIso,
+          pageSize: 6,
           fetch: [
-            // 'homepage.welcome_section_background_video',
-            // 'homepage.welcome_section_heading',
-            // 'homepage.welcome_section_sub_heading',
+            'course.name',
+            'course.cover_image',
+            'course.brief_description',
           ],
         }
       )

@@ -13,25 +13,8 @@
 
 <script>
 export default {
-  name: "va-language-switcher",
-  mounted() {
-    console.log(
-      "Locale from Mixin: ",
-      this.localeIso,
-      "Locale from i18n: ",
-      this.$i18n.locale
-    );
-  },
-
-  // watch: {
-  //   '$i18n.locale'(val) {
-  //     console.log(
-  //       'Watcher in LanguageSwitcher.vue fired: ',
-  //       this.$i18n.locales.find((locale) => locale.code == val).iso
-  //     )
-  //   },
-  // },
-};
+  name: 'va-language-switcher',
+}
 </script>
 
 <style>
