@@ -4,24 +4,24 @@
       <h4 class="featured-section-component__body__heading">{{heading}}</h4>
       <div class="featured-section-component__body__articles">
         <offer-list-item
-          v-for="(courseOfferListItem, index) in offerListItems.filter(item => item.type === 'course')"
-          :key="index"
+          v-for="courseOfferListItem in offerListItems.filter(item => item.type === 'course')"
+          :key="courseOfferListItem.uid"
           :link="`/offers/${courseOfferListItem.uid}`"
           :image="courseOfferListItem.cover_image.url"
           :title="courseOfferListItem.name"
           :description="courseOfferListItem.brief_description"
         />
         <offer-list-item
-          v-for="(eventOfferListItem, index) in offerListItems.filter(item => item.type === 'event')"
-          :key="index"
+          v-for="eventOfferListItem in offerListItems.filter(item => item.type === 'event')"
+          :key="eventOfferListItem.uid"
           :link="`/offers/${eventOfferListItem.uid}`"
           :image="eventOfferListItem.cover_image.url"
           :title="eventOfferListItem.name"
           :description="eventOfferListItem.brief_description"
         />
         <offer-list-item
-          v-for="(blogPostOfferListItem, index) in offerListItems.filter(item => item.type === 'blog_post')"
-          :key="index"
+          v-for="blogPostOfferListItem in offerListItems.filter(item => item.type === 'blog_post')"
+          :key="blogPostOfferListItem.uid"
           :link="`/offers/${blogPostOfferListItem.uid}`"
           :image="blogPostOfferListItem.featured_image.url"
           :title="blogPostOfferListItem.headline"
