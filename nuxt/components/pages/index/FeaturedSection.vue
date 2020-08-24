@@ -117,12 +117,12 @@ export default {
           this.$prismic.predicates.at('document.type', 'homepage'),
           {
             lang: this.localeIso,
-            fetch: 'homepage.featured_section_heading',
+            fetch: 'homepage.featured__heading',
           }
         )
       ).results[0].data
 
-      this.heading = homepageResponse.featured_section_heading
+      this.heading = homepageResponse.featured__heading
 
       // Fetching recommended offer items
       let course = this.fetchOneByTypeHelper('course')
