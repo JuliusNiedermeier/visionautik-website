@@ -1,28 +1,30 @@
 <template>
-  <div class="navigation-menu-toggle-component" :class="toggleState">
-    <div />
-    <div />
-    <div />
+  <div class="navigation-menu-toggle-component">
+    <div class="navigation-menu-toggle-component__toggle" :class="toggleState">
+      <div />
+      <div />
+      <div />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-name: 'va-navigation-menu-toggle',
-props: {
-  toggleState: {
-    type: String,
-    required: true,
-    validator(prop) {
-      return /^collapsed$|^expanded$/.test(prop)
-    }
-  }
-},
+  name: 'va-navigation-menu-toggle',
+  props: {
+    toggleState: {
+      type: String,
+      required: true,
+      validator(prop) {
+        return /^collapsed$|^expanded$/.test(prop)
+      },
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.navigation-menu-toggle-component {
+.navigation-menu-toggle-component__toggle {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

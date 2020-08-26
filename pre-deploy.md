@@ -8,7 +8,7 @@
 - copy nuxt.config.js to functions
 - convert nuxt.config.js from ES6 to ES5 standard
 - merge nuxt dependencies with functions dependencies
-- npm install
+- npm install in functions directory
 
 ## hosting.predeploy
 

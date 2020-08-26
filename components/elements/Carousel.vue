@@ -1,6 +1,9 @@
 <template>
   <div class="carousel-component" :key="slideCount">
-    <div class="carousel-component__track-wrapper" :style="`width: ${slideCount * 100}%;`">
+    <div
+      class="carousel-component__track-wrapper"
+      :style="`width: ${slideCount * 100}%;`"
+    >
       <ul
         class="carousel-component__track-wrapper__track noselect"
         ref="carouselTrack"

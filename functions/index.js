@@ -1,4 +1,4 @@
-const functions = require("firebase-functions");
+const functions = require('firebase-functions')
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -8,19 +8,20 @@ const functions = require("firebase-functions");
 //   response.send("Hello from Firebase!");
 // });
 
-const { Nuxt } = require("nuxt-start");
+const { Nuxt } = require('nuxt-start')
 
-const nuxtConfig = require("./nuxt.config");
+const nuxtConfig = require('./nuxt.config')
 
 const config = {
   ...nuxtConfig,
   dev: false,
   debug: false,
-  buildDir: "nuxt"
-};
-const nuxt = new Nuxt(config);
+  buildDir: '.nuxt',
+}
+const nuxt = new Nuxt(config)
 
 exports.ssrapp = functions.https.onRequest(async (req, res) => {
-  await nuxt.ready();
-  nuxt.render(req, res);
-});
+  // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
+  await nuxt.ready()
+  nuxt.render(req, res)
+})
