@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Icon from '@/components/global/Icon'
+import Icon from './Icon'
 export default {
   components: { 'va-icon': Icon },
   props: ['number', 'activeIndex', 'inactiveColor', 'activeColor'],

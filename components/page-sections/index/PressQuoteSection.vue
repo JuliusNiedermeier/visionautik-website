@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Carousel from '@/components/global/Carousel'
+import Carousel from '@/components/elements/Carousel'
 export default {
   components: { 'va-carousel': Carousel },
 }

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import NotificationBar from '@/components/layout/header/components/notificationBar'
+import NotificationBar from './components/NotificationBar'
 import AirmailStripe from './components/AirmailStripe'
 import Logo from './components/Logo'
 import NavigationMenu from './components/NavigationMenu'

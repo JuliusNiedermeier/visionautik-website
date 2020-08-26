@@ -30,7 +30,7 @@
 
 <script>
 import NewsletterForm from './components/NewsletterForm'
-import LanguageSwitcher from '@/components/global/LanguageSwitcher'
+import LanguageSwitcher from '@/components/elements/LanguageSwitcher'
 export default {
   name: 'va-footer',
   components: {

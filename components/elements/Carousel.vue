@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import Icon from '@/components/global/Icon'
-import SliderNavigationControls from '@/components/global/SliderNavigationControls'
+import Icon from './Icon'
+import SliderNavigationControls from './SliderNavigationControls'
 export default {
   name: 'va-carousel',
   components: {

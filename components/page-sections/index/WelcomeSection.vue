@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import Icon from '@/components/global/Icon'
+import Icon from '@/components/elements/Icon'
 export default {
   components: { 'va-icon': Icon },
 

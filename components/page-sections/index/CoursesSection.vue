@@ -22,9 +22,10 @@
 </template>
 
 <script>
-import Carousel from '@/components/global/Carousel'
-import OfferListItem from '@/components/global/OfferListItem'
+import Carousel from '@/components/elements/Carousel'
+import OfferListItem from '@/components/elements/OfferListItem'
 export default {
+  name: 'courses-section',
   components: { 'offer-list-item': OfferListItem, 'va-carousel': Carousel },
 
   data() {

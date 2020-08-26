@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Video from '@/components/global/Video'
+import Video from '@/components/elements/Video'
 export default {
   components: { 'va-video': Video },
   data() {

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import Header from '@/components/layout/header/Header'
-import Footer from '@/components/layout/footer/Footer'
+import Header from '@/components/layout-parts/header/Header'
+import Footer from '@/components/layout-parts/footer/Footer'
 export default {
   name: 'default-layout',
 

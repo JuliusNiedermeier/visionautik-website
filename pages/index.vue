@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import WelcomeSection from '@/components/pages/index/WelcomeSection'
-import PressQuoteSection from '@/components/pages/index/PressQuoteSection'
-import FeaturedSection from '@/components/pages/index/FeaturedSection'
-import InANutshell from '@/components/pages/index/InANutshell'
-import CoursesSection from '@/components/pages/index/CoursesSection'
-import OurVision from '@/components/pages/index/OurVision'
+import WelcomeSection from '@/components/page-sections/index/WelcomeSection'
+import PressQuoteSection from '@/components/page-sections/index/PressQuoteSection'
+import FeaturedSection from '@/components/page-sections/index/FeaturedSection'
+import InANutshell from '@/components/page-sections/index/InANutshell'
+import CoursesSection from '@/components/page-sections/index/CoursesSection'
+import OurVision from '@/components/page-sections/index/OurVision'
 export default {
   name: 'home-page',
   components: {

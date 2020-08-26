@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import OfferListItem from '@/components/global/OfferListItem'
+import OfferListItem from '@/components/elements/OfferListItem'
 export default {
   components: { 'offer-list-item': OfferListItem },
 

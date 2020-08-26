@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Icon from '@/components/global/Icon'
+import Icon from '@/components/elements/Icon'
 export default {
   name: 'va-notification-bar',
   components: { 'va-icon': Icon },
