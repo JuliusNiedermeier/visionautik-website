@@ -70,27 +70,25 @@ export default {
   },
 
   async fetch() {
-    try {
-      const responseData = (
-        await this.$prismic.api.query(
-          this.$prismic.predicates.at('document.type', 'homepage'),
-          {
-            lang: this.localeIso,
-            fetch: [
-              'homepage.welcome__background_video',
-              'homepage.welcome__heading',
-              'homepage.welcome__sub_heading',
-            ],
-          }
-        )
-      ).results[0].data
+    const query = new this.$api.Query(
+      [this.$prismic.predicates.at('document.type', 'homepage')],
+      {
+        fetch: [
+          'homepage.welcome__background_video',
+          'homepage.welcome__heading',
+          'homepage.welcome__sub_heading',
+        ],
+      }
+    )
 
-      this.videoUrl = responseData.welcome__background_video.url
-      this.heading = responseData.welcome__heading
-      this.subHeading = responseData.welcome__sub_heading
-    } catch {
-      this.missingContent()
-    }
+    const response = await query.get()
+    if (!response) return
+
+    const data = response.results[0].data
+
+    this.heading = data.welcome__heading
+    this.subHeading = data.welcome__sub_heading
+    this.videoUrl = data.welcome__background_video.url
   },
 }
 </script>

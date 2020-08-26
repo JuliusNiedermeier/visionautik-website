@@ -35,6 +35,7 @@
 <script>
 import OfferListItem from '@/components/global/OfferListItem'
 import { missingContent } from '@/mixins/nuxtError'
+import { head } from '~/functions/nuxt.config'
 export default {
   components: { 'offer-list-item': OfferListItem },
   mixins: [missingContent],
@@ -74,15 +75,16 @@ export default {
     },
 
     fetchOneByTypeHelper(documentType) {
-      return this.$prismic.api.query(
-        this.$prismic.predicates.at('document.type', documentType),
+      const query = new this.$api.Query(
+        [this.$prismic.predicates.at('document.type', documentType)],
         {
-          lang: this.localeIso,
           orderings: '[document.first_publication_date desc]',
           pageSize: 1,
           fetch: this.getRequiredFieldsByType([documentType]),
         }
       )
+
+      return query.get()
     },
 
     fetchByExcludingIdsHelper(ids, max) {
@@ -97,77 +99,72 @@ export default {
         )
       })
       const types = ['course', 'event', 'blog_post']
-      return this.$prismic.api.query(
+      const query = new this.$api.Query(
         [this.$prismic.predicates.any('document.type', types), ...idPredicates],
         {
-          lang: this.localeIso,
           orderings: '[document.first_publication_date desc]',
           pageSize: max || 1,
           fetch: this.getRequiredFieldsByType(types),
         }
       )
+
+      return query.get()
     },
   },
 
   async fetch() {
-    try {
-      //Fetching the heading
-      const homepageResponse = (
-        await this.$prismic.api.query(
-          this.$prismic.predicates.at('document.type', 'homepage'),
-          {
-            lang: this.localeIso,
-            fetch: 'homepage.featured__heading',
-          }
-        )
-      ).results[0].data
+    //Fetch heading
+    const headingQuery = new this.$api.Query(
+      [this.$prismic.predicates.at('document.type', 'homepage')],
+      { fetch: ['homepage.featured__heading'] }
+    )
 
-      this.heading = homepageResponse.featured__heading
+    const headingResponse = await headingQuery.get()
+    if (!headingResponse) return
 
-      // Fetching recommended offer items
-      let course = this.fetchOneByTypeHelper('course')
-      let event = this.fetchOneByTypeHelper('event')
-      let blog_post = this.fetchOneByTypeHelper('blog_post')
+    this.heading = headingResponse.results[0].data.featured__heading
 
-      let responses = await Promise.all([course, event, blog_post])
+    // Fetch recommended offer items
+    let course = this.fetchOneByTypeHelper('course')
+    let event = this.fetchOneByTypeHelper('event')
+    let blog_post = this.fetchOneByTypeHelper('blog_post')
 
-      let fetchedIds = []
-      responses.forEach((response) => {
-        if (response.results_size > 0) fetchedIds.push(response.results[0].id)
+    let responses = await Promise.all([course, event, blog_post])
+
+    let fetchedIds = []
+    responses.forEach((response) => {
+      if (response.results_size > 0) fetchedIds.push(response.results[0].id)
+    })
+
+    if (fetchedIds.length < 3) {
+      const missingDocumentsCount = 3 - fetchedIds.length
+
+      const newResponse = await this.fetchByExcludingIdsHelper(
+        fetchedIds,
+        missingDocumentsCount
+      )
+
+      newResponse.results.forEach((result, index) => {
+        responses[
+          responses.findIndex((response) => response.results_size === 0)
+        ] = { results: [result], results_size: 1 }
       })
-
-      if (fetchedIds.length < 3) {
-        const missingDocumentsCount = 3 - fetchedIds.length
-
-        const newResponse = await this.fetchByExcludingIdsHelper(
-          fetchedIds,
-          missingDocumentsCount
-        )
-
-        newResponse.results.forEach((result, index) => {
-          responses[
-            responses.findIndex((response) => response.results_size === 0)
-          ] = { results: [result], results_size: 1 }
-        })
-      }
-
-      if (this.offerListItems.length > 0) this.offerListItems = []
-
-      responses.forEach((response) => {
-        if (response.results_size > 0) {
-          this.offerListItems = [
-            ...this.offerListItems,
-            {
-              ...response.results[0].data,
-              uid: response.results[0].uid,
-              type: response.results[0].type,
-            },
-          ]
-        }
-      })
-    } catch {
-      this.missingContent()
     }
+
+    if (this.offerListItems.length > 0) this.offerListItems = []
+
+    responses.forEach((response) => {
+      if (response.results_size > 0) {
+        this.offerListItems = [
+          ...this.offerListItems,
+          {
+            ...response.results[0].data,
+            uid: response.results[0].uid,
+            type: response.results[0].type,
+          },
+        ]
+      }
+    })
   },
 }
 </script>

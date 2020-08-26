@@ -27,37 +27,32 @@ export default {
       heading: null,
       videoUrl: null,
       videoThumbnailUrl: null,
-      text: null,
       textColumns: null,
     }
   },
 
   async fetch() {
-    try {
-      const dataResponse = (
-        await this.$prismic.api.query(
-          this.$prismic.predicates.at('document.type', 'homepage'),
-          {
-            lang: this.localeIso,
-            fetch: [
-              'homepage.in_a_nutshell__heading',
-              'homepage.in_a_nutshell__video',
-              'homepage.in_a_nutshell__video_thumbnail',
-              'homepage.in_a_nutshell__text',
-              'homepage.in_a_nutshell__text_columns',
-            ],
-          }
-        )
-      ).results[0].data
+    const query = new this.$api.Query(
+      [this.$prismic.predicates.at('document.type', 'homepage')],
+      {
+        fetch: [
+          'homepage.in_a_nutshell__heading',
+          'homepage.in_a_nutshell__video',
+          'homepage.in_a_nutshell__video_thumbnail',
+          'homepage.in_a_nutshell__text_columns',
+        ],
+      }
+    )
 
-      this.heading = dataResponse.in_a_nutshell__heading
-      this.videoUrl = dataResponse.in_a_nutshell__video.url
-      this.videoThumbnailUrl = dataResponse.in_a_nutshell__video_thumbnail.url
-      this.text = dataResponse.in_a_nutshell__text
-      this.textColumns = dataResponse.in_a_nutshell__text_columns
-    } catch {
-      this.missingContent()
-    }
+    const response = await query.get()
+    if (!response) return
+
+    const data = response.results[0].data
+
+    this.heading = data.in_a_nutshell__heading
+    this.videoUrl = data.in_a_nutshell__video.url
+    this.videoThumbnailUrl = data.in_a_nutshell__video_thumbnail.url
+    this.textColumns = data.in_a_nutshell__text_columns
   },
 }
 </script>

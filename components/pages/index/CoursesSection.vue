@@ -38,38 +38,38 @@ export default {
   },
 
   async fetch() {
-    //Fetching the heading
-    const homepageResponse = (
-      await this.$prismic.api.query(
-        this.$prismic.predicates.at('document.type', 'homepage'),
-        {
-          lang: this.localeIso,
-          fetch: 'homepage.courses__heading',
-        }
-      )
-    ).results[0].data
+    // Fetch heading
+    const headingQuery = new this.$api.Query(
+      [this.$prismic.predicates.at('document.type', 'homepage')],
+      {
+        fetch: ['homepage.courses__heading'],
+      }
+    )
 
-    try {
-      this.heading = homepageResponse.courses__heading
-    } catch {}
+    const headingResponse = await headingQuery.get()
+    if (!headingResponse) return
 
-    // Fetching courses
-    const courseResults = (
-      await this.$prismic.api.query(
-        this.$prismic.predicates.at('document.type', 'course'),
-        {
-          lang: this.localeIso,
-          pageSize: 6,
-          fetch: [
-            'course.name',
-            'course.cover_image',
-            'course.brief_description',
-          ],
-        }
-      )
-    ).results
+    const headingData = headingResponse.results[0].data
 
-    courseResults.forEach((result) => {
+    this.heading = headingData.courses__heading
+
+    // Fetch courses
+    const coursesQuery = new this.$api.Query(
+      [this.$prismic.predicates.at('document.type', 'course')],
+      {
+        pageSize: 6,
+        fetch: [
+          'course.name',
+          'course.cover_image',
+          'course.brief_description',
+        ],
+      }
+    )
+
+    const courseResponse = await coursesQuery.get()
+    if (!courseResponse) return
+
+    courseResponse.results.forEach((result) => {
       this.courses.push({ ...result.data, uid: result.uid })
     })
   },

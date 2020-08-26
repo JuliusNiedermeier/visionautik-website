@@ -1,5 +1,6 @@
 <template>
   <header class="header-component">
+    <va-notification-bar />
     <va-airmail-stripe @click.native="expandMegamenu = !expandMegamenu" />
     <div class="header-component__navigation">
       <va-logo />
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import NotificationBar from '@/components/layout/header/components/notificationBar'
 import AirmailStripe from './components/AirmailStripe'
 import Logo from './components/Logo'
 import NavigationMenu from './components/NavigationMenu'
@@ -25,6 +27,7 @@ import MegaMenu from './megaMenu/MegaMenu'
 export default {
   name: 'va-header',
   components: {
+    'va-notification-bar': NotificationBar,
     'va-airmail-stripe': AirmailStripe,
     'va-logo': Logo,
     'va-navigation-menu': NavigationMenu,

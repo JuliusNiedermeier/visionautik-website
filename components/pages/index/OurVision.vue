@@ -26,27 +26,25 @@ export default {
   },
 
   async fetch() {
-    try {
-      const dataResponse = (
-        await this.$prismic.api.query(
-          this.$prismic.predicates.at('document.type', 'homepage'),
-          {
-            lang: this.localeIso,
-            fetch: [
-              'homepage.our_vision__heading',
-              'homepage.our_vision__text',
-              'homepage.our_vision__image',
-            ],
-          }
-        )
-      ).results[0].data
+    const query = new this.$api.Query(
+      [this.$prismic.predicates.at('document.type', 'homepage')],
+      {
+        fetch: [
+          'homepage.our_vision__heading',
+          'homepage.our_vision__text',
+          'homepage.our_vision__image',
+        ],
+      }
+    )
 
-      this.heading = dataResponse.our_vision__heading
-      this.text = dataResponse.our_vision__text
-      this.image = dataResponse.our_vision__image
-    } catch {
-      this.missingContent()
-    }
+    const response = await query.get()
+    if (!response) return
+
+    const data = response.results[0].data
+
+    this.heading = data.our_vision__heading
+    this.text = data.our_vision__text
+    this.image = data.our_vision__image
   },
 }
 </script>
