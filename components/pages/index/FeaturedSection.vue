@@ -34,11 +34,8 @@
 
 <script>
 import OfferListItem from '@/components/global/OfferListItem'
-import { missingContent } from '@/mixins/nuxtError'
-import { head } from '~/functions/nuxt.config'
 export default {
   components: { 'offer-list-item': OfferListItem },
-  mixins: [missingContent],
 
   data() {
     return {

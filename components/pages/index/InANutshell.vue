@@ -18,10 +18,8 @@
 
 <script>
 import Video from '@/components/global/Video'
-import { missingContent } from '@/mixins/nuxtError'
 export default {
   components: { 'va-video': Video },
-  mixins: [missingContent],
   data() {
     return {
       heading: null,

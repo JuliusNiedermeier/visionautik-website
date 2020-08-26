@@ -24,10 +24,8 @@
 <script>
 import Carousel from '@/components/global/Carousel'
 import OfferListItem from '@/components/global/OfferListItem'
-import { missingContent } from '@/mixins/nuxtError'
 export default {
   components: { 'offer-list-item': OfferListItem, 'va-carousel': Carousel },
-  mixins: [missingContent],
 
   data() {
     return {

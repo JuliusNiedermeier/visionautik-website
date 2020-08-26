@@ -14,9 +14,7 @@
 </template>
 
 <script>
-import { missingContent } from '@/mixins/nuxtError'
 export default {
-  mixins: [missingContent],
   data() {
     return {
       heading: null,

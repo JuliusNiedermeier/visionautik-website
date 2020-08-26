@@ -52,10 +52,8 @@
 
 <script>
 import Icon from '@/components/global/Icon'
-import { missingContent } from '@/mixins/nuxtError.js'
 export default {
   components: { 'va-icon': Icon },
-  mixins: [missingContent],
 
   activated() {
     this.$refs.welcomeSectionVideo.play()
