@@ -1,9 +1,6 @@
 <template>
-  <div class="carousel-component" :key="slideCount">
-    <div
-      class="carousel-component__track-wrapper"
-      :style="`width: ${slideCount * 100}%;`"
-    >
+  <div class="carousel-component">
+    <div class="carousel-component__track-wrapper" :style="`width: ${slideCount * 100}%;`">
       <ul
         class="carousel-component__track-wrapper__track noselect"
         ref="carouselTrack"
@@ -77,6 +74,12 @@ export default {
         }
       }
 
+      this.activateSlides()
+    },
+  },
+
+  methods: {
+    activateSlides() {
       const slides = this.$refs.carouselTrack.children
       const activeSlides = []
       for (let i = 0; i < this.offset + 1; i++) {
@@ -84,13 +87,12 @@ export default {
       }
 
       for (let i = 0; i < this.slideCount; i++) {
-        if (activeSlides.includes(i)) slides[i].classList.add('active')
-        else slides[i].classList.remove('active')
+        if (activeSlides.includes(i)) {
+          slides[i].classList.add('active')
+        } else slides[i].classList.remove('active')
       }
     },
-  },
 
-  methods: {
     handleNavClick(direction) {
       if (!/^prev$||^next$/.test(direction)) return
       if (direction == 'prev') this.activeSlideIndex--
@@ -226,8 +228,11 @@ export default {
 
     let carouselTrackObserver = new MutationObserver(() => {
       this.slideCount = carouselTrack.children.length
+      this.activateSlides()
     })
-    carouselTrackObserver.observe(carouselTrack, { childList: true })
+    carouselTrackObserver.observe(carouselTrack, {
+      childList: true,
+    })
   },
 }
 </script>
