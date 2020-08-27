@@ -3,7 +3,9 @@
     <va-notification-bar />
     <va-airmail-stripe @click.native="expandMegamenu = !expandMegamenu" />
     <div class="header-component__navigation">
-      <va-logo />
+      <nuxt-link to="/">
+        <va-logo />
+      </nuxt-link>
       <va-navigation-menu class="header-component__navigation__menu" :toggleState="toggleState" />
       <va-navigation-menu-toggle
         class="header-component__navigation__menu-toggle"
