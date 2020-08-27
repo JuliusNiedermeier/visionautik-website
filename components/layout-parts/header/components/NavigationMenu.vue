@@ -37,19 +37,19 @@ export default {
         },
         {
           name: this.$t('offers'),
-          url: '/test',
+          url: '/offers',
         },
         {
           name: this.$t('about'),
-          url: '/*',
+          url: '/about',
         },
         {
           name: this.$t('projects'),
-          url: '/*',
+          url: '/projects',
         },
         {
           name: this.$t('blog'),
-          url: '/*',
+          url: '/blog',
         },
       ]
     },
