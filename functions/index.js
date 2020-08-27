@@ -20,8 +20,10 @@ const config = {
 }
 const nuxt = new Nuxt(config)
 
-exports.ssrapp = functions.https.onRequest(async (req, res) => {
-  // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
-  await nuxt.ready()
-  nuxt.render(req, res)
-})
+exports.nuxtApp = functions
+  .region('us-central1') // Default - Also the only region for hosting rewrites to functions
+  .https.onRequest(async (req, res) => {
+    // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
+    await nuxt.ready()
+    nuxt.render(req, res)
+  })
