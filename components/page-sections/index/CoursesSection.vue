@@ -68,6 +68,8 @@ export default {
     const courseResponse = await coursesQuery.get()
     if (!courseResponse) return
 
+    if (this.courses.length > 0) this.courses = []
+
     courseResponse.results.forEach((result) => {
       this.courses.push({ ...result.data, uid: result.uid })
     })
