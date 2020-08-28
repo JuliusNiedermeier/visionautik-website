@@ -1,0 +1,26 @@
+{
+  "image": {
+    "type": "Slice",
+    "fieldset": "Image",
+    "description": "Display an image from the Media Library.",
+    "icon": "image",
+    "display": "list",
+    "non-repeat": {
+      "image": {
+        "type": "Image",
+        "config": {
+          "constraint": {},
+          "thumbnails": [],
+          "label": "Image"
+        }
+      },
+      "image_slice_caption": {
+        "type": "Text",
+        "config": {
+          "label": "Caption"
+        }
+      }
+    },
+    "repeat": {}
+  }
+}

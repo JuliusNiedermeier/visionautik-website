@@ -1,0 +1,27 @@
+{
+  "quote": {
+    "type": "Slice",
+    "fieldset": "Quote",
+    "description": "Quote someone.",
+    "icon": "format_quote",
+    "display": "list",
+    "non-repeat": {
+      "quote": {
+        "type": "StructuredText",
+        "config": {
+          "multi": "paragraph",
+          "label": "Quote",
+          "placeholder": "Quote someone..."
+        }
+      },
+      "source": {
+        "type": "Text",
+        "config": {
+          "label": "Source",
+          "placeholder": "Name the source..."
+        }
+      }
+    },
+    "repeat": {}
+  }
+}
