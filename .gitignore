@@ -12,9 +12,9 @@ node_modules/
 
 # Firebase
 .firebase
-functions/nuxt.config.js
+/functions/nuxt.config.js
 
-public/*
+/public
 
 # nuxt.js build output
 .nuxt
