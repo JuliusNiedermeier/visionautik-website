@@ -69,6 +69,7 @@ export default {
     &__indicator {
       max-width: 3rem;
       flex-grow: 1;
+      cursor: pointer;
 
       padding: 1rem 0.5rem;
 

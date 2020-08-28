@@ -1,8 +1,9 @@
 <template>
-  <div class="carousel-component">
+  <div class="carousel-component" :class="{overflow: overflow}">
     <div class="carousel-component__track-wrapper" :style="`width: ${slideCount * 100}%;`">
       <ul
         class="carousel-component__track-wrapper__track noselect"
+        :class="{gap: gap}"
         ref="carouselTrack"
         :style="`width: ${100 / slidesPerFrame}%; transform: translateX(-${100 / slideCount * activeSlideIndex}%) translateX(${manualDrag}px)`"
       >
@@ -26,12 +27,16 @@ import Icon from './Icon'
 import SliderNavigationControls from './SliderNavigationControls'
 export default {
   name: 'va-carousel',
+
   components: {
     'va-icon': Icon,
     'va-slider-navigation-controls': SliderNavigationControls,
   },
+
   props: {
     randomize: Boolean,
+    overflow: Boolean,
+    gap: Boolean,
     autoplayInterval: String,
     loop: Boolean,
     slidesPerFrame: {
@@ -40,6 +45,7 @@ export default {
       default: 1,
     },
   },
+
   data() {
     return {
       activeSlideIndex: null,
@@ -50,6 +56,7 @@ export default {
       offset: null,
     }
   },
+
   watch: {
     activeSlideIndex(index, previousIndex) {
       this.offset = this.slidesPerFrame - 1
@@ -74,7 +81,7 @@ export default {
         }
       }
 
-      this.activateSlides()
+      // this.activateSlides()
     },
   },
 
@@ -121,10 +128,14 @@ export default {
       )
     },
 
-    handleMouseUp() {
+    handleMouseUp(mouseEvent) {
       this.mouseDown = false
       this.initialXPosition = null
       this.$refs.carouselTrack.classList.remove('scrolling')
+
+      mouseEvent.target
+        .querySelector('[grabbing="true"]')
+        .removeAttribute('grabbing')
 
       this.$refs.carouselTrack.removeEventListener(
         'mousemove',
@@ -143,6 +154,11 @@ export default {
     handleMouseMove(mouseEvent) {
       const XPositionDifference = mouseEvent.x - this.initialXPosition
       this.manualDrag = XPositionDifference
+
+      const grabbingSlide = mouseEvent.path.find(
+        (element) => element.tagName === 'LI'
+      )
+      if (grabbingSlide) grabbingSlide.setAttribute('grabbing', 'true')
     },
 
     handleTouchStart(touchEvent) {
@@ -150,7 +166,19 @@ export default {
     },
 
     handleTouchMove(touchEvent) {
-      this.handleMouseMove({ x: touchEvent.touches[0].pageX })
+      this.handleMouseMove({
+        x: touchEvent.touches[0].pageX,
+        path: touchEvent.path,
+      })
+    },
+
+    handleTouchEnd(touchEvent) {
+      this.handleMouseUp({
+        x: this.manualDrag + this.initialXPosition,
+        target: touchEvent.path.find((element) =>
+          element.classList.contains('carousel-component__track-wrapper__track')
+        ),
+      })
     },
 
     snapIntoNearestSlide() {
@@ -224,7 +252,7 @@ export default {
     carouselTrack.addEventListener('mousedown', this.handleMouseDown)
     carouselTrack.addEventListener('mouseup', this.handleMouseUp)
     carouselTrack.addEventListener('touchstart', this.handleTouchStart)
-    carouselTrack.addEventListener('touchend', this.handleMouseUp)
+    carouselTrack.addEventListener('touchend', this.handleTouchEnd)
 
     let carouselTrackObserver = new MutationObserver(() => {
       this.slideCount = carouselTrack.children.length
@@ -241,7 +269,10 @@ export default {
 .carousel-component {
   position: relative;
   overflow-x: hidden;
-  cursor: pointer;
+
+  &.overflow {
+    overflow-x: visible;
+  }
 
   &__track-wrapper {
     &__track {
@@ -249,19 +280,30 @@ export default {
       padding: 0;
       list-style: none;
       display: flex;
+      justify-content: space-between;
       transition: transform $duration--fast ease;
+
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
 
       &.scrolling {
         transition: none;
       }
 
-      > * {
+      > li {
         flex-basis: 100%;
-        opacity: 0;
-        transition: opacity $duration--fast ease;
 
-        &.active {
-          opacity: 1;
+        &[grabbing='true'] {
+          pointer-events: none;
+        }
+      }
+
+      &.gap {
+        > li + li {
+          margin-left: 2rem;
         }
       }
 

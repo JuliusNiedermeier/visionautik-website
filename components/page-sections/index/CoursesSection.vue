@@ -6,7 +6,7 @@
         <button class="courses-section-component__body__head-section__button">{{$t('allCourses')}}</button>
       </div>
       <div class="courses-section-component__body__carousel">
-        <va-carousel :slidesPerFrame="slidesPerFrame">
+        <va-carousel slidesPerFrame="3" overflow gap>
           <li v-for="(course, index) in courses" :key="index">
             <offer-list-item
               :link="`/courses/${course.uid}`"
@@ -32,7 +32,6 @@ export default {
     return {
       heading: null,
       courses: [],
-      slidesPerFrame: 3,
     }
   },
 
@@ -73,6 +72,7 @@ export default {
     courseResponse.results.forEach((result) => {
       this.courses.push({ ...result.data, uid: result.uid })
     })
+    this.courses.push(...this.courses)
   },
 }
 </script>
@@ -82,7 +82,7 @@ export default {
   background-color: $color--grey--light;
   @include fill-screen-width;
   padding: 20rem 0;
-  // overflow-x: hidden;
+  overflow-x: hidden;
 
   &__body {
     @include page-margin;
@@ -98,12 +98,6 @@ export default {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-    }
-
-    &__carousel {
-      li + li {
-        margin-left: 2rem;
-      }
     }
   }
 }
