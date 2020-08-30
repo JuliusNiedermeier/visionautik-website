@@ -67,7 +67,6 @@ export default {
     }
 
     &__image {
-      background-color: black;
       position: relative;
       overflow: hidden;
 
