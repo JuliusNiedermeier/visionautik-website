@@ -1,0 +1,39 @@
+{
+  "choices": {
+    "product_options": {
+      "type": "Slice",
+      "fieldset": "Product options",
+      "description": "Let visitors choose between different product options.",
+      "icon": "library_add",
+      "display": "list",
+      "non-repeat": {
+        "label": {
+          "type": "Text",
+          "config": {
+            "label": "Options label"
+          }
+        }
+      },
+      "repeat": {
+        "label": {
+          "type": "Text",
+          "config": {
+            "label": "Option name"
+          }
+        },
+        "color": {
+          "type": "Color",
+          "config": {
+            "label": "Color (optional)"
+          }
+        },
+        "price_increase": {
+          "type": "Number",
+          "config": {
+            "label": "Price increase"
+          }
+        }
+      }
+    }
+  }
+}

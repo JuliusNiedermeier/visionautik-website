@@ -1,0 +1,34 @@
+{
+  "accordion": {
+    "type": "Slice",
+    "fieldset": "Accordion",
+    "description": "Structure content into expandable sections.",
+    "icon": "dehaze",
+    "display": "list",
+    "non-repeat": {},
+    "repeat": {
+      "heading": {
+        "type": "Text",
+        "config": {
+          "label": "Section title"
+        }
+      },
+      "text": {
+        "type": "StructuredText",
+        "config": {
+          "multi": "paragraph, heading3, heading4, heading5, heading6, strong, em, hyperlink, list-item, o-list-item",
+          "label": "Section content"
+        }
+      },
+      "expanded": {
+        "type": "Boolean",
+        "config": {
+          "placeholder_false": "collapsed",
+          "placeholder_true": "expanded",
+          "default_value": false,
+          "label": "Default state"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "call_to_action": {
+    "type": "Slice",
+    "fieldset": "Call to Action",
+    "description": "Highlight one or more actions you wish visitors to perform.",
+    "icon": "open_in_new",
+    "display": "list",
+    "non-repeat": {
+      "heading": {
+        "type": "Text",
+        "config": {
+          "label": "Heading"
+        }
+      },
+      "text": {
+        "type": "Text",
+        "config": {
+          "label": "Text"
+        }
+      }
+    },
+    "repeat": {
+      "label": {
+        "type": "Text",
+        "config": {
+          "label": "Action label"
+        }
+      },
+      "link": {
+        "type": "Link",
+        "config": {
+          "label": "Action URL"
+        }
+      }
+    }
+  }
+}

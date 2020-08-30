@@ -13,12 +13,6 @@
           "thumbnails": [],
           "label": "Image"
         }
-      },
-      "image_slice_caption": {
-        "type": "Text",
-        "config": {
-          "label": "Caption"
-        }
       }
     },
     "repeat": {}

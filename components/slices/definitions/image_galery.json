@@ -1,0 +1,26 @@
+{
+  "image_gallery": {
+    "type": "Slice",
+    "fieldset": "Image gallery",
+    "description": "Display a collection of Images from the Media Library.",
+    "icon": "burst_mode",
+    "display": "list",
+    "non-repeat": {},
+    "repeat": {
+      "image": {
+        "type": "Image",
+        "config": {
+          "constraint": {},
+          "thumbnails": [
+            {
+              "name": "thumbnail",
+              "width": 300,
+              "height": 300
+            }
+          ],
+          "label": "Image"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "trainers": {
+    "type": "Slice",
+    "fieldset": "Trainers",
+    "description": "Displays all assigned trainers.",
+    "icon": "people",
+    "display": "list",
+    "non-repeat": {
+      "see_more": {
+        "type": "Text",
+        "config": {
+          "label": "Profile button label"
+        }
+      }
+    },
+    "repeat": {}
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "timeline_event": {
+    "type": "Slice",
+    "fieldset": "Timeline Event",
+    "description": "Add a key event to the timeline.",
+    "icon": "line_weight",
+    "display": "list",
+    "non-repeat": {
+      "image": {
+        "type": "Image",
+        "config": {
+          "constraint": {
+            "width": 500,
+            "height": 500
+          },
+          "thumbnails": [],
+          "label": "Image"
+        }
+      },
+      "year": {
+        "type": "Number",
+        "config": {
+          "label": "Year"
+        }
+      },
+      "text": {
+        "type": "Text",
+        "config": {
+          "label": "Text"
+        }
+      }
+    },
+    "repeat": {}
+  }
+}

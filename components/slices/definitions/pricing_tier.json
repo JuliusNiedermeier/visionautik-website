@@ -1,0 +1,55 @@
+{
+  "pricing_tier": {
+    "type": "Slice",
+    "fieldset": "Pricing tier",
+    "description": "Add a new pricing option to this course.",
+    "icon": "label",
+    "display": "list",
+    "non-repeat": {
+      "icon": {
+        "type": "Image",
+        "config": {
+          "constraint": {
+            "width": 300,
+            "height": 300
+          },
+          "thumbnails": [],
+          "label": "Icon"
+        }
+      },
+      "heading": {
+        "type": "Text",
+        "config": {
+          "label": "Tier name"
+        }
+      },
+      "color": {
+        "type": "Color",
+        "config": {
+          "label": "Accent color"
+        }
+      },
+      "description": {
+        "type": "StructuredText",
+        "config": {
+          "single": "paragraph, strong, em, list-item, o-list-item",
+          "label": "Tier description"
+        }
+      }
+    },
+    "repeat": {
+      "price": {
+        "type": "Number",
+        "config": {
+          "label": "Price"
+        }
+      },
+      "effective_date": {
+        "type": "Timestamp",
+        "config": {
+          "label": "Effective date"
+        }
+      }
+    }
+  }
+}

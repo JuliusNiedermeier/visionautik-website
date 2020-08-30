@@ -1,0 +1,11 @@
+{
+  "pricing_section": {
+    "type": "Slice",
+    "fieldset": "Pricing section",
+    "description": "Display all pricing options created for this course.",
+    "icon": "label",
+    "display": "list",
+    "non-repeat": {},
+    "repeat": {}
+  }
+}
