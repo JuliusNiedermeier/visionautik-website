@@ -13,6 +13,7 @@
 - Short text: _label_
 - Main image of a post: _featured_image_
 - Any kind of "See more" label: _see_more_
+- Links/URLs: _link_
 
 # Slices
 
