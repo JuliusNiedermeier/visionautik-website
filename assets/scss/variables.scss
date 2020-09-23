@@ -5,10 +5,14 @@ $color--red--light: lighten($color--red--base, 20);
 
 $color--blue--base: #05006e;
 $color--blue--lighter: #051986;
-$color--blue--light: lighten($color--blue--base, 10);
+// $color--blue--light: lighten($color--blue--base, 10);
+$color--blue--light: #4540b7;
 
-$color--grey--light: #f0f0f0;
-$color--grey--dark: #e6e6e6;
+// $color--grey--light: #f0f0f0;
+// $color--grey--dark: #e6e6e6;
+
+$color--grey--light: #f7f7f7;
+$color--grey--dark: #f0f0f0;
 
 $color--lilac--base: #e3e2f3;
 
@@ -16,3 +20,5 @@ $color--lilac--base: #e3e2f3;
 $duration--slow: 800ms;
 $duration--medium: 500ms;
 $duration--fast: 200ms;
+
+// Spacing
