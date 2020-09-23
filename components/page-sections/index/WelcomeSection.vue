@@ -19,29 +19,13 @@
     <div class="welcome-section__links-section">
       <div class="welcome-section__links-section__body">
         <button
-          @click="$router.push('/offers')"
+          v-for="(targetGroupLink, index) in targetGroupLinks"
+          :key="index"
+          @click="$router.push({path: '/offers', query: targetGroupLink.query})"
           class="welcome-section__links-section__body__button"
         >
           <div class="welcome-section__links-section__body__button__content">
-            <h4>{{$t('targetGroups.forChangemakers')}}</h4>
-            <va-icon name="chevron-right" />
-          </div>
-        </button>
-        <button
-          @click="$router.push('/offers')"
-          class="welcome-section__links-section__body__button"
-        >
-          <div class="welcome-section__links-section__body__button__content">
-            <h4>{{$t('targetGroups.forBusiness')}}</h4>
-            <va-icon name="chevron-right" />
-          </div>
-        </button>
-        <button
-          @click="$router.push('/offers')"
-          class="welcome-section__links-section__body__button"
-        >
-          <div class="welcome-section__links-section__body__button__content">
-            <h4>{{$t('targetGroups.forFacilitators')}}</h4>
+            <h4>{{targetGroupLink.name}}</h4>
             <va-icon name="chevron-right" />
           </div>
         </button>
@@ -67,14 +51,34 @@ export default {
     }
   },
 
+  computed: {
+    targetGroupLinks() {
+      return [
+        {
+          name: this.$t('types.pages.index.forChangemakers'),
+          query: { targetGroup: 'changemakers' },
+        },
+        {
+          name: this.$t('types.pages.index.forBusiness'),
+          query: { targetGroup: 'business' },
+        },
+        {
+          name: this.$t('types.pages.index.forFacilitators'),
+          query: { targetGroup: 'facilitators' },
+        },
+      ]
+    },
+  },
+
   async fetch() {
+    const type = this.$api.types.pages.index
     const query = new this.$api.Query(
-      [this.$prismic.predicates.at('document.type', 'homepage')],
+      [this.$prismic.predicates.at('document.type', type)],
       {
         fetch: [
-          'homepage.welcome__background_video',
-          'homepage.welcome__heading',
-          'homepage.welcome__sub_heading',
+          type + '.welcome__background_video',
+          type + '.welcome__heading',
+          type + '.welcome__sub_heading',
         ],
       }
     )
@@ -178,22 +182,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "de": {
-    "targetGroups": {
-      "forChangemakers": "Für Changemaker",
-      "forBusiness": "Für Unternehmen",
-      "forFacilitators": "Für Prozessbegleiter"
-    }
-  },
-  "en": {
-    "targetGroups": {
-      "forChangemakers": "For changemakers",
-      "forBusiness": "For business",
-      "forFacilitators": "For facilitators"
-    }
-  }
-}
-</i18n>

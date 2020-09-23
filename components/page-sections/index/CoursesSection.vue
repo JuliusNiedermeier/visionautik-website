@@ -2,19 +2,22 @@
   <div class="courses-section-component">
     <div class="courses-section-component__body">
       <div class="courses-section-component__body__head-section">
-        <h2 class="courses-section-component__body__head-section__heading">{{heading}}</h2>
-        <button class="courses-section-component__body__head-section__button">{{$t('allCourses')}}</button>
+        <h1 class="courses-section-component__body__head-section__heading">{{heading}}</h1>
+        <button
+          class="courses-section-component__body__head-section__button"
+        >{{$t('types.pages.index.allCourses')}}</button>
       </div>
       <div class="courses-section-component__body__carousel">
-        <va-carousel slidesPerFrame="3" overflow gap>
-          <li v-for="(course, index) in courses" :key="index">
-            <offer-list-item
-              :link="`/courses/${course.uid}`"
-              :image="course.cover_image.url"
-              :title="course.name"
-              :description="course.brief_description"
-            />
-          </li>
+        <va-carousel gap>
+          <va-offer
+            v-for="(course, index) in courses"
+            :key="index"
+            :uid="course.uid"
+            :image="course.general__featured_image.thumbnail.url"
+            :title="course.general__heading"
+            :description="course.general__excerpt"
+            :type="$api.types.repeatables.course"
+          />
         </va-carousel>
       </div>
     </div>
@@ -23,10 +26,13 @@
 
 <script>
 import Carousel from '@/components/elements/Carousel'
-import OfferListItem from '@/components/elements/OfferListItem'
+import Offer from '@/components/elements/Offer'
 export default {
   name: 'courses-section',
-  components: { 'offer-list-item': OfferListItem, 'va-carousel': Carousel },
+  components: {
+    'va-offer': Offer,
+    'va-carousel': Carousel,
+  },
 
   data() {
     return {
@@ -37,10 +43,12 @@ export default {
 
   async fetch() {
     // Fetch heading
+    const indexPageType = this.$api.types.pages.index
+
     const headingQuery = new this.$api.Query(
-      [this.$prismic.predicates.at('document.type', 'homepage')],
+      [this.$prismic.predicates.at('document.type', indexPageType)],
       {
-        fetch: ['homepage.courses__heading'],
+        fetch: [indexPageType + '.courses__heading'],
       }
     )
 
@@ -52,14 +60,16 @@ export default {
     this.heading = headingData.courses__heading
 
     // Fetch courses
+    const courseRepeatableType = this.$api.types.repeatables.course
+
     const coursesQuery = new this.$api.Query(
-      [this.$prismic.predicates.at('document.type', 'course')],
+      [this.$prismic.predicates.at('document.type', courseRepeatableType)],
       {
         pageSize: 6,
         fetch: [
-          'course.name',
-          'course.cover_image',
-          'course.brief_description',
+          courseRepeatableType + '.general__heading',
+          courseRepeatableType + '.general__featured_image',
+          courseRepeatableType + '.general__excerpt',
         ],
       }
     )
@@ -72,7 +82,6 @@ export default {
     courseResponse.results.forEach((result) => {
       this.courses.push({ ...result.data, uid: result.uid })
     })
-    this.courses.push(...this.courses)
   },
 }
 </script>
@@ -99,17 +108,12 @@ export default {
       justify-content: space-between;
       align-items: center;
     }
+
+    &__carousel {
+      li + li {
+        margin-left: 2rem;
+      }
+    }
   }
 }
 </style>
-
-<i18n>
-{
-  "de": {
-    "allCourses": "Alle Kurse"
-  },
-  "en": {
-    "allCourses": "All courses"
-  }
-}
-</i18n>

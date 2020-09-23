@@ -3,29 +3,35 @@
     <div class="featured-section-component__body">
       <h4 class="featured-section-component__body__heading">{{heading}}</h4>
       <div class="featured-section-component__body__articles">
-        <offer-list-item
-          v-for="courseOfferListItem in offerListItems.filter(item => item.type === 'course')"
+        <va-offer
+          v-for="courseOfferListItem in offerListItems.filter(item => item.type === $api.types.repeatables.course)"
           :key="courseOfferListItem.uid"
-          :link="`/offers/${courseOfferListItem.uid}`"
-          :image="courseOfferListItem.cover_image.url"
-          :title="courseOfferListItem.name"
-          :description="courseOfferListItem.brief_description"
+          :uid="courseOfferListItem.uid"
+          :image="courseOfferListItem.general__featured_image.thumbnail.url"
+          :title="courseOfferListItem.general__heading"
+          :description="courseOfferListItem.general__excerpt"
+          :type="$api.types.repeatables.course"
+          :tag="$t('types.repeatables.course.tag')"
         />
-        <offer-list-item
-          v-for="eventOfferListItem in offerListItems.filter(item => item.type === 'event')"
+        <va-offer
+          v-for="eventOfferListItem in offerListItems.filter(item => item.type === $api.types.repeatables.event)"
           :key="eventOfferListItem.uid"
-          :link="`/offers/${eventOfferListItem.uid}`"
-          :image="eventOfferListItem.cover_image.url"
-          :title="eventOfferListItem.name"
-          :description="eventOfferListItem.brief_description"
+          :uid="eventOfferListItem.uid"
+          :image="eventOfferListItem.general__featured_image.thumbnail.url"
+          :title="eventOfferListItem.general__heading"
+          :description="eventOfferListItem.general__excerpt"
+          :type="$api.types.repeatables.event"
+          :tag="$t('types.repeatables.event.tag')"
         />
-        <offer-list-item
-          v-for="blogPostOfferListItem in offerListItems.filter(item => item.type === 'blog_post')"
+        <va-offer
+          v-for="blogPostOfferListItem in offerListItems.filter(item => item.type === $api.types.repeatables.blogPost)"
           :key="blogPostOfferListItem.uid"
-          :link="`/offers/${blogPostOfferListItem.uid}`"
-          :image="blogPostOfferListItem.featured_image.url"
-          :title="blogPostOfferListItem.headline"
-          :description="blogPostOfferListItem.excerpt"
+          :uid="blogPostOfferListItem.uid"
+          :image="blogPostOfferListItem.general__featured_image.thumbnail.url"
+          :title="blogPostOfferListItem.general__heading"
+          :description="blogPostOfferListItem.general__excerpt"
+          :type="$api.types.repeatables.blogPost"
+          :tag="$t('types.repeatables.blogPost.tag')"
         />
       </div>
     </div>
@@ -33,9 +39,9 @@
 </template>
 
 <script>
-import OfferListItem from '@/components/elements/OfferListItem'
+import Offer from '@/components/elements/Offer'
 export default {
-  components: { 'offer-list-item': OfferListItem },
+  components: { 'va-offer': Offer },
 
   data() {
     return {
@@ -46,26 +52,31 @@ export default {
 
   methods: {
     getRequiredFieldsByType(types) {
+      const typeNames = {
+        course: this.$api.types.repeatables.course,
+        event: this.$api.types.repeatables.event,
+        blogPost: this.$api.types.repeatables.blogPost,
+      }
       let fields = []
-      if (types.includes('course')) {
+      if (types.includes(typeNames.course)) {
         fields.push(
-          'course.name',
-          'course.cover_image',
-          'course.brief_description'
+          typeNames.course + '.general__heading',
+          typeNames.course + '.general__featured_image',
+          typeNames.course + '.general__excerpt'
         )
       }
-      if (types.includes('event')) {
+      if (types.includes(typeNames.event)) {
         fields.push(
-          'event.name',
-          'event.cover_image',
-          'event.brief_description'
+          typeNames.event + '.general__heading',
+          typeNames.event + '.general__featured_image',
+          typeNames.event + '.general__excerpt'
         )
       }
-      if (types.includes('blog_post')) {
+      if (types.includes(typeNames.blogPost)) {
         fields.push(
-          'blog_post.headline',
-          'blog_post.featured_image',
-          'blog_post.excerpt'
+          typeNames.blogPost + '.general__heading',
+          typeNames.blogPost + '.general__featured_image',
+          typeNames.blogPost + '.general__excerpt'
         )
       }
       return fields
@@ -87,15 +98,13 @@ export default {
     fetchByExcludingIdsHelper(ids, max) {
       let idPredicates = []
       ids.forEach((id) => {
-        idPredicates.push(
-          ...[
-            this.$prismic.predicates.not('document.id', id),
-            this.$prismic.predicates.not('document.id', id),
-            this.$prismic.predicates.not('document.id', id),
-          ]
-        )
+        idPredicates.push(this.$prismic.predicates.not('document.id', id))
       })
-      const types = ['course', 'event', 'blog_post']
+      const types = [
+        this.$api.types.repeatables.course,
+        this.$api.types.repeatables.event,
+        this.$api.types.repeatables.blogPost,
+      ]
       const query = new this.$api.Query(
         [this.$prismic.predicates.any('document.type', types), ...idPredicates],
         {
@@ -111,27 +120,33 @@ export default {
 
   async fetch() {
     //Fetch heading
+    const indexPageType = this.$api.types.pages.index
+
     const headingQuery = new this.$api.Query(
-      [this.$prismic.predicates.at('document.type', 'homepage')],
-      { fetch: ['homepage.featured__heading'] }
+      [this.$prismic.predicates.at('document.type', indexPageType)],
+      { fetch: [indexPageType + '.recommendations__heading'] }
     )
 
     const headingResponse = await headingQuery.get()
     if (!headingResponse) return
 
-    this.heading = headingResponse.results[0].data.featured__heading
+    this.heading = headingResponse.results[0].data.recommendations__heading
 
     // Fetch recommended offer items
-    let course = this.fetchOneByTypeHelper('course')
-    let event = this.fetchOneByTypeHelper('event')
-    let blog_post = this.fetchOneByTypeHelper('blog_post')
+    let course = this.fetchOneByTypeHelper(this.$api.types.repeatables.course)
+    let event = this.fetchOneByTypeHelper(this.$api.types.repeatables.event)
+    let blog_post = this.fetchOneByTypeHelper(
+      this.$api.types.repeatables.blogPost
+    )
 
     let responses = await Promise.all([course, event, blog_post])
 
     let fetchedIds = []
-    responses.forEach((response) => {
-      if (response.results_size > 0) fetchedIds.push(response.results[0].id)
-    })
+    for (const response of responses) {
+      if (response && response.results_size > 0) {
+        fetchedIds.push(response.results[0].id)
+      }
+    }
 
     if (fetchedIds.length < 3) {
       const missingDocumentsCount = 3 - fetchedIds.length
@@ -141,17 +156,16 @@ export default {
         missingDocumentsCount
       )
 
-      newResponse.results.forEach((result, index) => {
-        responses[
-          responses.findIndex((response) => response.results_size === 0)
-        ] = { results: [result], results_size: 1 }
-      })
+      for (const result of newResponse.results) {
+        const availableIndex = responses.findIndex((response) => !response)
+        responses[availableIndex] = { results: [result], results_size: 1 }
+      }
     }
 
     if (this.offerListItems.length > 0) this.offerListItems = []
 
-    responses.forEach((response) => {
-      if (response.results_size > 0) {
+    for (const response of responses) {
+      if (response && response.results_size > 0) {
         this.offerListItems = [
           ...this.offerListItems,
           {
@@ -161,7 +175,7 @@ export default {
           },
         ]
       }
-    })
+    }
   },
 }
 </script>
@@ -184,17 +198,23 @@ export default {
     &__articles {
       display: flex;
       flex-direction: column;
-      align-items: strech;
+      justify-content: space-evenly;
+      align-items: center;
+
+      > * + * {
+        margin-top: 2rem;
+      }
 
       @include desktops {
         flex-direction: row;
 
-        > article {
+        > * {
           flex: 1;
         }
 
-        > article + article {
+        > * + * {
           margin-left: 2rem;
+          margin-top: 0;
         }
       }
     }

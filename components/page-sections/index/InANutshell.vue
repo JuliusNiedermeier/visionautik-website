@@ -1,7 +1,7 @@
 <template>
   <div class="in-a-nutshell-section">
     <div class="in-a-nutshell-section__body">
-      <h2>{{heading}}</h2>
+      <h1>{{heading}}</h1>
       <va-video
         :src="videoUrl"
         :thumbnail="videoThumbnailUrl"
@@ -30,14 +30,16 @@ export default {
   },
 
   async fetch() {
+    const type = this.$api.types.pages.index
+
     const query = new this.$api.Query(
-      [this.$prismic.predicates.at('document.type', 'homepage')],
+      [this.$prismic.predicates.at('document.type', type)],
       {
         fetch: [
-          'homepage.in_a_nutshell__heading',
-          'homepage.in_a_nutshell__video',
-          'homepage.in_a_nutshell__video_thumbnail',
-          'homepage.in_a_nutshell__text_columns',
+          type + '.in_a_nutshell__heading',
+          type + '.in_a_nutshell__video',
+          type + '.in_a_nutshell__video_thumbnail',
+          type + '.in_a_nutshell__text_columns',
         ],
       }
     )

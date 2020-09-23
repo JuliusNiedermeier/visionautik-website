@@ -2,7 +2,7 @@
   <div class="our-vision-section">
     <div class="our-vision-section__body">
       <div class="our-vision-section__body__text">
-        <h2>{{heading}}</h2>
+        <h1>{{heading}}</h1>
         <p>{{text}}</p>
         <button>Mehr erfahren</button>
       </div>
@@ -24,13 +24,15 @@ export default {
   },
 
   async fetch() {
+    const type = this.$api.types.pages.index
+
     const query = new this.$api.Query(
-      [this.$prismic.predicates.at('document.type', 'homepage')],
+      [this.$prismic.predicates.at('document.type', type)],
       {
         fetch: [
-          'homepage.our_vision__heading',
-          'homepage.our_vision__text',
-          'homepage.our_vision__image',
+          type + '.our_vision__heading',
+          type + '.our_vision__text',
+          type + '.our_vision__image',
         ],
       }
     )
@@ -61,7 +63,7 @@ export default {
 
     &__text {
       margin-right: 2rem;
-      h2 {
+      h1 {
         margin-top: 0;
       }
     }
