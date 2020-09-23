@@ -8,15 +8,19 @@
         >{{navigationLink.name}}</nuxt-link>
       </li>
       <li>
-        <button>Newsletter</button>
+        <button class="navigation-menu-component__list__cart-button">
+          <va-icon name="cart" size="1.5rem" />
+        </button>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import Icon from '@/components/elements/Icon'
 export default {
   name: 'va-navigation-menu',
+  components: { 'va-icon': Icon },
   props: {
     toggleState: {
       type: String,
@@ -31,24 +35,24 @@ export default {
     navigationLinks() {
       return [
         {
-          name: this.$t('start'),
+          name: this.$t('layout.header.navigationMenu.start'),
           url: '/',
           isRoot: true,
         },
         {
-          name: this.$t('offers'),
+          name: this.$t('layout.header.navigationMenu.offers'),
           url: '/offers',
         },
         {
-          name: this.$t('about'),
+          name: this.$t('layout.header.navigationMenu.about'),
           url: '/about',
         },
         {
-          name: this.$t('projects'),
+          name: this.$t('layout.header.navigationMenu.projects'),
           url: '/projects',
         },
         {
-          name: this.$t('blog'),
+          name: this.$t('layout.header.navigationMenu.blog'),
           url: '/blog',
         },
       ]
@@ -64,7 +68,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: ghostwhite;
+  background-color: white;
   transition: clip-path $duration--fast ease;
   display: none;
 
@@ -153,25 +157,10 @@ export default {
     .nuxt-link-exact-active {
       color: $color--red--base;
     }
+
+    &__cart-button {
+      padding: 1rem;
+    }
   }
 }
 </style>
-
-<i18n>
-{
-  "de": {
-    "start": "Start",
-    "offers": "Angebote",
-    "about": "Über uns",
-    "projects": "Projekte",
-    "blog": "Blog"
-  },
-  "en": {
-    "start": "Home",
-    "offers": "Offers",
-    "about": "About",
-    "projects": "Projects",
-    "blog": "Blog"
-  }
-}
-</i18n>

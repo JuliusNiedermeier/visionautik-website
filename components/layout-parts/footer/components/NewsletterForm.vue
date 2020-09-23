@@ -1,22 +1,22 @@
 <template>
   <form class="newsletter-form-component" @submit.prevent>
-    <input :placeholder="$t('namePlaceholder')" />
-    <input type="email" :placeholder="$t('emailPlaceholder')" required />
+    <input :placeholder="$t('layout.footer.newsletterForm.namePlaceholder')" />
+    <input type="email" :placeholder="$t('layout.footer.newsletterForm.emailPlaceholder')" required />
     <div class="newsletter-form-component__gdpr-consent">
       <input type="checkbox" required />
       <label>
         <nuxt-link to="/privacy">
-          <small>{{$t('gdprConsentMessage')}}</small>
+          <small>{{$t('layout.footer.newsletterForm.gdprConsentLabel')}}</small>
         </nuxt-link>
       </label>
     </div>
-    <button type="submit" class>{{$t('submitButtonMessage')}}</button>
+    <button type="submit" class>{{$t('layout.footer.newsletterForm.submitButtonLabel')}}</button>
   </form>
 </template>
 
 <script>
 export default {
-name: 'va-newsletter-form'
+  name: 'va-newsletter-form',
 }
 </script>
 
@@ -50,20 +50,3 @@ name: 'va-newsletter-form'
   }
 }
 </style>
-
-<i18n>
-{
-    "de": {
-        "namePlaceholder": "Name",
-        "emailPlaceholder": "Deine Email-Adresse",
-        "gdprConsentMessage": "Ich bin mit dem Datenschutz einverstanden.",
-        "submitButtonMessage": "Newsletter abonieren"
-    },
-    "en": {
-        "namePlaceholder": "Name",
-        "emailPlaceholder": "Your email address",
-        "gdprConsentMessage": "I agree with your privacy policy.",
-        "submitButtonMessage": "Subscribe to our newsletter"
-    }
-}
-</i18n>

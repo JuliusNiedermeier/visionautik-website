@@ -3,18 +3,18 @@
     <div class="global-footer__body">
       <div class="global-footer__body__contact-area">
         <h3>Visionautik Akademie</h3>
-        <p>{{$t('address')}}</p>
-        <button>{{$t('buttons.contact')}}</button>
+        <p>{{$t('layout.footer.address')}}</p>
+        <button>{{$t('layout.footer.contactButton')}}</button>
       </div>
       <div class="global-footer__body__link-area">
         <nuxt-link to="/terms-of-use">
-          <small>{{$t('termsOfUse')}}</small>
+          <small>{{$t('layout.footer.termsOfUse')}}</small>
         </nuxt-link>
         <nuxt-link to="/privacy">
-          <small>{{$t('privacyPolicy')}}</small>
+          <small>{{$t('layout.footer.privacyPolicy')}}</small>
         </nuxt-link>
         <nuxt-link to="/legal-notice">
-          <small>{{$t('legalNotice')}}</small>
+          <small>{{$t('layout.footer.legalNotice')}}</small>
         </nuxt-link>
       </div>
       <va-newsletter-form class="global-footer__body__newsletter-area" />
@@ -30,7 +30,7 @@
 
 <script>
 import NewsletterForm from './components/NewsletterForm'
-import LanguageSwitcher from '@/components/elements/LanguageSwitcher'
+import LanguageSwitcher from '@/components/layout-parts/LanguageSwitcher'
 export default {
   name: 'va-footer',
   components: {
@@ -105,28 +105,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "de": {
-    "address": "Visionautik e.V., Görlitzer Str. 65, 10997 Berlin",
-    "buttons": {
-      "contact": "Kontakt",
-      "newsletter": "Newsletter"
-    },
-    "termsOfUse": "Nutzungsbedingungen",
-    "privacyPolicy": "Datenschutz",
-    "legalNotice": "Impressum"
-  },
-  "en": {
-    "address": "Visionautik e.V., Görlitzer Str. 65, 10997 Berlin, Germany",
-    "buttons": {
-      "contact": "Contact",
-      "newsletter": "Newsletter"
-    },
-    "termsOfUse": "Terms of use",
-    "privacyPolicy": "Privacy Policy",
-    "legalNotice": "Legal Notice"
-  }
-}
-</i18n>
