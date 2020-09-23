@@ -1,6 +1,5 @@
 <template>
   <header class="header-component">
-    <va-notification-bar />
     <va-airmail-stripe @click.native="expandMegamenu = !expandMegamenu" />
     <div class="header-component__navigation">
       <nuxt-link to="/">
@@ -20,7 +19,6 @@
 </template>
 
 <script>
-import NotificationBar from './components/NotificationBar'
 import AirmailStripe from './components/AirmailStripe'
 import Logo from './components/Logo'
 import NavigationMenu from './components/NavigationMenu'
@@ -29,7 +27,6 @@ import MegaMenu from './megaMenu/MegaMenu'
 export default {
   name: 'va-header',
   components: {
-    'va-notification-bar': NotificationBar,
     'va-airmail-stripe': AirmailStripe,
     'va-logo': Logo,
     'va-navigation-menu': NavigationMenu,
@@ -61,7 +58,7 @@ export default {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: ghostwhite;
+  background-color: white;
 
   &__navigation {
     padding-top: 1rem;
