@@ -3,12 +3,19 @@
     <va-header />
     <!-- <Nuxt class="default-layout__page-content" keep-alive :keep-alive-props="{max: 5}" /> -->
     <Nuxt class="default-layout__page-content" />
+    <va-notifications />
     <va-footer />
+    <div
+      hidden
+      id="snipcart"
+      data-api-key="ZjIyODZjN2ItZTc2Yi00YTYwLWFkZTgtNmI1MzgwNGI0M2E5NjM3MzQ5ODk2MDgwNzk1MTA4"
+    ></div>
   </div>
 </template>
 
 <script>
 import Header from '@/components/layout-parts/header/Header'
+import Notifications from '@/components/layout-parts/Notifications'
 import Footer from '@/components/layout-parts/footer/Footer'
 export default {
   name: 'default-layout',
@@ -20,6 +27,7 @@ export default {
 
   components: {
     'va-header': Header,
+    'va-notifications': Notifications,
     'va-footer': Footer,
   },
 }
