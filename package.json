@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "dev:lt": "lt --port 3000 --subdomain visionautikde",
     "dev:host": "nuxt --hostname 192.168.178.52 --port 3000",
+    "dev:host:lt": "lt --port 3000 --local-host 192.168.178.52 --subdomain visionautikde",
     "build": "nuxt build",
     "start": "nuxt start",
     "export": "nuxt export",
