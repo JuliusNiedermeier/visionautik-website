@@ -5,18 +5,11 @@
       class="slider-navigation-controls-component__nav-button prev"
       @click.native="$emit('prev')"
     />
-    <div class="slider-navigation-controls-component__indicators">
+    <div class="slider-navigation-controls-component__progress-bar">
       <div
-        v-for="n in parseInt(number)"
-        :key="n"
-        class="slider-navigation-controls-component__indicators__indicator"
-        @click="$emit('indicator-clicked', n - 1)"
-      >
-        <div
-          class="slider-navigation-controls-component__indicators__indicator__body"
-          :class="{'active': n - 1 == activeIndex}"
-        />
-      </div>
+        class="slider-navigation-controls-component__progress-bar__indicator"
+        :style="`margin-left: calc(${progress}% - 5rem);`"
+      />
     </div>
     <va-icon
       name="chevron-right"
@@ -30,7 +23,7 @@
 import Icon from './Icon'
 export default {
   components: { 'va-icon': Icon },
-  props: ['number', 'activeIndex', 'inactiveColor', 'activeColor'],
+  props: ['progress', 'activeIndex', 'inactiveColor', 'activeColor'],
 }
 </script>
 
@@ -60,33 +53,16 @@ export default {
     }
   }
 
-  &__indicators {
-    display: flex;
-    flex-direction: row;
+  &__progress-bar {
     width: 50%;
-    justify-content: center;
+    background-color: $color--grey--dark;
+    display: flex;
 
     &__indicator {
-      max-width: 3rem;
-      flex-grow: 1;
-      cursor: pointer;
-
-      padding: 1rem 0.5rem;
-
-      &:hover {
-        .slider-navigation-controls-component__indicators__indicator__body:not(.active) {
-          background-color: darken($color--grey--dark, $amount: 5);
-        }
-      }
-
-      &__body {
-        height: 0.25rem;
-        background-color: $color--grey--dark;
-
-        &.active {
-          background-color: $color--red--base;
-        }
-      }
+      transition: margin-left $duration--medium ease;
+      height: 0.25rem;
+      width: 5rem;
+      background-color: $color--red--base;
     }
   }
 }
