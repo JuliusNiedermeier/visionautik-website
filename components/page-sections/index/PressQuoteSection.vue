@@ -1,16 +1,14 @@
 <template>
   <div class="press-quote-section">
-    <va-carousel class="press-quote-section__carousel" randomize autoplayInterval="5000" loop>
-      <li>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Welt_kompakt_Logo_2015.png" />
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum id aliquid autem nemo. Laudantium, maiores a sapiente adipisci perspiciatis amet molestias itaque expedita, ex quia mollitia omnis enim illum esse!</p>
-      </li>
-      <li>
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Taz_Logo.svg/2000px-Taz_Logo.svg.png"
-        />
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum id aliquid autem nemo. Laudantium, maiores a sapiente adipisci perspiciatis amet molestias itaque expedita, ex quia mollitia omnis enim illum esse!</p>
-      </li>
+    <va-carousel class="press-quote-section__carousel" randomize autoplayInterval="5000" loop gap>
+      <div
+        v-for="(pressQuote, index) in pressQuotes"
+        :key="index"
+        class="press-quote-section__carousel__quote"
+      >
+        <img :src="pressQuote.general__logo.url" />
+        <p>{{pressQuote.general__text}}</p>
+      </div>
     </va-carousel>
   </div>
 </template>
@@ -18,7 +16,30 @@
 <script>
 import Carousel from '@/components/elements/Carousel'
 export default {
-  components: { 'va-carousel': Carousel },
+  components: { 'va-carousel': Carousel, 'va-carousel': Carousel },
+
+  data() {
+    return {
+      pressQuotes: [],
+    }
+  },
+
+  async fetch() {
+    const query = new this.$api.Query([
+      this.$prismic.predicates.at(
+        'document.type',
+        this.$api.types.repeatables.pressQuote
+      ),
+    ])
+
+    const apiResponse = await query.get()
+    if (!apiResponse) return
+
+    this.pressQuotes = []
+    for (const result of apiResponse.results) {
+      this.pressQuotes = [...this.pressQuotes, result.data]
+    }
+  },
 }
 </script>
 
@@ -27,14 +48,16 @@ export default {
   background-color: $color--grey--light;
   @include fill-screen-width;
   overflow-x: hidden;
-  padding: 10rem 0;
+  padding: 2rem 0;
 
   &__carousel {
     @include page-margin;
 
-    li {
+    &__quote {
+      width: 50vw;
       text-align: center;
-      padding-top: 5rem;
+      padding: 2rem;
+      background-color: $color--grey--dark;
 
       img {
         width: 100%;
