@@ -61,7 +61,6 @@ export default {
     '@/assets/scss/main.scss',
     '@/assets/scss/classes.scss',
     '@/assets/scss/fonts.scss',
-    '@/assets/scss/snipcart.scss',
   ],
   /*
    ** Plugins to load before mounting the App
