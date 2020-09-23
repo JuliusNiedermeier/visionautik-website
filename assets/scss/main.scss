@@ -24,12 +24,12 @@
   // }
 
   h1 {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     text-transform: uppercase;
-    letter-spacing: 0.8rem;
+    font-weight: normal;
 
     @include desktops {
-      font-size: 6.5rem;
+      font-size: 3.5rem;
       letter-spacing: 2rem;
     }
   }
@@ -66,7 +66,8 @@
 
   h6 {
     font-size: 1.8rem;
-    font-weight: normal;
+    font-weight: bold;
+    color: $color--blue--light;
   }
 
   p {
@@ -136,6 +137,12 @@
     }
   }
 
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
   button {
     padding: 1rem 1.5rem;
     background-color: $color--blue--base;
@@ -164,22 +171,19 @@
   }
 
   input {
-    border: 0.2rem;
-    border-style: solid;
-    border-color: transparent;
+    border: none;
     outline: none;
-    background-color: #f0f0f0;
+    background-color: $color--grey--light;
     padding: 1rem 1.5rem;
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     font-size: 1.6rem;
 
     &:hover {
-      background-color: #e3e2f3;
+      background-color: $color--grey--dark;
     }
 
     &:focus {
-      background-color: #e3e2f3;
-      border-bottom-color: $color--blue--base;
+      background-color: $color--lilac--base;
     }
   }
 
@@ -187,5 +191,20 @@
   form button {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  select {
+    padding: 1rem 1.5rem;
+    border: 1px solid $color--blue--base;
+    outline: none;
+    font-family: inherit;
+    font-weight: bold;
+    background-color: $color--lilac--base;
+    color: $color--blue--base;
+    border-radius: 0;
+
+    &:hover {
+      filter: brightness(1.05);
+    }
   }
 }
