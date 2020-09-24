@@ -2,13 +2,24 @@
   <va-sidebar-layout>
     <template slot="header">
       <div class="offer-page__header">
-        <img :src="offer.general__featured_image.url" v-if="offer.general__featured_image" />
+        <img
+          class="offer-page__header__image"
+          :src="offer.general__featured_image.url"
+          v-if="offer.general__featured_image"
+        />
+        <div class="offer-page__header__overlay">
+          <div class="offer-page__header__overlay__body">
+            <h2 class="offer-page__header__overlay__body__heading">
+              {{ offer.general__heading }}
+            </h2>
+            <i class="offer-page__header__overlay__body__excerpt">{{
+              offer.general__excerpt
+            }}</i>
+          </div>
+        </div>
       </div>
     </template>
     <div class="offer-page">
-      {{courseSidebarOptions.selectedPricingTier}}
-      <h2>{{offer.general__heading}}</h2>
-      <i>{{offer.general__excerpt}}</i>
       <va-slice-section />
     </div>
     <template slot="sidebar">
@@ -71,14 +82,36 @@ export default {
 
 <style lang="scss" scoped>
 .offer-page {
+  padding: 2rem 0;
+
   &__header {
     @include fill-screen-width;
     height: 40rem;
+    position: relative;
 
-    img {
+    &__image {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    &__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      @include background-gradient('dark-transparent');
+      color: white;
+
+      &__body {
+        height: 100%;
+        @include page-margin;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+      }
     }
   }
 }
