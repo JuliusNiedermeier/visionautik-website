@@ -4,12 +4,20 @@
       <li v-for="navigationLink in navigationLinks" :key="navigationLink.name">
         <nuxt-link
           :to="navigationLink.url"
-          :class="{'navigation-menu-component__list__item--only-exact-active': navigationLink.isRoot}"
-        >{{navigationLink.name}}</nuxt-link>
+          :class="{
+            'navigation-menu-component__list__item--only-exact-active':
+              navigationLink.isRoot,
+          }"
+          >{{ navigationLink.name }}</nuxt-link
+        >
       </li>
       <li>
-        <button class="navigation-menu-component__list__cart-button">
+        <button
+          class="navigation-menu-component__list__cart-button snipcart-checkout"
+        >
           <va-icon name="cart" size="1.5rem" />
+          <span class="snipcart-items-count"></span>
+          <span class="snipcart-total-price"></span>
         </button>
       </li>
     </ul>
@@ -160,6 +168,12 @@ export default {
 
     &__cart-button {
       padding: 1rem;
+      display: flex;
+      align-items: center;
+
+      > * + * {
+        margin-left: 0.5rem;
+      }
     }
   }
 }
