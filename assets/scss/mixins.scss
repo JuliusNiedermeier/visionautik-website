@@ -68,4 +68,8 @@
   @if $color == 'white' {
     background: linear-gradient(90deg, $color--grey--light 0%, white 100%);
   }
+
+  @if $color == 'dark-transparent' {
+    background: linear-gradient(90deg, black 0%, transparent 100%);
+  }
 }
