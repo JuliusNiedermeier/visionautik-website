@@ -13,8 +13,15 @@
         <img :src="item.image.thumbnail.url" />
       </div>
     </div>
-    <div class="image-gallery-slice__modal" :class="{show: showModal}" @click="showModal = false">
-      <img :src="slice.items[imageIndex].image.url" v-if="imageIndex !== null" />
+    <div
+      class="image-gallery-slice__modal"
+      :class="{ show: showModal }"
+      @click="showModal = false"
+    >
+      <img
+        :src="slice.items[imageIndex].image.url"
+        v-if="imageIndex !== null"
+      />
     </div>
   </div>
 </template>
@@ -61,6 +68,7 @@ export default {
   &__gallery {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
 
     @include desktops {
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -89,13 +97,12 @@ export default {
         justify-content: center;
         align-items: center;
         opacity: 0;
-
-        transition: opacity $duration--fast ease;
       }
 
       img {
         width: 100%;
         object-fit: cover;
+        display: block;
       }
     }
   }
