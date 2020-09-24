@@ -2,10 +2,28 @@
   <div class="courses-section-component">
     <div class="courses-section-component__body">
       <div class="courses-section-component__body__head-section">
-        <h1 class="courses-section-component__body__head-section__heading">{{heading}}</h1>
+        <h2 class="courses-section-component__body__head-section__heading">
+          {{ heading }}
+        </h2>
         <button
           class="courses-section-component__body__head-section__button"
-        >{{$t('types.pages.index.allCourses')}}</button>
+          @click="
+            $router.push({
+              path: '/offers',
+              query: {
+                exclude: [
+                  'event',
+                  'product',
+                  'book',
+                  'merchandise',
+                  'download',
+                ],
+              },
+            })
+          "
+        >
+          {{ $t('types.pages.index.allCourses') }}
+        </button>
       </div>
       <div class="courses-section-component__body__carousel">
         <va-carousel gap>

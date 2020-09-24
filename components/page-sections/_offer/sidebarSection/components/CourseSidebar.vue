@@ -7,7 +7,10 @@
           <div class="course-sidebar-component__bottom__course-detailes">
             <div>
               <va-icon name="date-range" />
-              <small>{{offer.general__start_date}} - {{offer.general__closing_date}}</small>
+              <small
+                >{{ offer.general__start_date }} -
+                {{ offer.general__closing_date }}</small
+              >
             </div>
             <div>
               <va-icon name="location" />
@@ -16,25 +19,32 @@
                 target="_blank"
                 v-if="offer.general__venue_link"
               >
-                <small>{{offer.general__venue}}</small>
+                <small>{{ offer.general__venue }}</small>
               </a>
             </div>
             <div>
               <va-icon name="people" />
-              <small>Max. {{offer.general__maximum_attendance}} Teilnehmer</small>
+              <small
+                >Max. {{ offer.general__maximum_attendance }} Teilnehmer</small
+              >
             </div>
           </div>
           <div class="course-sidebar-component__bottom__pricing_tiers">
             <select @change="handlePricingTierSelected">
-              <option disabled selected value hidden>Select a pricing plan</option>
+              <option disabled selected value hidden
+                >Select a pricing plan</option
+              >
               <option
                 v-for="(tier, index) in offer.pricing_tiers__slices"
                 :key="index"
                 :selected="$route.query.plan === tier.primary.heading"
-              >{{tier.primary.heading}}</option>
+                >{{ tier.primary.heading }}</option
+              >
             </select>
           </div>
-          <div class="course-sidebar-component__bottom__price">{{currentPrice}} €</div>
+          <div class="course-sidebar-component__bottom__price">
+            {{ currentPrice }} €
+          </div>
           <va-add-to-cart-button
             v-if="!$fetchState.pending"
             :disabled="!$route.query.plan"
@@ -42,7 +52,9 @@
             :description="offer.general__excerpt"
             :image="offer.general__featured_image.thumbnail.url"
             basePrice="0"
-            :customFields="[{name: 'Pricing plan', options: pricingPlanOptions}]"
+            :customFields="[
+              { name: 'Pricing plan', options: pricingPlanOptions },
+            ]"
           />
         </div>
       </template>
@@ -150,7 +162,7 @@ export default {
 
   &__bottom {
     &__course-detailes {
-      margin: 4rem 0;
+      margin-bottom: 2rem;
 
       > div {
         display: flex;
@@ -167,12 +179,10 @@ export default {
     }
 
     &__pricing_tiers {
+      margin-bottom: 2rem;
+
       select {
         width: 100%;
-      }
-      &__tier {
-        padding: 1rem;
-        background-color: white;
       }
     }
 

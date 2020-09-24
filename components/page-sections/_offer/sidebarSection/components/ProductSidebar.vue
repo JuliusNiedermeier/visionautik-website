@@ -4,22 +4,30 @@
       <template slot="top"></template>
       <template slot="bottom">
         <div class="product-sidebar-component__bottom">
-          <div class="product-sidebar-component__bottom__product-options">
+          <div
+            class="product-sidebar-component__bottom__product-options"
+            v-if="offer.options__slices && offer.options__slices.length > 0"
+          >
             <select
               v-for="slice of offer.options__slices"
               :key="slice.primary.label"
               :data-product-option-label="slice.primary.label"
               @change="handleProductOptionSelected"
             >
-              <option disabled selected value hidden>{{slice.primary.label}}</option>
+              <option disabled selected value hidden>{{
+                slice.primary.label
+              }}</option>
               <option
                 v-for="option of slice.items"
                 :key="option.label"
                 :selected="$route.query[slice.primary.label] === option.label"
-              >{{option.label}}</option>
+                >{{ option.label }}</option
+              >
             </select>
           </div>
-          <div class="product-sidebar-component__bottom__price">{{currentPrice}} €</div>
+          <div class="product-sidebar-component__bottom__price">
+            {{ currentPrice }} €
+          </div>
           <va-add-to-cart-button
             v-if="!$fetchState.pending"
             :name="offer.general__heading"

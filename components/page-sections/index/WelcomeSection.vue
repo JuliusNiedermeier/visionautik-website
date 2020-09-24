@@ -12,23 +12,29 @@
         <source :src="videoUrl" type="video/mp4" v-if="videoUrl" />
       </video>
       <div class="welcome-section__hero-section__body">
-        <h1>{{heading}}</h1>
-        <h5>{{subHeading}}</h5>
+        <h1>{{ heading }}</h1>
+        <h4>{{ subHeading }}</h4>
       </div>
     </div>
     <div class="welcome-section__links-section">
       <div class="welcome-section__links-section__body">
-        <button
+        <a
           v-for="(targetGroupLink, index) in targetGroupLinks"
           :key="index"
-          @click="$router.push({path: '/offers', query: targetGroupLink.query})"
-          class="welcome-section__links-section__body__button"
+          @click="
+            $router.push({ path: '/offers', query: targetGroupLink.query })
+          "
+          class="welcome-section__links-section__body__link"
         >
-          <div class="welcome-section__links-section__body__button__content">
-            <h4>{{targetGroupLink.name}}</h4>
+          <div class="welcome-section__links-section__body__link__content">
+            <h4
+              class="welcome-section__links-section__body__link__content__text"
+            >
+              {{ targetGroupLink.name }}
+            </h4>
             <va-icon name="chevron-right" />
           </div>
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -111,6 +117,7 @@ export default {
       height: 130%;
       width: 100%;
       object-fit: cover;
+      filter: brightness(0.5);
     }
 
     &__body {
@@ -122,6 +129,11 @@ export default {
 
       h1 {
         margin-top: 0;
+      }
+
+      h4 {
+        color: $color--grey--dark;
+        font-weight: normal;
       }
     }
   }
@@ -140,9 +152,15 @@ export default {
         flex-direction: row;
       }
 
-      &__button {
+      &__link {
         text-align: left;
         flex: 1;
+        @include background-gradient('blue');
+        color: white;
+
+        &:hover {
+          @include background-gradient('red');
+        }
 
         @include desktops {
           transform: translateY(-50%);
@@ -164,7 +182,7 @@ export default {
 
           @include page-margin;
 
-          h4 {
+          &__text {
             margin: 0;
           }
 

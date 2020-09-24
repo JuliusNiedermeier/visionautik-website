@@ -1,7 +1,7 @@
 <template>
   <div class="featured-section-component">
     <div class="featured-section-component__body">
-      <h4 class="featured-section-component__body__heading">{{heading}}</h4>
+      <h3 class="featured-section-component__body__heading">{{heading}}</h3>
       <div class="featured-section-component__body__articles">
         <va-offer
           v-for="courseOfferListItem in offerListItems.filter(item => item.type === $api.types.repeatables.course)"

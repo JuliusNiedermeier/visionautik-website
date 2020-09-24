@@ -2,8 +2,8 @@
   <div class="our-vision-section">
     <div class="our-vision-section__body">
       <div class="our-vision-section__body__text">
-        <h1>{{heading}}</h1>
-        <p>{{text}}</p>
+        <h2 class="our-vision-section__body__text__heading">{{ heading }}</h2>
+        <p>{{ text }}</p>
         <button>Mehr erfahren</button>
       </div>
       <div class="our-vision-section__body__image">
@@ -63,7 +63,8 @@ export default {
 
     &__text {
       margin-right: 2rem;
-      h1 {
+
+      &__heading {
         margin-top: 0;
       }
     }

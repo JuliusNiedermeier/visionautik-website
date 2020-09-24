@@ -1,7 +1,7 @@
 <template>
   <div class="in-a-nutshell-section">
     <div class="in-a-nutshell-section__body">
-      <h1>{{heading}}</h1>
+      <h2>{{heading}}</h2>
       <va-video
         :src="videoUrl"
         :thumbnail="videoThumbnailUrl"
