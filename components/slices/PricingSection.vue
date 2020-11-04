@@ -6,11 +6,25 @@
       :key="index"
       :style="`border-top-color: ${pricingTier.primary.color}`"
     >
-      <img :src="pricingTier.primary.icon.url" v-if="pricingTier.primary.icon" />
-      <h3>{{pricingTier.primary.heading}}</h3>
-      <h2>{{$api.payment.getCurrentPriceFromPricingTier(pricingTier)}}€</h2>
+      <img
+        class="pricing-section-slice__pricing-tier__icon"
+        :src="pricingTier.primary.icon.url"
+        v-if="pricingTier.primary.icon"
+      />
+      <h4 class="pricing-section-slice__pricing-tier__heading">
+        {{ pricingTier.primary.heading }}
+      </h4>
+      <h3 class="pricing-section-slice__pricing-tier__price">
+        {{
+          $intlFormatter.currency(
+            $api.payment.getCurrentPriceFromPricingTier(pricingTier)
+          )
+        }}
+      </h3>
       <prismic-rich-text :field="pricingTier.primary.description" />
-      <button @click="handleSelect(pricingTier.primary.heading)">Diesen Plan auswählen</button>
+      <button @click="handleSelect(pricingTier.primary.heading)">
+        Diesen Plan auswählen
+      </button>
       <!-- <p>Nach dem 23. März 2020:</p> -->
     </div>
   </div>
@@ -24,11 +38,10 @@ export default {
 
   methods: {
     handleSelect(pricingTierName) {
-      this.$store.commit('courseSidebar/selectPricingTier', pricingTierName)
       this.$router.replace({ query: { plan: pricingTierName } })
-      this.$store.dispatch('notifications/show', {
-        message: 'Deine Auswahl wurde übernommen!',
-      })
+      // this.$store.commit('notifications/add', {
+      //   message: 'Deine Auswahl wurde übernommen!',
+      // })
     },
   },
 }
@@ -68,9 +81,21 @@ export default {
       }
     }
 
-    img {
+    &__icon {
       width: 15rem;
       align-self: center;
+      margin: 5rem 0;
+    }
+
+    &__heading {
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+
+    &__price {
+      margin: 0;
+      margin-bottom: 2rem;
+      font-weight: bold;
     }
 
     button {
