@@ -1,9 +1,12 @@
 <template>
   <div class="offer-page">
     <va-sidebar-layout>
-      <template slot="header"
-        ><va-offer-header :offerType="$api.types.repeatables.offer.typeName"
-      /></template>
+      <template slot="header-image">
+        <va-offer-header-image :type="$api.types.repeatables.offer.typeName" />
+      </template>
+      <template slot="header-body">
+        <va-offer-header-body :type="$api.types.repeatables.offer.typeName" />
+      </template>
       <template slot="main"
         ><va-slice-content
           :sliceZones="['content__slices', 'pricing_tiers__slices']"
@@ -21,19 +24,21 @@
 
 <script>
 import SidebarLayout from '@/layout/SidebarLayout/SidebarLayout'
-import OfferHeader from '@/components/page-sections/_offer/OfferHeader'
 import SliceContent from '@/components/elements/SliceContent'
 import SectionsOverview from '@/layout/SidebarLayout/components/SectionsOverview'
 import OfferDetails from '@/components/page-sections/offers/offer/OfferDetails'
 import OfferAddToCart from '@/components/page-sections/offers/offer/OfferAddToCart'
+import OfferHeaderBody from '@/components/page-sections/offers/OfferHeaderBody'
+import OfferHeaderImage from '@/components/page-sections/offers/OfferHeaderImage'
 export default {
   components: {
     'va-sidebar-layout': SidebarLayout,
-    'va-offer-header': OfferHeader,
     'va-slice-content': SliceContent,
     'va-sections-overview': SectionsOverview,
     'va-offer-details': OfferDetails,
     'va-offer-add-to-cart': OfferAddToCart,
+    'va-offer-header-body': OfferHeaderBody,
+    'va-offer-header-image': OfferHeaderImage,
   },
 }
 </script>
