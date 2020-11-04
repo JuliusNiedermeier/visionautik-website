@@ -113,7 +113,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: transparentize($color--grey--dark, $amount: 0.03);
+    background-color: transparentize($color--grey--dark, $amount: 0.1);
     z-index: 1;
     opacity: 0;
     transition: opacity $duration--fast ease;
