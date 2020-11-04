@@ -1,17 +1,17 @@
 <template>
-  <div class="offer-component">
-    <nuxt-link :to="url">
-      <img class="offer-component__image" :src="image" />
-      <div class="offer-component__info">
-        <h6 class="offer-component__info__title">{{title}}</h6>
-        <p class="offer-component__info__description">{{description}}</p>
-        <div class="offer-component__info__bottom">
-          <h6 v-if="price">{{price}}€</h6>
-          <va-tag :tag="tag" v-if="tag" />
-        </div>
+  <nuxt-link :to="url" class="offer-component">
+    <img class="offer-component__image" :src="image" />
+    <div class="offer-component__info">
+      <h6 class="offer-component__info__title">{{ title }}</h6>
+      <small class="offer-component__info__description">
+        {{ description }}
+      </small>
+      <div class="offer-component__info__bottom">
+        <h6 v-if="price">{{ price }}€</h6>
+        <va-tag :tag="tag" v-if="tag" />
       </div>
-    </nuxt-link>
-  </div>
+    </div>
+  </nuxt-link>
 </template>
 
 <script>
@@ -31,14 +31,17 @@ export default {
   computed: {
     url() {
       switch (this.type) {
-        case this.$api.types.repeatables.course:
-          return `/offers/course/${this.uid}`
+        case this.$api.types.repeatables.offer.typeName:
+          return `/offers/offer/${this.uid}`
           break
-        case this.$api.types.repeatables.event:
-          return `/offers/event/${this.uid}`
-          break
-        case this.$api.types.repeatables.product:
+        case this.$api.types.repeatables.product.typeName:
           return `/offers/product/${this.uid}`
+          break
+        case this.$api.types.repeatables.blogPost.typeName:
+          return `/blog/${this.uid}`
+          break
+        default:
+          return '/404'
           break
       }
     },
@@ -49,9 +52,14 @@ export default {
 <style lang="scss" scoped>
 .offer-component {
   min-width: 30rem;
-  max-width: 50rem;
+  // max-width: 50rem;
+  width: 30rem;
+  border-bottom: 1px solid $color--lilac--base;
 
-  a {
+  background: initial;
+  color: initial;
+
+  &:hover {
     background: initial;
     color: initial;
   }
@@ -62,11 +70,15 @@ export default {
   }
 
   &__info {
-    background-color: white;
-    padding: 2rem;
+    margin: 1rem 0;
 
     &__title {
       margin: 0;
+    }
+
+    &__description {
+      margin: 1rem 0;
+      display: block;
     }
 
     &__bottom {
