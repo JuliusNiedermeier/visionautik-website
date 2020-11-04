@@ -1,46 +1,22 @@
 <template>
   <div class="default-layout">
-    <va-header />
-    <!-- <Nuxt class="default-layout__page-content" keep-alive :keep-alive-props="{max: 5}" /> -->
-    <Nuxt class="default-layout__page-content" />
-    <va-notifications />
-    <va-footer />
-    <div
-      hidden
-      id="snipcart"
-      data-api-key="ZjIyODZjN2ItZTc2Yi00YTYwLWFkZTgtNmI1MzgwNGI0M2E5NjM3MzQ5ODk2MDgwNzk1MTA4"
-    ></div>
+    <va-header-footer-layout>
+      <!-- <Nuxt class="default-layout__page-content" keep-alive :keep-alive-props="{max: 5}" /> -->
+      <Nuxt class="default-layout__page-content" />
+    </va-header-footer-layout>
   </div>
 </template>
 
 <script>
-import Header from '@/components/layout-parts/header/Header'
-import Notifications from '@/components/layout-parts/Notifications'
-import Footer from '@/components/layout-parts/footer/Footer'
+import HeaderFooterLayout from '@/layout/HeaderFooterLayout'
 export default {
+  components: { 'va-header-footer-layout': HeaderFooterLayout },
+
   name: 'default-layout',
 
   // For better performance with i18n SEO
   head() {
     return this.$nuxtI18nSeo()
   },
-
-  components: {
-    'va-header': Header,
-    'va-notifications': Notifications,
-    'va-footer': Footer,
-  },
 }
 </script>
-
-<style lang="scss" scoped>
-.default-layout {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
-  &__page-content {
-    @include page-margin;
-  }
-}
-</style>
