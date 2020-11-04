@@ -1,5 +1,9 @@
 <template>
-  <div class="icon-component" v-html="html" :style="`height: ${size}; width: ${size};`" />
+  <div
+    class="icon-component"
+    v-html="html"
+    :style="`height: ${size}; width: ${size};`"
+  />
 </template>
 
 <script>
@@ -39,8 +43,10 @@ export default {
 
 <style lang="scss" scoped>
 .icon-component {
-  height: 1.25rem;
-  width: 1.25rem;
+  // height: 1.25rem;
+  // width: 1.25rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 </style>
 
