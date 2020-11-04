@@ -1,3 +1,5 @@
+import path from 'path'
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -24,18 +26,7 @@ export default {
         content: process.env.npm_package_description || '',
       },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'preconnect', href: 'https://app.snipcart.com' },
-      { rel: 'preconnect', href: 'https://cdn.snipcart.com' },
-      {
-        rel: 'stylesheet',
-        href: 'https://cdn.snipcart.com/themes/v3.0.16/default/snipcart.css',
-      },
-    ],
-    script: [
-      { src: 'https://cdn.snipcart.com/themes/v3.0.16/default/snipcart.js' },
-    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color
@@ -45,13 +36,25 @@ export default {
   router: {
     extendRoutes(routes, resolve) {
       // Configure type param before offer single page
-      routes = routes.map((route) => {
-        if (route.name === 'offers-offer') {
-          route.name = 'offers-type-offer'
-          route.path = '/offers/:type/:offer'
-        }
-        return route
-      })
+      // routes = routes.map((route) => {
+      //   console.log(route)
+      //   if (route.name === 'offers-offer') {
+      //     route.name = 'offers-type-offer'
+      //     route.path = '/offers/:type/:offer'
+      //   }
+      //   return route
+      // })
+    },
+
+    scrollBehavior(to) {
+      if (to.hash) {
+        return window.scrollTo({
+          top:
+            document.querySelector(to.hash).offsetTop - window.innerHeight / 4,
+          behavior: 'smooth',
+        })
+      }
+      return window.scrollTo({ top: 0, behavior: 'smooth' })
     },
   },
   /*
@@ -61,12 +64,17 @@ export default {
     '@/assets/scss/main.scss',
     '@/assets/scss/classes.scss',
     '@/assets/scss/fonts.scss',
+    '@/assets/scss/snipcart.scss',
   ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/nuxt-i18n-fetch', '@/plugins/api'],
+  plugins: [
+    '@/plugins/nuxt-i18n-fetch',
+    '@/plugins/api',
+    '@/plugins/intlFormatter',
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -75,7 +83,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [],
+  buildModules: ['@nuxtjs/snipcart'],
   /*
    ** Nuxt.js modules
    */
@@ -129,6 +137,20 @@ export default {
     vueI18n: {
       fallbackLocale: 'de',
     },
+  },
+
+  snipcart: {
+    // Options available
+    key:
+      'ZjIyODZjN2ItZTc2Yi00YTYwLWFkZTgtNmI1MzgwNGI0M2E5NjM3MzQ5ODk2MDgwNzk1MTA4',
+    addProductBehavior: true,
+    locales: {} /* not required */,
+    snipcartCustomize: path.join(__dirname, './snipcart/customize'),
+  },
+
+  build: {
+    // Watch changes in snipcart directory and rebuild the application
+    watch: ['snipcart'],
   },
 
   /*
