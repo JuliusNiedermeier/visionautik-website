@@ -1,10 +1,12 @@
+import { Base64 } from 'js-base64'
+
 export const state = () => ({
   stack: [],
 })
 
 export const mutations = {
   add(state, payload) {
-    if (!payload.id) throw new Error('Notification object must have an ID!')
+    if (!payload.id) payload.id = Base64.btoa(Date.now())
     const idExists = state.stack.find(
       (notification) => notification.id == payload.id
     )
@@ -15,14 +17,8 @@ export const mutations = {
     const index = state.stack.findIndex(
       (notification) => notification.id === id
     )
-    if (index >= 0) state.stack.splice(index, 1)
+    if (!(index < 0)) state.stack.splice(index, 1)
   },
 }
 
-export const actions = {
-  show({ commit }, payload) {
-    if (!payload.id) payload.id = Date.now()
-    commit('add', payload)
-    setTimeout(() => commit('remove', payload.id), 5000)
-  },
-}
+export const actions = {}
