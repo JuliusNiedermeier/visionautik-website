@@ -1,7 +1,10 @@
 <template>
-  <div class="in-a-nutshell-section">
+  <div
+    class="in-a-nutshell-section"
+    v-if="heading && videoUrl && videoThumbnailUrl && textColumns"
+  >
     <div class="in-a-nutshell-section__body">
-      <h2>{{heading}}</h2>
+      <h2>{{ heading }}</h2>
       <va-video
         :src="videoUrl"
         :thumbnail="videoThumbnailUrl"
@@ -10,7 +13,9 @@
         class="in-a-nutshell-section__body__video"
       />
       <div class="in-a-nutshell-section__body__columns">
-        <p v-for="(column, index) in textColumns" :key="index">{{column.in_a_nutshell__column_text}}</p>
+        <p v-for="(column, index) in textColumns" :key="index">
+          {{ column.in_a_nutshell__column_text }}
+        </p>
       </div>
     </div>
   </div>
@@ -30,7 +35,7 @@ export default {
   },
 
   async fetch() {
-    const type = this.$api.types.pages.index
+    const type = this.$api.types.pages.index.typeName
 
     const query = new this.$api.Query(
       [this.$prismic.predicates.at('document.type', type)],

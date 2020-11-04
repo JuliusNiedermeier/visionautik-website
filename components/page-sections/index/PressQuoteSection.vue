@@ -1,13 +1,19 @@
 <template>
-  <div class="press-quote-section">
-    <va-carousel class="press-quote-section__carousel" randomize autoplayInterval="5000" loop gap>
+  <div class="press-quote-section" v-if="pressQuotes.length > 0">
+    <va-carousel
+      class="press-quote-section__carousel"
+      randomize
+      autoplayInterval="5000"
+      loop
+      gap
+    >
       <div
         v-for="(pressQuote, index) in pressQuotes"
         :key="index"
         class="press-quote-section__carousel__quote"
       >
         <img :src="pressQuote.general__logo.url" />
-        <p>{{pressQuote.general__text}}</p>
+        <p>{{ pressQuote.general__text }}</p>
       </div>
     </va-carousel>
   </div>
@@ -28,7 +34,7 @@ export default {
     const query = new this.$api.Query([
       this.$prismic.predicates.at(
         'document.type',
-        this.$api.types.repeatables.pressQuote
+        this.$api.types.repeatables.pressQuote.typeName
       ),
     ])
 
@@ -47,17 +53,20 @@ export default {
 .press-quote-section {
   background-color: $color--grey--light;
   @include fill-screen-width;
-  overflow-x: hidden;
-  padding: 2rem 0;
+  padding-top: 2rem;
 
   &__carousel {
     @include page-margin;
 
     &__quote {
-      width: 50vw;
+      min-width: 100%;
       text-align: center;
       padding: 2rem;
       background-color: $color--grey--dark;
+
+      @include desktops {
+        min-width: 60%;
+      }
 
       img {
         width: 100%;

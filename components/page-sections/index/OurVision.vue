@@ -1,5 +1,5 @@
 <template>
-  <div class="our-vision-section">
+  <div class="our-vision-section" v-if="heading && text && image.url">
     <div class="our-vision-section__body">
       <div class="our-vision-section__body__text">
         <h2 class="our-vision-section__body__text__heading">{{ heading }}</h2>
@@ -24,7 +24,7 @@ export default {
   },
 
   async fetch() {
-    const type = this.$api.types.pages.index
+    const type = this.$api.types.pages.index.typeName
 
     const query = new this.$api.Query(
       [this.$prismic.predicates.at('document.type', type)],

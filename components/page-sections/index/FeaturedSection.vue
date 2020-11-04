@@ -1,36 +1,46 @@
 <template>
-  <div class="featured-section-component">
+  <div class="featured-section-component" v-if="offerListItems.length >= 3">
     <div class="featured-section-component__body">
-      <h3 class="featured-section-component__body__heading">{{heading}}</h3>
+      <h3 class="featured-section-component__body__heading">{{ heading }}</h3>
       <div class="featured-section-component__body__articles">
         <va-offer
-          v-for="courseOfferListItem in offerListItems.filter(item => item.type === $api.types.repeatables.course)"
+          v-for="courseOfferListItem in offerListItems.filter(
+            (item) =>
+              item.type === $api.types.repeatables.offer.typeName &&
+              item.general__category === 'course'
+          )"
           :key="courseOfferListItem.uid"
           :uid="courseOfferListItem.uid"
           :image="courseOfferListItem.general__featured_image.thumbnail.url"
           :title="courseOfferListItem.general__heading"
           :description="courseOfferListItem.general__excerpt"
-          :type="$api.types.repeatables.course"
+          :type="$api.types.repeatables.offer.typeName"
           :tag="$t('types.repeatables.course.tag')"
         />
         <va-offer
-          v-for="eventOfferListItem in offerListItems.filter(item => item.type === $api.types.repeatables.event)"
+          v-for="eventOfferListItem in offerListItems.filter(
+            (item) =>
+              item.type === $api.types.repeatables.offer.typeName &&
+              item.general__category === 'event'
+          )"
           :key="eventOfferListItem.uid"
           :uid="eventOfferListItem.uid"
           :image="eventOfferListItem.general__featured_image.thumbnail.url"
           :title="eventOfferListItem.general__heading"
           :description="eventOfferListItem.general__excerpt"
-          :type="$api.types.repeatables.event"
+          :type="$api.types.repeatables.offer.typeName"
           :tag="$t('types.repeatables.event.tag')"
         />
         <va-offer
-          v-for="blogPostOfferListItem in offerListItems.filter(item => item.type === $api.types.repeatables.blogPost)"
+          v-for="blogPostOfferListItem in offerListItems.filter(
+            (item) => item.type === $api.types.repeatables.blogPost.typeName
+          )"
           :key="blogPostOfferListItem.uid"
           :uid="blogPostOfferListItem.uid"
           :image="blogPostOfferListItem.general__featured_image.thumbnail.url"
           :title="blogPostOfferListItem.general__heading"
           :description="blogPostOfferListItem.general__excerpt"
-          :type="$api.types.repeatables.blogPost"
+          :type="$api.types.repeatables.blogPost.typeName"
           :tag="$t('types.repeatables.blogPost.tag')"
         />
       </div>
@@ -53,23 +63,16 @@ export default {
   methods: {
     getRequiredFieldsByType(types) {
       const typeNames = {
-        course: this.$api.types.repeatables.course,
-        event: this.$api.types.repeatables.event,
-        blogPost: this.$api.types.repeatables.blogPost,
+        offer: this.$api.types.repeatables.offer.typeName,
+        blogPost: this.$api.types.repeatables.blogPost.typeName,
       }
       let fields = []
-      if (types.includes(typeNames.course)) {
+      if (types.includes(typeNames.offer)) {
         fields.push(
-          typeNames.course + '.general__heading',
-          typeNames.course + '.general__featured_image',
-          typeNames.course + '.general__excerpt'
-        )
-      }
-      if (types.includes(typeNames.event)) {
-        fields.push(
-          typeNames.event + '.general__heading',
-          typeNames.event + '.general__featured_image',
-          typeNames.event + '.general__excerpt'
+          typeNames.offer + '.general__heading',
+          typeNames.offer + '.general__featured_image',
+          typeNames.offer + '.general__excerpt',
+          typeNames.offer + '.general__category'
         )
       }
       if (types.includes(typeNames.blogPost)) {
@@ -82,13 +85,33 @@ export default {
       return fields
     },
 
-    fetchOneByTypeHelper(documentType) {
+    fetchOfferByCategory(category) {
+      const typeName = this.$api.types.repeatables.offer.typeName
       const query = new this.$api.Query(
-        [this.$prismic.predicates.at('document.type', documentType)],
+        [
+          this.$prismic.predicates.at(
+            `my.${typeName}.general__category`,
+            category
+          ),
+        ],
         {
           orderings: '[document.first_publication_date desc]',
           pageSize: 1,
-          fetch: this.getRequiredFieldsByType([documentType]),
+          fetch: this.getRequiredFieldsByType([typeName]),
+        }
+      )
+
+      return query.get()
+    },
+
+    fetchBlogPost() {
+      const typeName = this.$api.types.repeatables.blogPost.typeName
+      const query = new this.$api.Query(
+        [this.$prismic.predicates.at('document.type', typeName)],
+        {
+          orderings: '[document.first_publication_date desc]',
+          pageSize: 1,
+          fetch: this.getRequiredFieldsByType([typeName]),
         }
       )
 
@@ -101,9 +124,8 @@ export default {
         idPredicates.push(this.$prismic.predicates.not('document.id', id))
       })
       const types = [
-        this.$api.types.repeatables.course,
-        this.$api.types.repeatables.event,
-        this.$api.types.repeatables.blogPost,
+        this.$api.types.repeatables.offer.typeName,
+        this.$api.types.repeatables.blogPost.typeName,
       ]
       const query = new this.$api.Query(
         [this.$prismic.predicates.any('document.type', types), ...idPredicates],
@@ -120,7 +142,7 @@ export default {
 
   async fetch() {
     //Fetch heading
-    const indexPageType = this.$api.types.pages.index
+    const indexPageType = this.$api.types.pages.index.typeName
 
     const headingQuery = new this.$api.Query(
       [this.$prismic.predicates.at('document.type', indexPageType)],
@@ -133,11 +155,9 @@ export default {
     this.heading = headingResponse.results[0].data.recommendations__heading
 
     // Fetch recommended offer items
-    let course = this.fetchOneByTypeHelper(this.$api.types.repeatables.course)
-    let event = this.fetchOneByTypeHelper(this.$api.types.repeatables.event)
-    let blog_post = this.fetchOneByTypeHelper(
-      this.$api.types.repeatables.blogPost
-    )
+    let course = this.fetchOfferByCategory('course')
+    let event = this.fetchOfferByCategory('event')
+    let blog_post = this.fetchBlogPost()
 
     let responses = await Promise.all([course, event, blog_post])
 
@@ -199,7 +219,7 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
-      align-items: center;
+      align-items: flex-start;
 
       > * + * {
         margin-top: 2rem;
