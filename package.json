@@ -14,22 +14,24 @@
     "test": "jest"
   },
   "dependencies": {
-    "@nuxtjs/prismic": "^1.2.3",
-    "js-base64": "^3.4.5",
-    "nuxt": "^2.14.3",
-    "nuxt-i18n": "^6.13.9"
+    "@nuxtjs/prismic": "^1.2.4",
+    "@nuxtjs/snipcart": "^1.1.0",
+    "js-base64": "^3.5.2",
+    "nuxt": "^2.14.7",
+    "nuxt-i18n": "^6.15.3"
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
-    "@vue/test-utils": "^1.0.4",
+    "@vue/test-utils": "^1.1.0",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^26.3.0",
-    "eslint-config-prettier": "^6.11.0",
+    "babel-jest": "^26.6.0",
+    "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.4.0",
+    "html-minifier": "^4.0.0",
+    "jest": "^26.6.0",
     "node-sass": "^4.14.1",
-    "prettier": "^2.0.5",
+    "prettier": "^2.1.2",
     "sass-loader": "^8.0.2",
-    "vue-jest": "^3.0.6"
+    "vue-jest": "^3.0.7"
   }
 }
