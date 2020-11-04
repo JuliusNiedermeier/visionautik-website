@@ -51,25 +51,29 @@
   margin-right: -50vw;
 }
 
-@mixin background-gradient($color: 'blue', $fallback-color: transparent) {
+@mixin background-gradient(
+  $degree: 90deg,
+  $color: 'blue',
+  $fallback-color: transparent
+) {
   background: $fallback-color;
   @if $color == 'blue' {
-    background: linear-gradient(90deg, $color--blue--base 0%, #001aa3 100%);
+    background: linear-gradient($degree, $color--blue--base 0%, #001aa3 100%);
   }
 
   @if $color == 'red' {
     background: linear-gradient(
-      90deg,
+      $degree,
       $color--red--base 0%,
       $color--red--light 100%
     );
   }
 
   @if $color == 'white' {
-    background: linear-gradient(90deg, $color--grey--light 0%, white 100%);
+    background: linear-gradient($degree, $color--grey--light 0%, white 100%);
   }
 
   @if $color == 'dark-transparent' {
-    background: linear-gradient(90deg, black 0%, transparent 100%);
+    background: linear-gradient($degree, black 0%, transparent 100%);
   }
 }

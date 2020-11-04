@@ -1,23 +1,24 @@
 // Global classes (error, success)
 @use './variables.scss';
 
+.invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 .invert-color:not(.prevent-invert-color) {
   color: $color--grey--light;
 
-  & + a,
-  a:not(.prevent-invert-color) {
+  & a:not(.prevent-invert-color) {
     color: $color--grey--light;
   }
 
-  & + blockquote,
-  blockquote:not(.prevent-invert-color) {
+  & blockquote:not(.prevent-invert-color) {
     &::before {
       color: $color--grey--light;
     }
   }
 
-  & + button,
-  button:not(.prevent-invert-color) {
+  & button:not(.prevent-invert-color) {
     background-color: $color--grey--dark;
     color: $color--blue--base;
 
@@ -31,8 +32,7 @@
     }
   }
 
-  & + input,
-  input:not(.prevent-invert-color) {
+  & input:not(.prevent-invert-color) {
     background-color: $color--blue--lighter;
     color: $color--grey--light;
 

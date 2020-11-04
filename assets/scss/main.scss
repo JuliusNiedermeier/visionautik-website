@@ -3,6 +3,15 @@
 
 // Global styles (font styles, font sizes, font colors)
 
+.page-enter-active,
+.page-leave-active {
+  transition: opacity $duration--fast;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
 :root {
   font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
   font-size: 10px;
@@ -76,7 +85,7 @@
 
     &:hover {
       color: white;
-      @include background-gradient('red');
+      @include background-gradient(90deg, 'red');
       transition: all $duration--fast ease;
     }
   }
@@ -145,6 +154,14 @@
     font-size: 1.3rem;
     font-weight: bold;
     text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    > * + * {
+      margin-left: 1rem;
+    }
 
     &:hover {
       cursor: pointer;
