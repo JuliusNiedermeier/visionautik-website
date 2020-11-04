@@ -17,6 +17,7 @@
     "firebase-functions": "^3.6.1",
     "nuxt-start": "^2.14.3",
     "@nuxtjs/prismic": "^1.2.3",
+    "@nuxtjs/snipcart": "^1.1.0",
     "js-base64": "^3.4.5",
     "nuxt-i18n": "^6.13.9"
   },
