@@ -1,35 +1,38 @@
 export default {
+  notifications: {
+    languageNotAvailable: 'Sorry, this page is not fully translated yet!',
+  },
   layout: {
     header: {
       navigationMenu: {
         start: 'Start',
-        offers: 'Angebote',
-        about: 'Über uns',
-        projects: 'Projekte',
+        offers: 'Offers',
+        about: 'About',
+        projects: 'Projects',
         blog: 'Blog',
       },
     },
     footer: {
       address: 'Visionautik e.V., Görlitzer Str. 65, 10997 Berlin',
-      contactButton: 'Kontakt',
-      termsOfUse: 'Nutzungsbedingungen',
-      privacyPolicy: 'Datenschutz',
-      legalNotice: 'Impressum',
+      contactButton: 'Contact',
+      termsOfUse: 'Terms Of Use',
+      privacyPolicy: 'Privacy Policy',
+      legalNotice: 'Legal notice',
       newsletterForm: {
         namePlaceholder: 'Name',
-        emailPlaceholder: 'Deine Email-Adresse',
-        gdprConsentLabel: 'Ich bin mit dem Datenschutz einverstanden.',
-        submitButtonLabel: 'Newsletter abonieren',
+        emailPlaceholder: 'Your email address',
+        gdprConsentLabel: 'I agree with your privacy policy',
+        submitButtonLabel: 'Subscribe to our newsletter',
       },
     },
   },
   types: {
     pages: {
       index: {
-        forChangemakers: 'Für Changemaker',
-        forBusiness: 'Für Unternehemen',
-        forFacilitators: 'Für Prozessbegleiter',
-        allCourses: 'Alle Kurse',
+        forChangemakers: 'For changemaker',
+        forBusiness: 'For business',
+        forFacilitators: 'For facilitaors',
+        allCourses: 'All courses',
       },
       about: {},
       history: {},
@@ -37,28 +40,28 @@ export default {
     collections: {
       offers: {
         categories: {
-          course: 'Kurse',
+          course: 'Courses',
           event: 'Events',
-          book: 'Bücher',
-          merchandise: 'Merch',
+          book: 'Books',
+          merchandise: 'Merchandise',
           download: 'Downloads',
         },
-        searchBarPlaceholder: 'Nach Angeboten suchen...',
+        searchBarPlaceholder: 'Search...',
         targetGroups: {
-          all: 'Alle',
-          changemakers: 'Für Changemaker',
-          business: 'Für Unternehmen',
-          facilitators: 'Für Prozessbegleiter',
+          all: 'All',
+          changemakers: 'For changemaker',
+          business: 'For business',
+          facilitators: 'For facilitaors',
         },
         tags: {
-          book: 'Buch',
-          merchandise: 'Merch',
+          book: 'Book',
+          merchandise: 'Merchandise',
           download: 'Download',
         },
         resultSections: {
-          courses: 'Kurse',
+          courses: 'Courses',
           events: 'Events',
-          products: 'Produkte',
+          products: 'Products',
         },
       },
       blog: {},
@@ -75,23 +78,23 @@ export default {
     },
     repeatables: {
       course: {
-        tag: 'Kurs',
+        tag: 'Course',
       },
       event: {
         tag: 'Event',
       },
       product: {
         tags: {
-          book: 'Buch',
-          merchandise: 'Merch',
+          book: 'Book',
+          merchandise: 'Merchandise',
           download: 'Download',
         },
       },
       blogPost: {
-        tag: 'Blogbeitrag',
+        tag: 'Post',
       },
       teamMember: {
-        readMore: 'Zum Profil',
+        readMore: 'Visit profile',
       },
     },
   },

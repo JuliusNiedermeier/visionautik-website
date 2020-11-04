@@ -1,4 +1,8 @@
 export default {
+  notifications: {
+    languageNotAvailable:
+      'Die Übersetzung für diese Seite ist leider noch nicht vollständig!',
+  },
   layout: {
     header: {
       navigationMenu: {
