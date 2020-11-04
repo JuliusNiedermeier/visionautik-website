@@ -12,13 +12,13 @@
         >
       </li>
       <li>
-        <button
-          class="navigation-menu-component__list__cart-button snipcart-checkout"
-        >
-          <va-icon name="cart" size="1.5rem" />
-          <span class="snipcart-items-count"></span>
-          <span class="snipcart-total-price"></span>
-        </button>
+        <router-link to="cart">
+          <button class="navigation-menu-component__list__cart-button">
+            <va-icon name="cart" size="1.5rem" />
+            <span class="snipcart-items-count"></span>
+            <!-- <span class="snipcart-total-price"></span> -->
+          </button>
+        </router-link>
       </li>
     </ul>
   </nav>
@@ -51,18 +51,18 @@ export default {
           name: this.$t('layout.header.navigationMenu.offers'),
           url: '/offers',
         },
-        {
-          name: this.$t('layout.header.navigationMenu.about'),
-          url: '/about',
-        },
-        {
-          name: this.$t('layout.header.navigationMenu.projects'),
-          url: '/projects',
-        },
-        {
-          name: this.$t('layout.header.navigationMenu.blog'),
-          url: '/blog',
-        },
+        // {
+        //   name: this.$t('layout.header.navigationMenu.about'),
+        //   url: '/about',
+        // },
+        // {
+        //   name: this.$t('layout.header.navigationMenu.projects'),
+        //   url: '/projects',
+        // },
+        // {
+        //   name: this.$t('layout.header.navigationMenu.blog'),
+        //   url: '/blog',
+        // },
       ]
     },
   },
