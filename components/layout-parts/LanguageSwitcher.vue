@@ -5,9 +5,14 @@
       :key="locale.code"
       @click="$i18n.setLocale(locale.code)"
       class="language-switcher-component__language-button"
-      :class="{'language-switcher-component__language-button--current': locale.code == $i18n.locale}"
+      :class="{
+        'language-switcher-component__language-button--current':
+          locale.code == $i18n.locale,
+      }"
       :disabled="locale.code == $i18n.locale"
-    >{{ locale.name }}</button>
+    >
+      {{ locale.name }}
+    </button>
   </div>
 </template>
 
@@ -17,5 +22,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.language-switcher-component {
+  display: flex;
+  flex-direction: row;
+}
 </style>
