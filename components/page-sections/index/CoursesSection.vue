@@ -26,7 +26,7 @@
         </button>
       </div>
       <div class="courses-section-component__body__carousel">
-        <va-carousel gap>
+        <va-carousel gap displayPlaceholder>
           <va-offer
             v-for="(course, index) in courses"
             :key="index"
@@ -34,8 +34,18 @@
             :image="course.general__featured_image.thumbnail.url"
             :title="course.general__heading"
             :description="course.general__excerpt"
-            :type="$api.types.repeatables.course"
+            :type="$api.types.repeatables.offer.typeName"
           />
+          <template slot="placeholder">
+            <va-carousel-placeholder-content
+              heading="Kein passender Kurs
+            dabei?"
+              body="Wir benachrichtigen dich gerne sobald neue Kurse
+            verfügbar sind!"
+              buttonLabel="Benachrichtigen"
+              buttonIconName="addNotification"
+            />
+          </template>
         </va-carousel>
       </div>
     </div>
@@ -45,11 +55,15 @@
 <script>
 import Carousel from '@/components/elements/Carousel'
 import Offer from '@/components/elements/Offer'
+import Icon from '@/components/elements/Icon'
+import CarouselPlaceholderContent from '@/components/elements/CarouselPlaceholderContent'
 export default {
   name: 'courses-section',
   components: {
     'va-offer': Offer,
     'va-carousel': Carousel,
+    'va-icon': Icon,
+    'va-carousel-placeholder-content': CarouselPlaceholderContent,
   },
 
   data() {
@@ -61,7 +75,7 @@ export default {
 
   async fetch() {
     // Fetch heading
-    const indexPageType = this.$api.types.pages.index
+    const indexPageType = this.$api.types.pages.index.typeName
 
     const headingQuery = new this.$api.Query(
       [this.$prismic.predicates.at('document.type', indexPageType)],
@@ -78,16 +92,21 @@ export default {
     this.heading = headingData.courses__heading
 
     // Fetch courses
-    const courseRepeatableType = this.$api.types.repeatables.course
+    const offerRepeatableType = this.$api.types.repeatables.offer.typeName
 
     const coursesQuery = new this.$api.Query(
-      [this.$prismic.predicates.at('document.type', courseRepeatableType)],
+      [
+        this.$prismic.predicates.at(
+          `my.${offerRepeatableType}.general__category`,
+          'course'
+        ),
+      ],
       {
         pageSize: 6,
         fetch: [
-          courseRepeatableType + '.general__heading',
-          courseRepeatableType + '.general__featured_image',
-          courseRepeatableType + '.general__excerpt',
+          offerRepeatableType + '.general__heading',
+          offerRepeatableType + '.general__featured_image',
+          offerRepeatableType + '.general__excerpt',
         ],
       }
     )
@@ -130,6 +149,15 @@ export default {
     &__carousel {
       li + li {
         margin-left: 2rem;
+      }
+
+      &__placeholder {
+        margin: 0 2rem;
+
+        small {
+          display: block;
+          margin: 1rem 0;
+        }
       }
     }
   }
