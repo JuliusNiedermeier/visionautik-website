@@ -3,18 +3,18 @@
     <div class="global-footer__body">
       <div class="global-footer__body__contact-area">
         <h3>Visionautik Akademie</h3>
-        <p>{{$t('layout.footer.address')}}</p>
-        <button>{{$t('layout.footer.contactButton')}}</button>
+        <p>{{ $t('layout.footer.address') }}</p>
+        <button>{{ $t('layout.footer.contactButton') }}</button>
       </div>
       <div class="global-footer__body__link-area">
         <nuxt-link to="/terms-of-use">
-          <small>{{$t('layout.footer.termsOfUse')}}</small>
+          <small>{{ $t('layout.footer.termsOfUse') }}</small>
         </nuxt-link>
         <nuxt-link to="/privacy">
-          <small>{{$t('layout.footer.privacyPolicy')}}</small>
+          <small>{{ $t('layout.footer.privacyPolicy') }}</small>
         </nuxt-link>
         <nuxt-link to="/legal-notice">
-          <small>{{$t('layout.footer.legalNotice')}}</small>
+          <small>{{ $t('layout.footer.legalNotice') }}</small>
         </nuxt-link>
       </div>
       <va-newsletter-form class="global-footer__body__newsletter-area" />
@@ -22,7 +22,9 @@
     <div class="global-footer__legal-bar">
       <div class="global-footer__legal-bar__body">
         <small>&copy; 2020 Visionautik e.V.</small>
-        <va-language-switcher class="global-footer__legal-bar__body__language-switcher" />
+        <va-language-switcher
+          class="global-footer__legal-bar__body__language-switcher"
+        />
       </div>
     </div>
   </footer>
