@@ -1,40 +1,36 @@
 <template>
-  <div class="welcome-section">
-    <div class="welcome-section__hero-section">
+  <div class="welcome-section" v-if="videoUrl && heading && subHeading">
+    <div class="welcome-section">
       <video
         ref="welcomeSectionVideo"
         autoplay
         loop
         muted
         palysinline
-        class="welcome-section__hero-section__video-background"
+        class="welcome-section__video-background"
       >
         <source :src="videoUrl" type="video/mp4" v-if="videoUrl" />
       </video>
-      <div class="welcome-section__hero-section__body">
+      <div class="welcome-section__overlay">
         <h1>{{ heading }}</h1>
         <h4>{{ subHeading }}</h4>
-      </div>
-    </div>
-    <div class="welcome-section__links-section">
-      <div class="welcome-section__links-section__body">
-        <a
-          v-for="(targetGroupLink, index) in targetGroupLinks"
-          :key="index"
-          @click="
-            $router.push({ path: '/offers', query: targetGroupLink.query })
-          "
-          class="welcome-section__links-section__body__link"
-        >
-          <div class="welcome-section__links-section__body__link__content">
-            <h4
-              class="welcome-section__links-section__body__link__content__text"
+        <div class="welcome-section__overlay__links">
+          <div class="welcome-section__overlay__links__body">
+            <a
+              v-for="(targetGroupLink, index) in targetGroupLinks"
+              :key="index"
+              @click="
+                $router.push({ path: '/offers', query: targetGroupLink.query })
+              "
+              class="welcome-section__overlay__links__body__link"
             >
-              {{ targetGroupLink.name }}
-            </h4>
-            <va-icon name="chevron-right" />
+              <h4 class="welcome-section__overlay__links__body__link__text">
+                {{ targetGroupLink.name }}
+              </h4>
+              <va-icon name="chevron-right" />
+            </a>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -77,7 +73,7 @@ export default {
   },
 
   async fetch() {
-    const type = this.$api.types.pages.index
+    const type = this.$api.types.pages.index.typeName
     const query = new this.$api.Query(
       [this.$prismic.predicates.at('document.type', type)],
       {
@@ -103,96 +99,91 @@ export default {
 
 <style lang="scss" scoped>
 .welcome-section {
-  &__hero-section {
-    min-height: 82vh;
-    @include fill-screen-width;
+  min-height: 70vh;
+  @include fill-screen-width;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    &__video-background {
-      position: absolute;
-      z-index: -2;
-      height: 130%;
-      width: 100%;
-      object-fit: cover;
-      filter: brightness(0.5);
-    }
-
-    &__body {
-      @include page-margin;
-
-      color: white;
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-
-      h1 {
-        margin-top: 0;
-      }
-
-      h4 {
-        color: $color--grey--dark;
-        font-weight: normal;
-      }
-    }
+  &__video-background {
+    position: absolute;
+    z-index: -2;
+    height: 130%;
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
   }
 
-  &__links-section {
-    @include fill-screen-width;
-    background-color: $color--grey--light;
+  &__overlay {
+    @include page-margin;
 
-    &__body {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
+    color: white;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 
-      @include desktops {
+    h1 {
+      margin-top: 0;
+    }
+
+    h4 {
+      color: $color--grey--dark;
+      font-weight: normal;
+    }
+
+    &__links {
+      position: absolute;
+      left: 0;
+      bottom: 2rem;
+      width: 100%;
+
+      &__body {
         @include page-margin;
-        flex-direction: row;
-      }
-
-      &__link {
-        text-align: left;
-        flex: 1;
-        @include background-gradient('blue');
-        color: white;
-
-        &:hover {
-          @include background-gradient('red');
-        }
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
 
         @include desktops {
-          transform: translateY(-50%);
+          flex-direction: row;
         }
 
-        &:nth-child(2) {
-          @include desktops {
-            margin-left: 2rem;
-            margin-right: 2rem;
-          }
-        }
-
-        &__content {
+        &__link {
+          text-align: left;
+          flex: 1;
+          color: white;
           display: flex;
           flex-direction: row;
+          margin-top: 2rem;
           justify-content: space-between;
-          align-items: center;
-          padding: 2.5rem 0;
 
-          @include page-margin;
+          @include desktops {
+            @include background-gradient(90deg, 'blue');
+            justify-content: space-between;
+            padding: 2rem;
+          }
 
           &__text {
             margin: 0;
-          }
+            margin-right: 2rem;
 
-          @include desktops {
-            padding: 2rem;
-            @include reset-page-margin;
+            @include desktops {
+              margin: 0;
+            }
           }
 
           @include large-desktops {
             padding: 2.5rem;
+          }
+
+          &:hover {
+            @include background-gradient(90deg, 'red');
+          }
+
+          &:nth-child(2) {
+            @include desktops {
+              margin-left: 2rem;
+              margin-right: 2rem;
+            }
           }
         }
       }
