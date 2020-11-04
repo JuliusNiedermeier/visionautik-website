@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import FilterSection from '@/components/page-sections/offers/FilterSection'
-import ResultsSection from '@/components/page-sections/offers/ResultsSection'
+import FilterSection from '@/components/page-sections/offers/index/FilterSection'
+import ResultsSection from '@/components/page-sections/offers/index/ResultsSection'
 export default {
   name: 'home-page',
   components: {

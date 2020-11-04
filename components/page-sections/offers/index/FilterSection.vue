@@ -6,9 +6,9 @@
         :key="category"
         @click="toggleOfferCategory(category)"
         class="filter-section__offer-category-filter__button"
-        :class="{checked: offerCategoryChecked}"
+        :class="{ checked: offerCategoryChecked }"
       >
-        {{$t(`types.collections.offers.categories.${category}`)}}
+        {{ $t(`types.collections.offers.categories.${category}`) }}
         <va-icon :name="offerCategoryChecked ? 'check' : 'add'" />
       </button>
     </div>
@@ -29,18 +29,43 @@
           :key="index"
           @click="targetGroups.activeIndex = index"
           class="filter-section__target-groups__filter__target-group"
-          :class="{active: index === targetGroups.activeIndex}"
-        >{{$t(`types.collections.offers.targetGroups.${targetGroup}`)}}</p>
+          :class="{ active: index === targetGroups.activeIndex }"
+        >
+          {{ $t(`types.collections.offers.targetGroups.${targetGroup.label}`) }}
+        </p>
       </div>
+      <button
+        v-if="targetGroups.activeIndex > 0"
+        @click="
+          targetGroups.infoContentExpanded = !targetGroups.infoContentExpanded
+        "
+        class="filter-section__target-groups__info-button"
+      >
+        <span>Info</span
+        ><va-icon
+          :name="
+            targetGroups.infoContentExpanded ? 'chevron-up' : 'chevron-down'
+          "
+          size="2rem"
+        />
+      </button>
+    </div>
+    <div class="filter-section__target-group-info">
+      <va-slice-content
+        v-if="targetGroups.activeIndex > 0 && targetGroups.infoContentExpanded"
+        :documentType="$api.types.collections.offers.typeName"
+        :sliceZones="[targetGroups.items[targetGroups.activeIndex].sliceZone]"
+        :key="targetGroups.activeIndex"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import SliceContent from '@/components/elements/SliceContent'
 import Icon from '@/components/elements/Icon'
-import { getOfferCategories } from './offerCategories'
 export default {
-  components: { 'va-icon': Icon },
+  components: { 'va-slice-content': SliceContent, 'va-icon': Icon },
   data() {
     return {
       offerCategories: {},
@@ -49,14 +74,37 @@ export default {
       searchStringInputTimeoutId: null,
 
       targetGroups: {
-        items: ['all', 'changemakers', 'business', 'facilitators'],
+        items: [
+          { label: 'all' },
+          {
+            label: 'changemakers',
+            infoContentSlices: [],
+            sliceZone: 'for_changemakers__slices',
+          },
+          {
+            label: 'business',
+            infoContentSlices: [],
+            sliceZone: 'for_business__slices',
+          },
+          {
+            label: 'facilitators',
+            infoContentSlices: [],
+            sliceZone: 'for_facilitators__slices',
+          },
+        ],
         activeIndex: 0,
+        infoContentExpanded: false,
       },
     }
   },
 
   created() {
-    for (const offerCategorie in getOfferCategories()) {
+    const offerCategories = [
+      ...this.$api.types.repeatables.offer.categories,
+      ...this.$api.types.repeatables.product.categories,
+    ]
+
+    for (const offerCategorie of offerCategories) {
       this.offerCategories[offerCategorie] = true
     }
 
@@ -72,7 +120,7 @@ export default {
 
     if (query.targetGroup) {
       this.targetGroups.activeIndex = this.targetGroups.items.findIndex(
-        (targetGroup) => targetGroup === query.targetGroup
+        (targetGroup) => targetGroup.label === query.targetGroup
       )
     }
   },
@@ -81,6 +129,17 @@ export default {
     toggleOfferCategory(category) {
       this.offerCategories[category] = !this.offerCategories[category]
       this.offerCategories = { ...this.offerCategories }
+    },
+  },
+
+  computed: {
+    fetchTargetGroupInfoContent() {
+      if (
+        this.targetGroups.infoContentExpanded &&
+        this.targetGroups.activeIndex > 0
+      ) {
+        return this.targetGroups.activeIndex
+      }
     },
   },
 
@@ -113,9 +172,32 @@ export default {
 
     'targetGroups.activeIndex'(activeIndex) {
       const targetGroup = this.targetGroups.items[activeIndex]
-      let query = { ...this.$route.query, targetGroup }
-      if (targetGroup === 'all') delete query.targetGroup
+      let query = { ...this.$route.query, targetGroup: targetGroup.label }
+      if (targetGroup.label === 'all') delete query.targetGroup
       this.$router.replace({ query })
+    },
+
+    async fetchTargetGroupInfoContent(fetchIndex) {
+      if (fetchIndex) {
+        const type = this.$api.types.collections.offers.typeName
+        const query = new this.$api.Query(
+          [this.$prismic.predicates.at('document.type', type)],
+          {
+            fetch: [`${type}.${this.targetGroups.items[fetchIndex].sliceZone}`],
+          }
+        )
+
+        const apiResponse = await query.get()
+
+        if (!apiResponse) return
+
+        this.targetGroups.items[
+          this.targetGroups.activeIndex
+        ].infoContentSlices =
+          apiResponse.results[0].data[
+            this.targetGroups.items[this.targetGroups.activeIndex].sliceZone
+          ]
+      }
     },
   },
 }
@@ -159,6 +241,7 @@ export default {
     & input {
       flex: 1;
       padding: 1.5rem;
+      border: 1px solid $color--lilac--base;
     }
 
     &__search-icon {
@@ -183,6 +266,16 @@ export default {
   }
 
   &__target-groups {
+    display: flex;
+    flex-direction: column;
+    align-items: strech;
+
+    @include desktops {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     &__filter {
       display: flex;
       overflow-x: auto;
@@ -199,6 +292,17 @@ export default {
         &:not(.active) {
           opacity: 0.25;
         }
+      }
+    }
+
+    &__info-button {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      > * + * {
+        margin-left: 1rem;
       }
     }
   }
