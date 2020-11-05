@@ -1,6 +1,6 @@
 <template>
   <header class="header-component">
-    <va-airmail-stripe @click.native="expandMegamenu = !expandMegamenu" />
+    <va-airmail-stripe />
     <va-notification-list />
     <div class="header-component__navigation">
       <nuxt-link to="/">
@@ -8,27 +8,33 @@
       </nuxt-link>
       <va-navigation-menu
         class="header-component__navigation__menu"
-        :toggleState="toggleState"
+        :toggleState="navigationMenuToggleState"
+        @update:megaMenuComponent="setMegaMenuComponent"
+        @update:megaMenuToggleState="setMegaMenuToggleState"
       />
       <va-navigation-menu-toggle
         class="header-component__navigation__menu-toggle"
         :toggleState="toggleState"
-        @click.native="toggle"
+        @click.native="setNewToggleState"
       />
     </div>
-    <va-mega-menu class="header-component__mega-menu" :expand="expandMegamenu">
-      <h1>Mega menu</h1>
+    <va-mega-menu
+      class="header-component__mega-menu"
+      :expand="megaMenuToggleState"
+      @update:megaMenuToggleState="setMegaMenuToggleState"
+    >
+      <component :is="megaMenuComponent" />
     </va-mega-menu>
   </header>
 </template>
 
 <script>
 import AirmailStripe from './components/AirmailStripe'
-import NotificationList from '@/components/layout-parts/header/Notifications/NotificationList'
+import NotificationList from '@/components/layout-parts/header/components/notificationList/NotificationList'
 import Logo from './components/Logo'
 import NavigationMenu from './components/NavigationMenu'
 import NavigationMenuToggle from './components/NavigationMenuToggle'
-import MegaMenu from './megaMenu/MegaMenu'
+import MegaMenu from './components/megaMenu/MegaMenu'
 export default {
   name: 'va-header',
   components: {
@@ -42,18 +48,44 @@ export default {
   data() {
     return {
       toggleState: 'collapsed',
-      expandMegamenu: false,
+      navigationMenuToggleState: false,
+      megaMenuToggleState: false,
+      megaMenuComponent: null,
     }
   },
   methods: {
-    toggle() {
-      if (this.toggleState == 'collapsed') this.toggleState = 'expanded'
-      else this.toggleState = 'collapsed'
+    setMegaMenuComponent(component) {
+      this.megaMenuComponent = component
+    },
+
+    setMegaMenuToggleState(state) {
+      this.megaMenuToggleState = state
+    },
+
+    setNewToggleState() {
+      if (this.toggleState === 'collapsed') {
+        this.toggleState = 'expanded'
+        this.navigationMenuToggleState = true
+      } else if (this.toggleState === 'expanded--mega-menu') {
+        this.toggleState = 'expanded'
+        this.navigationMenuToggleState = true
+        this.megaMenuToggleState = false
+      } else {
+        this.toggleState = 'collapsed'
+        this.navigationMenuToggleState = false
+      }
     },
   },
+
   watch: {
     '$route.path'() {
       this.toggleState = 'collapsed'
+    },
+
+    megaMenuToggleState(megaMenuToggleState) {
+      if (megaMenuToggleState === true) this.toggleState = 'expanded--mega-menu'
+      else if (this.navigationMenuToggleState) this.toggleState = 'expanded'
+      else if (megaMenuToggleState === false) this.toggleState = 'collapsed'
     },
   },
 }
@@ -86,10 +118,18 @@ export default {
   }
 
   &__mega-menu {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 0;
     right: 0;
+    bottom: 0;
     left: 0;
+
+    @include desktops {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+    }
   }
 }
 </style>

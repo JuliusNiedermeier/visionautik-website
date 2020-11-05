@@ -16,7 +16,7 @@ export default {
       type: String,
       required: true,
       validator(prop) {
-        return /^collapsed$|^expanded$/.test(prop)
+        return /^collapsed$|^expanded$|^expanded--mega-menu$/.test(prop)
       },
     },
   },
@@ -36,8 +36,11 @@ export default {
   div {
     height: 1px;
     width: 100%;
+    transform-origin: right;
     background-color: $color--blue--base;
-    transition: width $duration--fast ease;
+    transition-timing-function: ease;
+    transition-property: width transform;
+    transition-duration: $duration--fast;
   }
 
   &.expanded {
@@ -47,6 +50,22 @@ export default {
 
     :nth-child(2) {
       width: 66%;
+    }
+  }
+
+  &.expanded--mega-menu {
+    :nth-child(1) {
+      transform: rotate(-45deg);
+      width: 90%;
+    }
+
+    :nth-child(2) {
+      width: 0;
+    }
+
+    :nth-child(3) {
+      transform: rotate(45deg);
+      width: 90%;
     }
   }
 }
