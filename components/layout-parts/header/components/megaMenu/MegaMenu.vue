@@ -47,6 +47,8 @@ export default {
 
   &__body {
     @include page-margin;
+
+    border-top: 1px solid $color--lilac--base;
   }
 
   &.expanded {
