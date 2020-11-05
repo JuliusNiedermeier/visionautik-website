@@ -22,7 +22,7 @@ export default {
 <style lang="scss" scoped>
 ::-webkit-scrollbar {
   height: 0.25rem;
-  display: none;
+  // display: none;
 }
 
 ::-webkit-scrollbar-track {
