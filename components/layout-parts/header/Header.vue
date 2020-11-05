@@ -1,7 +1,7 @@
 <template>
   <header class="header-component">
     <va-airmail-stripe @click.native="expandMegamenu = !expandMegamenu" />
-    <va-notifications />
+    <va-notification-list />
     <div class="header-component__navigation">
       <nuxt-link to="/">
         <va-logo />
@@ -24,7 +24,7 @@
 
 <script>
 import AirmailStripe from './components/AirmailStripe'
-import Notifications from '@/components/layout-parts/header/Notifications'
+import NotificationList from '@/components/layout-parts/header/Notifications/NotificationList'
 import Logo from './components/Logo'
 import NavigationMenu from './components/NavigationMenu'
 import NavigationMenuToggle from './components/NavigationMenuToggle'
@@ -33,7 +33,7 @@ export default {
   name: 'va-header',
   components: {
     'va-airmail-stripe': AirmailStripe,
-    'va-notifications': Notifications,
+    'va-notification-list': NotificationList,
     'va-logo': Logo,
     'va-navigation-menu': NavigationMenu,
     'va-navigation-menu-toggle': NavigationMenuToggle,
