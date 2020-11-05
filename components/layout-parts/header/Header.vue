@@ -80,6 +80,8 @@ export default {
   watch: {
     '$route.path'() {
       this.toggleState = 'collapsed'
+      this.navigationMenuToggleState = false
+      this.megaMenuToggleState = false
     },
 
     megaMenuToggleState(megaMenuToggleState) {
