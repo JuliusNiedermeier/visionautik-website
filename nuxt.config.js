@@ -151,6 +151,11 @@ export default {
   build: {
     // Watch changes in snipcart directory and rebuild the application
     watch: ['snipcart'],
+
+    postcss: {
+      // configure autoprefixer
+      autoprefixer: {},
+    },
   },
 
   /*
