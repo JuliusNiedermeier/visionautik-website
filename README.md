@@ -4,9 +4,9 @@ This repository contains the official website of the Visionautik Akademie.
 
 ## Built With
 
-- [Nuxt.js](https://nuxtjs.org/) - The web framework used
-- [Node.js](https://nodejs.org/) - JavaScript runtime for the server
-- [Firebase](https://firebase.google.com/) - Cloud hosting
+- [Nuxt.js](https://nuxtjs.org/)
+- [Node.js](https://nodejs.org/)
+- [Google Cloud Platform](https://cloud.google.com/gcp)
 
 ## Getting Started
 
