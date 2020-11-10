@@ -72,18 +72,12 @@ export default {
 
   methods: {
     handleLinkClick(navigationLink) {
-      let megaMenuComponent, megaMenuToggleState
-
       if (!navigationLink.megaMenuComponent) {
-        megaMenuComponent = null
-        megaMenuToggleState = false
+        this.emitMegaMenuToggleStateUpdate(false)
       } else {
-        megaMenuComponent = navigationLink.megaMenuComponent
-        megaMenuToggleState = true
+        this.emitMegaMenuComponentUpdate(navigationLink.megaMenuComponent)
+        this.emitMegaMenuToggleStateUpdate(true)
       }
-
-      this.emitMegaMenuComponentUpdate(megaMenuComponent)
-      this.emitMegaMenuToggleStateUpdate(megaMenuToggleState)
     },
 
     emitMegaMenuComponentUpdate(megaMenuComponent) {

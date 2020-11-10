@@ -26,39 +26,45 @@ export default {
   mounted() {
     this.$el.addEventListener('mouseleave', this.emitMegaMenuToggleStateUpdate)
   },
+
+  watch: {
+    expand(expand) {
+      if (expand) this.$store.commit('modalBackdrop/activate')
+      else this.$store.commit('modalBackdrop/deactivate')
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .mega-menu-component {
-  background-color: inherit;
-  background-color: white;
+  background-color: $color--grey--light;
   overflow: hidden;
-  transition-property: height, clip-path;
-  transition-duration: $duration--fast;
-  transition-timing-function: ease;
+  padding-top: 8rem;
 
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  transition: clip-path $duration--fast ease;
 
   @include desktops {
-    clip-path: unset !important;
-    height: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    padding-top: unset;
+    // border-top: 1px solid $color--lilac--base;
   }
 
   &__body {
     @include page-margin;
-
-    border-top: 1px solid $color--lilac--base;
+    // border-top: 1px solid $color--lilac--base;
+    padding: 2rem 0;
+    max-height: 75vh;
+    overflow-y: auto;
   }
 
   &.expanded {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
     @include desktops {
-      height: 300px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
-
-    transition: all $duration--fast ease;
 
     .mega-menu-component__body {
       @keyframes slidein {
@@ -74,6 +80,10 @@ export default {
       animation-name: slidein;
       animation-duration: $duration--medium;
       animation-timing-function: ease;
+
+      @include desktops {
+        animation: none;
+      }
     }
   }
 }

@@ -101,8 +101,7 @@ export default {
   background-color: white;
 
   &__navigation {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 1rem 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -131,6 +130,8 @@ export default {
       top: 100%;
       right: 0;
       left: 0;
+      bottom: unset;
+      height: auto;
     }
   }
 }
