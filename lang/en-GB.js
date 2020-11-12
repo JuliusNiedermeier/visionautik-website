@@ -1,20 +1,24 @@
+import types from '@/plugins/api/types'
+
 export default {
   notifications: {
-    close: 'Close',
+    close: 'close',
     messages: {
       languageNotAvailable: 'Sorry, this page is not fully translated yet!',
     },
   },
+
   layout: {
     header: {
       navigationMenu: {
-        start: 'Start',
+        start: 'Home',
         offers: 'Offers',
         about: 'About',
         projects: 'Projects',
         blog: 'Blog',
       },
     },
+
     footer: {
       address: 'Visionautik e.V., Görlitzer Str. 65, 10997 Berlin',
       contactButton: 'Contact',
@@ -29,76 +33,121 @@ export default {
       },
     },
   },
+
+  global: {
+    auxiliaries: {
+      // for: 'for',
+    },
+    targetGroups: {
+      changemakers: {
+        singular: 'changemaker',
+        plural: 'changemakers',
+        for: 'For changemakers',
+      },
+      businesses: {
+        singular: 'business',
+        plural: 'businesses',
+        for: 'For businesses',
+      },
+      facilitators: {
+        singular: 'facilitator',
+        plural: 'facilitators',
+        for: 'For facilitators',
+      },
+    },
+  },
+
   types: {
-    pages: {
-      index: {
-        forChangemakers: 'For changemaker',
-        forBusiness: 'For business',
-        forFacilitators: 'For facilitaors',
+    // PAGES
+    [types.pages.index.typeName]: {
+      coursesSection: {
         allCourses: 'All courses',
+        placeholderHeading: 'No suitable course available?',
+        placeholderBody:
+          'Would you like to be notified when new courses are available?',
+        notify: 'Notify',
       },
-      about: {},
-      history: {},
+      ourVisionSection: {
+        readMore: 'Read more',
+      },
     },
-    collections: {
-      offers: {
-        categories: {
-          course: 'Courses',
-          event: 'Events',
-          book: 'Books',
-          merchandise: 'Merchandise',
-          download: 'Downloads',
-        },
-        searchBarPlaceholder: 'Search...',
-        targetGroups: {
-          all: 'All',
-          changemakers: 'For changemaker',
-          business: 'For business',
-          facilitators: 'For facilitaors',
-        },
-        tags: {
-          book: 'Book',
-          merchandise: 'Merchandise',
-          download: 'Download',
-        },
-        resultSections: {
-          courses: 'Courses',
-          events: 'Events',
-          products: 'Products',
-        },
+
+    // COLLECTIONS
+    [types.collections.offers.typeName]: {
+      searchBarPlaceholder: 'Search...',
+      allTargetGroupsLabel: 'All',
+      courseResultsPlaceholder: {
+        heading: 'No suitable course available?',
+        body: 'Would you like to be notified when new courses are available?',
+        buttonLabel: 'Notify',
       },
-      blog: {},
-      projects: {},
-      archive: {},
+      eventResultsPlaceholder: {
+        heading: 'No suitable event available?',
+        body:
+          'Would you like to be notified as soon as new events are planned?',
+        buttonLabel: 'Notify',
+      },
+      productResultsPlaceholder: {
+        heading: 'No suitable product available?',
+        body: 'Would you like to be notified when new products are available?',
+        buttonLabel: 'Notify',
+      },
+      resultsPlaceholder: {
+        heading: 'No search results...',
+        body: 'Would you like to be notified when new offers are available?',
+        buttonLabel: 'Notify',
+      },
     },
-    singles: {
-      coursePage: {},
-      eventPage: {},
-      productPage: {},
-      blogPostPage: {},
-      projectPage: {},
-      teamMemberPage: {},
-    },
-    repeatables: {
-      course: {
-        tag: 'Course',
-      },
-      event: {
-        tag: 'Event',
-      },
-      product: {
-        tags: {
-          book: 'Book',
-          merchandise: 'Merchandise',
-          download: 'Download',
+    [types.collections.blog.typeName]: {},
+    [types.collections.projects.typeName]: {},
+    [types.collections.archive.typeName]: {},
+
+    // SINGLES
+    [types.singles.offerPage.typeName]: {},
+    [types.singles.productPage.typeName]: {},
+    [types.singles.blogPostPage.typeName]: {},
+    [types.singles.projectPage.typeName]: {},
+    [types.singles.teamMemberPage.typeName]: {},
+
+    // REPEATABLES
+    [types.repeatables.offer.typeName]: {
+      singular: 'offer',
+      plural: 'offers',
+      categories: {
+        course: {
+          singular: 'course',
+          plural: 'courses',
+        },
+        event: {
+          singular: 'event',
+          plural: 'events',
         },
       },
-      blogPost: {
-        tag: 'Post',
+    },
+    [types.repeatables.product.typeName]: {
+      singular: 'product',
+      plural: 'products',
+      categories: {
+        book: {
+          singular: 'book',
+          plural: 'books',
+        },
+        merchandise: {
+          singular: 'merchandise',
+          plural: 'merchandise',
+        },
+        download: {
+          singular: 'download',
+          plural: 'downloads',
+        },
       },
-      teamMember: {
-        readMore: 'Visit profile',
-      },
+    },
+    [types.repeatables.blogPost.typeName]: {
+      singular: 'blog post',
+      plural: 'blog posts',
+    },
+    [types.repeatables.teamMember.typeName]: {
+      readMore: 'Visit profile',
     },
   },
 }

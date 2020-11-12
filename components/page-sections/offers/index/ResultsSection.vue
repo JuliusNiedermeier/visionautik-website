@@ -8,7 +8,15 @@
         >
           <h5>
             {{ results.courses.length }}
-            {{ $t('types.collections.offers.resultSections.courses') }}
+            {{
+              $t(
+                `types.${
+                  $api.types.repeatables.offer.typeName
+                }.categories.course.${
+                  results.courses.length > 1 ? 'plural' : 'singular'
+                }`
+              )
+            }}
           </h5>
           <va-carousel gap displayPlaceholder>
             <va-offer
@@ -22,9 +30,21 @@
             />
             <template slot="placeholder">
               <va-carousel-placeholder-content
-                heading="Kein passender Kurs dabei?"
-                body="Wir benachrichtigen dich gerne sobald neue Kurse verfügbar sind!"
-                buttonLabel="Benachrichtigen"
+                :heading="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.courseResultsPlaceholder.heading`
+                  )
+                "
+                :body="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.courseResultsPlaceholder.body`
+                  )
+                "
+                :buttonLabel="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.courseResultsPlaceholder.buttonLabel`
+                  )
+                "
                 buttonIconName="addNotification"
               />
             </template>
@@ -34,7 +54,18 @@
           class="results-section__body__results__events"
           v-if="results.events.length > 0"
         >
-          <h5>{{ $t('types.collections.offers.resultSections.events') }}</h5>
+          <h5>
+            {{ results.events.length }}
+            {{
+              $t(
+                `types.${
+                  $api.types.repeatables.offer.typeName
+                }.categories.event.${
+                  results.events.length > 1 ? 'plural' : 'singular'
+                }`
+              )
+            }}
+          </h5>
           <va-carousel gap displayPlaceholder>
             <va-offer
               v-for="(result, index) in results.events"
@@ -47,9 +78,21 @@
             />
             <template slot="placeholder">
               <va-carousel-placeholder-content
-                heading="Kein passendes Event dabei?"
-                body="Wir benachrichtigen dich gerne sobald neue Events geplant sind!"
-                buttonLabel="Benachrichtigen"
+                :heading="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.eventResultsPlaceholder.heading`
+                  )
+                "
+                :body="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.eventResultsPlaceholder.body`
+                  )
+                "
+                :buttonLabel="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.eventResultsPlaceholder.buttonLabel`
+                  )
+                "
                 buttonIconName="addNotification"
               />
             </template>
@@ -59,7 +102,16 @@
           class="results-section__body__results__products"
           v-if="results.products.length > 0"
         >
-          <h5>{{ $t('types.collections.offers.resultSections.products') }}</h5>
+          <h5>
+            {{ results.products.length }}
+            {{
+              $t(
+                `types.${$api.types.repeatables.product.typeName}.${
+                  results.courses.length > 1 ? 'plural' : 'singular'
+                }`
+              )
+            }}
+          </h5>
           <va-carousel gap displayPlaceholder>
             <va-offer
               v-for="(result, index) in results.products"
@@ -71,15 +123,27 @@
               :type="result.type"
               :tag="
                 $t(
-                  `types.collections.offers.tags.${result.data.general__category}`
+                  `types.${$api.types.repeatables.product.typeName}.categories.${result.data.general__category}.singular`
                 )
               "
             />
             <template slot="placeholder">
               <va-carousel-placeholder-content
-                heading="Kein passendes Produkt gefunden?"
-                body="Wir benachrichtigen dich gerne sobald unser wir neue Produkte anbieten!"
-                buttonLabel="Benachrichtigen"
+                :heading="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.productResultsPlaceholder.heading`
+                  )
+                "
+                :body="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.productResultsPlaceholder.body`
+                  )
+                "
+                :buttonLabel="
+                  $t(
+                    `types.${$api.types.collections.offers.typeName}.productResultsPlaceholder.buttonLabel`
+                  )
+                "
                 buttonIconName="addNotification"
               />
             </template>
@@ -88,9 +152,21 @@
         <div class="results-section__body__results__placeholder">
           <va-carousel-placeholder-content
             v-if="resultsCount === 0"
-            heading="Deine Suche ergab keine Ergebnisse..."
-            body="Komm später nochmal!"
-            buttonLabel="Benachrichtigung einrichten"
+            :heading="
+              $t(
+                `types.${$api.types.collections.offers.typeName}.resultsPlaceholder.heading`
+              )
+            "
+            :body="
+              $t(
+                `types.${$api.types.collections.offers.typeName}.resultsPlaceholder.body`
+              )
+            "
+            :buttonLabel="
+              $t(
+                `types.${$api.types.collections.offers.typeName}.resultsPlaceholder.buttonLabel`
+              )
+            "
             buttonIconName="addNotification"
           />
         </div>

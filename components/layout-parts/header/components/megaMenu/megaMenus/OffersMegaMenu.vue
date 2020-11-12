@@ -1,9 +1,18 @@
 <template>
   <div class="offers-mega-menu-component">
     <div class="offers-mega-menu-component__section">
-      <va-mega-menu-link to="/offers" label="Für Changemaker" />
-      <va-mega-menu-link to="/offers" label="Für Unternehmen" />
-      <va-mega-menu-link to="/offers" label="Für Prozessbegleiter" />
+      <va-mega-menu-link
+        to="/offers"
+        :label="$t('global.targetGroups.changemakers.for')"
+      />
+      <va-mega-menu-link
+        to="/offers"
+        :label="$t('global.targetGroups.businesses.for')"
+      />
+      <va-mega-menu-link
+        to="/offers"
+        :label="$t('global.targetGroups.facilitators.for')"
+      />
     </div>
     <div class="offers-mega-menu-component__section"></div>
     <div class="offers-mega-menu-component__section"></div>

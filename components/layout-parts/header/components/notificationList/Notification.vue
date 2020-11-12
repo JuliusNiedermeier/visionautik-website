@@ -5,7 +5,7 @@
         notification.message
       }}</small>
       <button class="notification-component__body__close-button" @click="hide">
-        Close
+        {{ $t('notifications.close') }}
       </button>
     </div>
   </div>

@@ -2,20 +2,24 @@
   <div class="filter-section">
     <div class="filter-section__offer-category-filter">
       <button
-        v-for="(offerCategoryChecked, category) in offerCategories"
-        :key="category"
-        @click="toggleOfferCategory(category)"
+        v-for="(category, categoryKey) in categories"
+        :key="categoryKey"
+        @click="toggleOfferCategory(categoryKey)"
         class="filter-section__offer-category-filter__button"
-        :class="{ checked: offerCategoryChecked }"
+        :class="{ checked: category.enabled }"
       >
-        {{ $t(`types.collections.offers.categories.${category}`) }}
-        <va-icon :name="offerCategoryChecked ? 'check' : 'add'" />
+        {{ $t(`types.${category.typeName}.categories.${categoryKey}.plural`) }}
+        <va-icon :name="category.enabled ? 'check' : 'add'" />
       </button>
     </div>
     <div class="filter-section__search-bar">
       <input
         category="text"
-        :placeholder="$t('types.collections.offers.searchBarPlaceholder')"
+        :placeholder="
+          $t(
+            `types.${$api.types.collections.offers.typeName}.searchBarPlaceholder`
+          )
+        "
         v-model="searchString"
       />
       <div class="filter-section__search-bar__search-icon">
@@ -31,7 +35,13 @@
           class="filter-section__target-groups__filter__target-group"
           :class="{ active: index === targetGroups.activeIndex }"
         >
-          {{ $t(`types.collections.offers.targetGroups.${targetGroup.label}`) }}
+          {{
+            $t(
+              index === 0
+                ? `types.${$api.types.collections.offers.typeName}.allTargetGroupsLabel`
+                : `global.targetGroups.${targetGroup.label}.for`
+            )
+          }}
         </p>
       </div>
       <button
@@ -68,7 +78,7 @@ export default {
   components: { 'va-slice-content': SliceContent, 'va-icon': Icon },
   data() {
     return {
-      offerCategories: {},
+      categories: {},
 
       searchString: '',
       searchStringInputTimeoutId: null,
@@ -82,7 +92,7 @@ export default {
             sliceZone: 'for_changemakers__slices',
           },
           {
-            label: 'business',
+            label: 'businesses',
             infoContentSlices: [],
             sliceZone: 'for_business__slices',
           },
@@ -99,18 +109,25 @@ export default {
   },
 
   created() {
-    const offerCategories = [
-      ...this.$api.types.repeatables.offer.categories,
-      ...this.$api.types.repeatables.product.categories,
-    ]
-
-    for (const offerCategorie of offerCategories) {
-      this.offerCategories[offerCategorie] = true
+    const assignCategories = (categories, typeName) => {
+      for (const category of categories) {
+        this.categories[category] = { enabled: true, typeName }
+      }
     }
+
+    assignCategories(
+      this.$api.types.repeatables.offer.categories,
+      this.$api.types.repeatables.offer.typeName
+    )
+
+    assignCategories(
+      this.$api.types.repeatables.product.categories,
+      this.$api.types.repeatables.product.typeName
+    )
 
     const query = this.$route.query
 
-    for (const key of Object.keys(this.offerCategories)) {
+    for (const key of Object.keys(this.categories)) {
       if (query.exclude && query.exclude.includes(key)) {
         this.toggleOfferCategory(key)
       }
@@ -127,8 +144,8 @@ export default {
 
   methods: {
     toggleOfferCategory(category) {
-      this.offerCategories[category] = !this.offerCategories[category]
-      this.offerCategories = { ...this.offerCategories }
+      this.categories[category].enabled = !this.categories[category].enabled
+      this.categories = { ...this.categories }
     },
   },
 
@@ -144,11 +161,11 @@ export default {
   },
 
   watch: {
-    offerCategories(updatedOfferCategories) {
+    categories(updatedOfferCategories) {
       let excludedOfferCategories = []
 
       for (const category in updatedOfferCategories) {
-        if (updatedOfferCategories[category] === false) {
+        if (updatedOfferCategories[category].enabled === false) {
           excludedOfferCategories.push(category)
         }
       }

@@ -22,7 +22,11 @@
             })
           "
         >
-          {{ $t('types.pages.index.allCourses') }}
+          {{
+            $t(
+              `types.${$api.types.pages.index.typeName}.coursesSection.allCourses`
+            )
+          }}
         </button>
       </div>
       <div class="courses-section-component__body__carousel">
@@ -38,11 +42,21 @@
           />
           <template slot="placeholder">
             <va-carousel-placeholder-content
-              heading="Kein passender Kurs
-            dabei?"
-              body="Wir benachrichtigen dich gerne sobald neue Kurse
-            verfügbar sind!"
-              buttonLabel="Benachrichtigen"
+              :heading="
+                $t(
+                  `types.${$api.types.pages.index.typeName}.coursesSection.placeholderHeading`
+                )
+              "
+              :body="
+                $t(
+                  `types.${$api.types.pages.index.typeName}.coursesSection.placeholderBody`
+                )
+              "
+              :buttonLabel="
+                $t(
+                  `types.${$api.types.pages.index.typeName}.coursesSection.notify`
+                )
+              "
               buttonIconName="addNotification"
             />
           </template>

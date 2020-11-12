@@ -57,15 +57,15 @@ export default {
     targetGroupLinks() {
       return [
         {
-          name: this.$t('types.pages.index.forChangemakers'),
+          name: this.$t('global.targetGroups.changemakers.for'),
           query: { targetGroup: 'changemakers' },
         },
         {
-          name: this.$t('types.pages.index.forBusiness'),
+          name: this.$t('global.targetGroups.businesses.for'),
           query: { targetGroup: 'business' },
         },
         {
-          name: this.$t('types.pages.index.forFacilitators'),
+          name: this.$t('global.targetGroups.facilitators.for'),
           query: { targetGroup: 'facilitators' },
         },
       ]

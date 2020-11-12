@@ -4,7 +4,13 @@
       <div class="our-vision-section__body__text">
         <h2 class="our-vision-section__body__text__heading">{{ heading }}</h2>
         <p>{{ text }}</p>
-        <button>Mehr erfahren</button>
+        <button>
+          {{
+            $t(
+              `types.${$api.types.pages.index.typeName}.ourVisionSection.readMore`
+            )
+          }}
+        </button>
       </div>
       <div class="our-vision-section__body__image">
         <img :src="image.url" :alt="image.alt" />

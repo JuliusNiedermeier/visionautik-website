@@ -10,8 +10,9 @@ export const collections = {
   archive: { typeName: 'archive__collection' },
 }
 export const singles = {
-  coursePage: { typeName: 'course__single' },
-  eventPage: { typeName: 'event__single' },
+  // coursePage: { typeName: 'course__single' },
+  // eventPage: { typeName: 'event__single' },
+  offerPage: { typeName: 'offer__single' },
   productPage: { typeName: 'product__single' },
   blogPostPage: { typeName: 'blog_post__single' },
   projectPage: { typeName: 'project__single' },
