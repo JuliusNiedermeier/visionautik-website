@@ -29,15 +29,15 @@
 - **Create results section for offers collection page that fetches offers and products based on the filter settings**
 - **Create sidebar layout**
 - **Create the offer single page**
+- Add missing static translations
+- Improve typography consistency
 
 ## Steps until the site can be used as a simple shop with homepage
 
-- Add missing static translations
 - Exclude past offers from search results, recommendations, courses carousel and events carousel
 - Add the latest "Salon of Courage" event to the offers mega menu
 - Add direct links for courses, events, books, merchandise and downloads to the offers mega menu
 - _Make offer and product categories dynamic (optional)_
-- Improve typography consistency
 - Make the press quote slides use the full carousel width on mobile devices (add as prop to carousel)
 - Make the "ALL COURSES" button on the homepage link to the offers page (only courses)
 - **Create notification service for new offers and products**
@@ -66,6 +66,7 @@
 - Ensure the carousel is always at the scroll start position on page load
 - Ensure the video header on the home page is playing on Safari mobile or at least display a good looking placeholder
 - Ensure that the entire content of the sidebar is accessible on smaller monitors
+- Fix section anchors overview component
 
 ## Steps to full completion
 
