@@ -2,7 +2,7 @@
   <nuxt-link :to="url" class="offer-component">
     <img class="offer-component__image" :src="image" />
     <div class="offer-component__info">
-      <h6 class="offer-component__info__title">{{ title }}</h6>
+      <h4 class="offer-component__info__title">{{ title }}</h4>
       <small class="offer-component__info__description">
         {{ description }}
       </small>

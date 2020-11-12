@@ -12,8 +12,8 @@
         <source :src="videoUrl" type="video/mp4" v-if="videoUrl" />
       </video>
       <div class="welcome-section__overlay">
-        <h1>{{ heading }}</h1>
-        <h4>{{ subHeading }}</h4>
+        <h1 class="welcome-section__overlay__heading">{{ heading }}</h1>
+        <h5 class="welcome-section__overlay__sub-heading">{{ subHeading }}</h5>
         <div class="welcome-section__overlay__links">
           <div class="welcome-section__overlay__links__body">
             <a
@@ -24,9 +24,9 @@
               "
               class="welcome-section__overlay__links__body__link"
             >
-              <h4 class="welcome-section__overlay__links__body__link__text">
+              <h5 class="welcome-section__overlay__links__body__link__text">
                 {{ targetGroupLink.name }}
-              </h4>
+              </h5>
               <va-icon name="chevron-right" />
             </a>
           </div>
@@ -122,13 +122,13 @@ export default {
     padding-top: 3rem;
     padding-bottom: 3rem;
 
-    h1 {
+    &__heading {
       margin-top: 0;
     }
 
-    h4 {
+    &__sub-heading {
       color: $color--grey--dark;
-      font-weight: normal;
+      // font-weight: normal;
     }
 
     &__links {

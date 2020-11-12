@@ -6,10 +6,10 @@
           class="results-section__body__results__courses"
           v-if="results.courses.length > 0"
         >
-          <h4>
+          <h5>
             {{ results.courses.length }}
             {{ $t('types.collections.offers.resultSections.courses') }}
-          </h4>
+          </h5>
           <va-carousel gap displayPlaceholder>
             <va-offer
               v-for="(result, index) in results.courses"
@@ -34,7 +34,7 @@
           class="results-section__body__results__events"
           v-if="results.events.length > 0"
         >
-          <h4>{{ $t('types.collections.offers.resultSections.events') }}</h4>
+          <h5>{{ $t('types.collections.offers.resultSections.events') }}</h5>
           <va-carousel gap displayPlaceholder>
             <va-offer
               v-for="(result, index) in results.events"
@@ -59,7 +59,7 @@
           class="results-section__body__results__products"
           v-if="results.products.length > 0"
         >
-          <h4>{{ $t('types.collections.offers.resultSections.products') }}</h4>
+          <h5>{{ $t('types.collections.offers.resultSections.products') }}</h5>
           <va-carousel gap displayPlaceholder>
             <va-offer
               v-for="(result, index) in results.products"

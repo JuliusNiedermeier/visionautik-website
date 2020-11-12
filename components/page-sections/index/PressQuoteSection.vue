@@ -13,7 +13,11 @@
         class="press-quote-section__carousel__quote"
       >
         <img :src="pressQuote.general__logo.url" />
-        <p>{{ pressQuote.general__text }}</p>
+
+        <p>
+          <small>{{ pressQuote.general__text }}</small>
+        </p>
+        <p></p>
       </div>
     </va-carousel>
   </div>
