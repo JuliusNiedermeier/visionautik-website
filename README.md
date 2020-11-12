@@ -1,70 +1,32 @@
-# Official website of the Visionautik Akademie
+# Official website rebuild of the Visionautik Akademie
 
-This repository contains the official website of the Visionautik Akademie.
+This repository contains the rebuild of the official Visionautik Akademie website.
 
 ## Built With
 
 - [Nuxt.js](https://nuxtjs.org/)
-- [Node.js](https://nodejs.org/)
-- [Google Cloud Platform](https://cloud.google.com/gcp)
+- [Prismic](https://prismic.io/)
+- [Snipcart](https://snipcart.com/)
+- [Firebase](https://firebase.google.com/)
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+### Installation
 
-You need to have node and git installed on your computer.
-You can check if you have them installed by typing `node --version` or `git --version` in your terminal.
-
-If you haven't alrady, you can download installers for both from these links:
-
-- [node.js](https://nodejs.org/en/download/)
-- [git](https://git-scm.com/downloads)
-
-### Installing
-
-In your terminal navigate into your project directory and clone this repository.
-
-```
-cd < your project directory >
-git clone https://github.com/Visionautik-Akademie/Visionautik-de
-```
-
-The **src** folder contains the nuxt.js project that is responsible for rendering the websites frontend.
-Navigate into that directory and install all node dependencies.
-
-```
-cd Visionautik-de/src
-npm install
-```
-
-To start the dev server on localhost run `npm run dev`.
-The server should now serve the page on `localhost:3000`.
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+After cloning this repository and installing all dependencies run `npm run dev` to serve the page on `localhost:3000`.
 
 ## Deployment
 
-### Pre deployment steps
-
-**functions.predeploy**
-
-- npm run build
-- clean functions/nuxt
-- copy .nuxt to functions/nuxt
-- copy nuxt.config.js to functions
-- convert nuxt.config.js from ES6 to ES5 standard
-- merge nuxt dependencies with functions dependencies
-- npm install
-
-**hosting.predeploy**
-
-- clean public directory
-- copy .nuxt/dist/client to public/\_nuxt
-- copy static directory to public directory
+See pre-demploy.md for all pre deployment steps.
 
 ### Deployment
+
+Login to the Firebase account you want to deploy to:
+```bash
+firebase login
+```
 
 ```bash
 # deploy functions
