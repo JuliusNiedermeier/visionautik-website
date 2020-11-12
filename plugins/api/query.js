@@ -52,7 +52,8 @@ export default (context) => {
       if (options.fallback) {
         $store.commit('notifications/add', {
           message:
-            $i18n.messages[$i18n.locale].notifications.languageNotAvailable,
+            $i18n.messages[$i18n.locale].notifications.messages
+              .languageNotAvailable,
           id: 'fallback-content-fetched',
         })
       }

@@ -1,6 +1,9 @@
 export default {
   notifications: {
-    languageNotAvailable: 'Sorry, this page is not fully translated yet!',
+    close: 'Close',
+    messages: {
+      languageNotAvailable: 'Sorry, this page is not fully translated yet!',
+    },
   },
   layout: {
     header: {
