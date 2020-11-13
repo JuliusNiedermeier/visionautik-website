@@ -1,6 +1,6 @@
 <template>
-  <div class="add-to-cart-component">
-    <div class="add-to-cart-component__custom-fields">
+  <div class="va-el--AddToCart">
+    <div class="va-el--AddToCart__custom-fields">
       <select
         v-for="customField in customFields"
         :key="customField.key"
@@ -17,11 +17,11 @@
         </option>
       </select>
     </div>
-    <small class="add-to-cart-component__price" v-if="currentPrice">
+    <small class="va-el--AddToCart__price" v-if="currentPrice">
       {{ $intlFormatter.currency(currentPrice) }}
     </small>
     <button
-      class="add-to-cart-component__button snipcart-add-item"
+      class="va-el--AddToCart__button snipcart-add-item"
       :disabled="!currentPrice"
       v-bind="{
         ...$snipcart.bindProduct({
@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.add-to-cart-component {
+.va-el--AddToCart {
   &__custom-fields {
     select {
       width: 100%;

@@ -57,6 +57,8 @@ export default {
       return window.scrollTo({ top: 0, behavior: 'smooth' })
     },
   },
+
+  srcDir: 'src/',
   /*
    ** Global CSS
    */
@@ -145,12 +147,12 @@ export default {
       'ZjIyODZjN2ItZTc2Yi00YTYwLWFkZTgtNmI1MzgwNGI0M2E5NjM3MzQ5ODk2MDgwNzk1MTA4',
     addProductBehavior: true,
     locales: {} /* not required */,
-    snipcartCustomize: path.join(__dirname, './snipcart/customize'),
+    snipcartCustomize: path.join(__dirname, 'src/snipcart/customize'),
   },
 
   build: {
     // Watch changes in snipcart directory and rebuild the application
-    watch: ['snipcart'],
+    watch: ['src/snipcart'],
 
     postcss: {
       // configure autoprefixer
