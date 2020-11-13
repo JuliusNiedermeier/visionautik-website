@@ -59,42 +59,42 @@ export default {
   }
 
   &__pricing-tier {
-    padding: 2rem;
-    background-color: $color--grey--light;
-    border-top: 0.5rem solid $color--grey--dark;
-    border-bottom: 0.5rem solid $color--grey--dark;
+    padding: $spacing__micro--xl;
+    background-color: $color__grey--light;
+    border-top: $spacing__micro--sm solid $color__grey--dark;
+    border-bottom: $spacing__micro--sm solid $color__grey--dark;
     text-align: center;
     display: flex;
     flex-direction: column;
     // align-items: center;
-    min-width: 30rem;
+    min-width: $spacing__macro--xl;
     flex: 1;
 
     & + & {
-      margin-top: 2rem;
+      margin-top: $spacing__micro--xl;
     }
 
     @include desktops {
       & + & {
         margin-top: 0;
-        margin-left: 2rem;
+        margin-left: $spacing__micro--xl;
       }
     }
 
     &__icon {
-      width: 15rem;
+      width: $spacing__macro--md;
       align-self: center;
-      margin: 5rem 0;
+      margin: $spacing__macro--xs 0;
     }
 
     &__heading {
       margin: 0;
-      margin-bottom: 1rem;
+      margin-bottom: $spacing__micro--md;
     }
 
     &__price {
       margin: 0;
-      margin-bottom: 2rem;
+      margin-bottom: $spacing__micro--xl;
       font-weight: bold;
     }
 

@@ -1,23 +1,13 @@
 @use './variables.scss';
 
 @mixin mobile {
-  @media (max-width: 768px) {
+  @media (max-width: $spacing--breakpoint--desktop - 1px) {
     @content;
   }
 }
 
-@mixin tablets {
-  @media (min-width: 768px) {
-    @content;
-  }
-}
 @mixin desktops {
-  @media (min-width: 992px) {
-    @content;
-  }
-}
-@mixin large-desktops {
-  @media (min-width: 1500px) {
+  @media (min-width: $spacing--breakpoint--desktop) {
     @content;
   }
 }
@@ -32,7 +22,7 @@
   }
 }
 
-@mixin reset-page-margin {
+@mixin page-margin--reset {
   margin: initial;
   width: initial;
 
@@ -51,6 +41,15 @@
   margin-right: -50vw;
 }
 
+@mixin fill-screen-width--reset {
+  width: initial;
+  position: initial;
+  left: initial;
+  right: initial;
+  margin-left: initial;
+  margin-right: initial;
+}
+
 @mixin background-gradient(
   $degree: 90deg,
   $color: 'blue',
@@ -58,19 +57,19 @@
 ) {
   background: $fallback-color;
   @if $color == 'blue' {
-    background: linear-gradient($degree, $color--blue--base 0%, #001aa3 100%);
+    background: linear-gradient($degree, $color__blue--base 0%, #001aa3 100%);
   }
 
   @if $color == 'red' {
     background: linear-gradient(
       $degree,
-      $color--red--base 0%,
-      $color--red--light 100%
+      $color__red--base 0%,
+      $color__red--light 100%
     );
   }
 
   @if $color == 'white' {
-    background: linear-gradient($degree, $color--grey--light 0%, white 100%);
+    background: linear-gradient($degree, $color__grey--light 0%, white 100%);
   }
 
   @if $color == 'dark-transparent' {

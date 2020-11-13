@@ -55,9 +55,9 @@ export default {
 
 <style lang="scss" scoped>
 .press-quote-section {
-  background-color: $color--grey--light;
+  background-color: $color__grey--light;
   @include fill-screen-width;
-  padding-top: 2rem;
+  padding-top: $spacing__micro--xl;
 
   &__carousel {
     @include page-margin;
@@ -65,8 +65,8 @@ export default {
     &__quote {
       min-width: 100%;
       text-align: center;
-      padding: 2rem;
-      background-color: $color--grey--dark;
+      padding: $spacing__micro--xl;
+      background-color: $color__grey--dark;
 
       @include desktops {
         min-width: 60%;

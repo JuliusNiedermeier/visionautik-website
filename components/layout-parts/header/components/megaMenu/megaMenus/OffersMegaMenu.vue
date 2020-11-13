@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss" scoped>
 .offers-mega-menu-component {
-  padding: 10rem 0;
+  padding: $spacing__macro--sm 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,7 +43,7 @@ export default {
     flex: 1;
 
     & + & {
-      margin-left: 15rem;
+      margin-left: $spacing__macro--md;
     }
 
     display: flex;
@@ -52,7 +52,7 @@ export default {
     align-items: stretch;
 
     > * {
-      padding: 1rem 0;
+      padding: $spacing__micro--md 0;
     }
   }
 }

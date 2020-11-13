@@ -119,22 +119,19 @@ export default {
     @include page-margin;
 
     color: white;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
 
     &__heading {
       margin-top: 0;
     }
 
     &__sub-heading {
-      color: $color--grey--dark;
-      // font-weight: normal;
+      color: $color__grey--dark;
     }
 
     &__links {
       position: absolute;
       left: 0;
-      bottom: 2rem;
+      bottom: $spacing__micro--xl;
       width: 100%;
 
       &__body {
@@ -153,26 +150,22 @@ export default {
           color: white;
           display: flex;
           flex-direction: row;
-          margin-top: 2rem;
+          margin-top: $spacing__micro--xl;
           justify-content: space-between;
 
           @include desktops {
             @include background-gradient(90deg, 'blue');
             justify-content: space-between;
-            padding: 2rem;
+            padding: $spacing__micro--xl;
           }
 
           &__text {
             margin: 0;
-            margin-right: 2rem;
+            margin-right: $spacing__micro--xl;
 
             @include desktops {
               margin: 0;
             }
-          }
-
-          @include large-desktops {
-            padding: 2.5rem;
           }
 
           &:hover {
@@ -181,8 +174,8 @@ export default {
 
           &:nth-child(2) {
             @include desktops {
-              margin-left: 2rem;
-              margin-right: 2rem;
+              margin-left: $spacing__micro--xl;
+              margin-right: $spacing__micro--xl;
             }
           }
         }

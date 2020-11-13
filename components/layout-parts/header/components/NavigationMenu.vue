@@ -14,13 +14,13 @@
             'navigation-menu-component__list__item--only-exact-active':
               navigationLink.isRoot,
           }"
-          >{{ navigationLink.name }}</nuxt-link
+          ><small>{{ navigationLink.name }}</small></nuxt-link
         >
       </li>
       <li>
         <nuxt-link to="cart">
           <button class="navigation-menu-component__list__cart-button">
-            <va-icon name="cart" size="1.5rem" />
+            <va-icon name="cart" />
             <span class="snipcart-items-count"></span>
             <!-- <span class="snipcart-total-price"></span> -->
           </button>
@@ -115,7 +115,7 @@ export default {
     .navigation-menu-component__list {
       @keyframes slidein {
         from {
-          transform: translateX(-2rem);
+          transform: translateX(-$spacing__micro--xl);
         }
 
         to {
@@ -153,7 +153,7 @@ export default {
     }
 
     li {
-      padding: 2rem;
+      padding: $spacing__micro--xl;
     }
 
     @include desktops {
@@ -164,15 +164,14 @@ export default {
 
       li {
         padding: 0;
-        margin-left: 2.5rem;
+        margin-left: $spacing__micro--xl;
       }
     }
 
     a {
-      font-size: 1.6rem;
       font-weight: bold;
       text-transform: uppercase;
-      color: $color--blue--base;
+      color: $color__blue--base;
 
       &:hover {
         background: none;
@@ -181,21 +180,16 @@ export default {
     }
 
     .nuxt-link-active:not(.navigation-menu-component__list__item--only-exact-active) {
-      color: $color--red--base;
+      color: $color__red--base;
     }
 
     .nuxt-link-exact-active {
-      color: $color--red--base;
+      color: $color__red--base;
     }
 
     &__cart-button {
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-
-      > * + * {
-        margin-left: 0.5rem;
-      }
+      background-color: $color--lilac--base;
+      color: $color--blue--light;
     }
   }
 }

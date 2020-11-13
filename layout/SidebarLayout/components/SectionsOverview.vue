@@ -102,21 +102,21 @@ export default {
 
 <style lang="scss" scoped>
 .sections-overview-component {
-  padding: 2rem;
+  padding: $spacing__micro--xl;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 2rem;
+  padding: 0 $spacing__micro--xl;
   height: 100%;
 
   &__item {
     position: relative;
-    border-left: 1px solid $color--blue--light;
-    padding-left: 2rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    color: $color--blue--light;
+    border-left: 1px solid $color__blue--light;
+    padding-left: $spacing__micro--xl;
+    padding-top: $spacing__micro--sm;
+    padding-bottom: $spacing__micro--sm;
+    color: $color__blue--light;
     cursor: pointer;
     transition: all $duration--fast ease;
 
@@ -126,7 +126,7 @@ export default {
 
     &.active {
       color: white;
-      border-color: $color--red--light;
+      border-color: $color__red--light;
     }
   }
 }

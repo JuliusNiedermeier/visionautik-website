@@ -113,7 +113,7 @@ export default {
 .slice-content-component {
   &__slice {
     &:not(.hidden) + & {
-      margin-top: 2rem;
+      margin-top: $spacing__micro--xl;
     }
   }
 }

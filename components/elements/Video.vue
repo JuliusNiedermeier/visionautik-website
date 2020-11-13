@@ -12,7 +12,11 @@
     >
       <source :src="src" type="video/mp4" />
     </video>
-    <div class="video-component__controls initial" @click="handleVideoClick" ref="controls">
+    <div
+      class="video-component__controls initial"
+      @click="handleVideoClick"
+      ref="controls"
+    >
       <va-icon
         :name="playStateIconName"
         size="5rem"
@@ -184,10 +188,10 @@ export default {
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 2rem 0;
-      margin: 0 2rem;
+      padding: $spacing__micro--xl 0;
+      margin: 0 $spacing__micro--xl;
       cursor: pointer;
-      // transform: translateY(2rem);
+      // transform: translateY($spacing__micro--xl);
 
       &__progress-bar {
         position: relative;
@@ -200,7 +204,7 @@ export default {
 
         &__elapsed-indicator,
         &__remaining-indicator {
-          height: 0.25rem;
+          height: $spacing__micro--xs;
         }
 
         &__elapsed-indicator {

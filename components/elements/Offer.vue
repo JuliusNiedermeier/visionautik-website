@@ -51,10 +51,9 @@ export default {
 
 <style lang="scss" scoped>
 .offer-component {
-  min-width: 30rem;
-  // max-width: 50rem;
-  width: 30rem;
-  border-bottom: 1px solid $color--lilac--base;
+  min-width: $spacing__macro--xl;
+  width: $spacing__macro--xl;
+  border-bottom: 1px solid $color__lilac--base;
 
   background: initial;
   color: initial;
@@ -70,14 +69,14 @@ export default {
   }
 
   &__info {
-    margin: 1rem 0;
+    margin: $spacing__micro--md 0;
 
     &__title {
       margin: 0;
     }
 
     &__description {
-      margin: 1rem 0;
+      margin: $spacing__micro--md 0;
       display: block;
     }
 

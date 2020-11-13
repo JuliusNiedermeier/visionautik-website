@@ -21,21 +21,21 @@ export default {
 
 <style lang="scss" scoped>
 ::-webkit-scrollbar {
-  height: 0.25rem;
+  height: $spacing__micro--xs;
   // display: none;
 }
 
 ::-webkit-scrollbar-track {
-  background: $color--lilac--base;
-  margin-top: 2rem;
+  background: $color__lilac--base;
+  margin-top: $spacing__micro--xl;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $color--red--base;
+  background: $color__red--base;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: $color--red--light;
+  background: $color__red--light;
 }
 
 .carousel-component {
@@ -43,7 +43,7 @@ export default {
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
   display: flex;
-  padding-bottom: 2rem;
+  padding-bottom: $spacing__micro--xl;
 
   & > * {
     scroll-snap-align: start;
@@ -51,16 +51,16 @@ export default {
 
   &.gap {
     > * + * {
-      margin-left: 2rem;
+      margin-left: $spacing__micro--xl;
     }
   }
 
   &__placeholder {
-    height: 30rem;
-    background-color: $color--blue--base;
+    height: $spacing__macro--xl;
+    background-color: $color__blue--base;
     @include background-gradient(45deg, 'blue');
     flex: 1;
-    min-width: 30rem;
+    min-width: $spacing__macro--xl;
     display: flex;
     justify-content: center;
     align-items: flex-start;

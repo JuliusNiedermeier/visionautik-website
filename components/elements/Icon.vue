@@ -43,10 +43,8 @@ export default {
 
 <style lang="scss" scoped>
 .icon-component {
-  // height: 1.25rem;
-  // width: 1.25rem;
-  height: 1.5rem;
-  width: 1.5rem;
+  height: $spacing__micro--lg;
+  width: $spacing__micro--lg;
 }
 </style>
 

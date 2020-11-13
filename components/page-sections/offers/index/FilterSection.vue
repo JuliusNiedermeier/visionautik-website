@@ -23,7 +23,7 @@
         v-model="searchString"
       />
       <div class="filter-section__search-bar__search-icon">
-        <va-icon name="search" size="1.5rem" />
+        <va-icon name="search" />
       </div>
     </div>
     <div class="filter-section__target-groups">
@@ -56,7 +56,6 @@
           :name="
             targetGroups.infoContentExpanded ? 'chevron-up' : 'chevron-down'
           "
-          size="2rem"
         />
       </button>
     </div>
@@ -222,11 +221,11 @@ export default {
 
 <style lang="scss" scoped>
 .filter-section {
-  padding-top: 5rem;
+  padding-top: $spacing__macro--xs;
 
   &__offer-category-filter {
     display: flex;
-    margin-bottom: 2rem;
+    margin-bottom: $spacing__micro--xl;
     overflow-x: auto;
 
     &__button {
@@ -234,18 +233,18 @@ export default {
       align-items: center;
 
       & + & {
-        margin-left: 2rem;
+        margin-left: $spacing__micro--xl;
       }
 
       & > * {
-        margin-left: 1rem;
+        margin-left: $spacing__micro--md;
       }
 
       &:not(.checked) {
         background: none;
-        background-color: $color--lilac--base;
+        background-color: $color__lilac--base;
 
-        color: transparentize($color--blue--light, $amount: 0.5);
+        color: transparentize($color__blue--light, $amount: 0.5);
       }
     }
   }
@@ -253,12 +252,12 @@ export default {
   &__search-bar {
     position: relative;
     display: flex;
-    margin-bottom: 2rem;
+    margin-bottom: $spacing__micro--xl;
 
     & input {
       flex: 1;
-      padding: 1.5rem;
-      border: 1px solid $color--lilac--base;
+      padding: $spacing__micro--lg $spacing__micro--xl;
+      border: 1px solid $color__lilac--base;
     }
 
     &__search-icon {
@@ -266,18 +265,18 @@ export default {
       top: 0;
       right: 0;
       bottom: 0;
-      width: 6rem;
+      width: $spacing__macro--xs;
 
       display: flex;
       justify-content: center;
       align-items: center;
 
-      color: $color--blue--light;
+      color: $color__blue--light;
 
       cursor: pointer;
 
       &:hover {
-        background-color: $color--grey--dark;
+        background-color: $color__grey--dark;
       }
     }
   }
@@ -299,11 +298,11 @@ export default {
 
       &__target-group {
         cursor: pointer;
-        color: $color--blue--light;
+        color: $color__blue--light;
         white-space: nowrap;
 
         & + & {
-          margin-left: 2rem;
+          margin-left: $spacing__micro--xl;
         }
 
         &:not(.active) {
@@ -319,7 +318,7 @@ export default {
       justify-content: space-between;
 
       > * + * {
-        margin-left: 1rem;
+        margin-left: $spacing__micro--md;
       }
     }
   }

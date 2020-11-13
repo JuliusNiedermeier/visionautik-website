@@ -49,7 +49,7 @@ export default {
 .notification-component {
   $max-height: 25vh;
 
-  background-color: $color--blue--base;
+  background-color: $color__blue--base;
   max-height: $max-height;
   overflow: hidden;
 
@@ -87,10 +87,10 @@ export default {
     justify-content: space-between;
     align-items: center;
 
-    padding: 1rem 0;
+    padding: $spacing__micro--md 0;
 
     &__button {
-      margin-left: 2rem;
+      margin-left: $spacing__micro--xl;
     }
   }
 }

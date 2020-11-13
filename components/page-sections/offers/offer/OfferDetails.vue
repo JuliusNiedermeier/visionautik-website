@@ -79,19 +79,19 @@ export default {
 
 <style lang="scss" scoped>
 .offer-details-component {
-  margin-bottom: 2rem;
+  margin-bottom: $spacing__micro--xl;
 
   > div {
     display: flex;
     align-items: center;
 
     > * + * {
-      margin-left: 1rem;
+      margin-left: $spacing__micro--md;
     }
   }
 
   > div + div {
-    margin-top: 1rem;
+    margin-top: $spacing__micro--md;
   }
 }
 </style>

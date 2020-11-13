@@ -17,9 +17,9 @@
         </option>
       </select>
     </div>
-    <div class="add-to-cart-component__price" v-if="currentPrice">
+    <small class="add-to-cart-component__price" v-if="currentPrice">
       {{ $intlFormatter.currency(currentPrice) }}
-    </div>
+    </small>
     <button
       class="add-to-cart-component__button snipcart-add-item"
       :disabled="!currentPrice"
@@ -106,15 +106,16 @@ export default {
   &__custom-fields {
     select {
       width: 100%;
-      margin-bottom: 2rem;
+      margin-bottom: $spacing__micro--xl;
     }
   }
 
   &__price {
-    padding: 1rem 1.5rem;
-    background-color: $color--blue--light;
+    display: block;
+    padding: $spacing__micro--md $spacing__micro--lg;
+    margin: 0;
+    background-color: $color__blue--light;
     color: white;
-    font-size: 1.6rem;
     text-align: center;
   }
 

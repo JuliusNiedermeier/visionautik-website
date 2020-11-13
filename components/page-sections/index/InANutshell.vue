@@ -65,15 +65,15 @@ export default {
 <style lang="scss" scoped>
 .in-a-nutshell-section {
   @include fill-screen-width;
-  background-color: $color--grey--light;
-  padding: 20rem 0;
+  background-color: $color__grey--light;
+  padding: $spacing__macro--lg 0;
 
   &__body {
     @include page-margin;
 
     &__video {
-      margin-top: 5rem;
-      margin-bottom: 2rem;
+      margin-top: $spacing__macro--xs;
+      margin-bottom: $spacing__micro--xl;
     }
 
     &__columns {
@@ -81,7 +81,7 @@ export default {
         display: flex;
 
         > * + * {
-          margin-left: 2rem;
+          margin-left: $spacing__micro--xl;
         }
       }
     }

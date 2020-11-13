@@ -202,9 +202,9 @@ export default {
 
 <style lang="scss" scoped>
 .featured-section-component {
-  background-color: $color--grey--dark;
+  background-color: $color__grey--dark;
   @include fill-screen-width;
-  padding: 20rem 0;
+  padding: $spacing__macro--lg 0;
 
   &__body {
     @include page-margin;
@@ -212,7 +212,7 @@ export default {
     &__heading {
       text-align: center;
       margin-top: 0;
-      margin-bottom: 5rem;
+      margin-bottom: $spacing__macro--xs;
     }
 
     &__articles {
@@ -222,7 +222,7 @@ export default {
       align-items: flex-start;
 
       > * + * {
-        margin-top: 2rem;
+        margin-top: $spacing__micro--xl;
       }
 
       @include desktops {
@@ -233,7 +233,7 @@ export default {
         }
 
         > * + * {
-          margin-left: 2rem;
+          margin-left: $spacing__micro--xl;
           margin-top: 0;
         }
       }

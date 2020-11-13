@@ -29,15 +29,15 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  height: 2rem;
-  width: 3rem;
+  height: $spacing__micro--xl;
+  width: $spacing__micro--xl + $spacing__micro--md;
   cursor: pointer;
 
   div {
     height: 1px;
     width: 100%;
     transform-origin: right;
-    background-color: $color--blue--base;
+    background-color: $color__blue--base;
     transition-timing-function: ease;
     transition-property: width transform;
     transition-duration: $duration--fast;

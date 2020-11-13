@@ -31,7 +31,7 @@
 .sidebar-layout {
   &__header {
     @include fill-screen-width;
-    height: 40rem;
+    height: $spacing__macro--xxl;
     position: relative;
     overflow: hidden;
 
@@ -58,7 +58,7 @@
 
         > * {
           @include desktops {
-            padding-right: 32rem;
+            padding-right: $spacing__macro--xl + $spacing__micro--xl;
           }
         }
       }
@@ -76,7 +76,7 @@
 
     &__main {
       flex: 1;
-      margin-top: 2rem;
+      margin-top: $spacing__micro--xl;
     }
 
     &__sidebar {
@@ -84,7 +84,7 @@
       height: calc(100vh - 18.5rem);
       // min-height: min-content;
       overflow: hidden;
-      background-color: $color--lilac--base;
+      background-color: $color__lilac--base;
 
       @include mobile {
         @include fill-screen-width;
@@ -94,19 +94,19 @@
         position: sticky;
         bottom: 0;
         align-self: flex-end;
-        margin-left: 2rem;
-        margin-top: -30rem;
-        width: 30rem;
+        margin-left: $spacing__micro--xl;
+        margin-top: -$spacing__macro--xl;
+        width: $spacing__macro--xl;
       }
 
       &__top {
-        height: 30rem;
+        height: $spacing__macro--xl;
         @include background-gradient(45deg, 'blue');
         color: white;
       }
 
       &__bottom {
-        padding: 2rem;
+        padding: $spacing__micro--xl;
       }
     }
   }

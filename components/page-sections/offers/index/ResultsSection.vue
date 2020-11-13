@@ -346,9 +346,9 @@ export default {
 <style lang="scss" scoped>
 .results-section {
   @include fill-screen-width;
-  background-color: $color--grey--dark;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  background-color: $color__grey--dark;
+  padding-top: $spacing__macro--xs;
+  padding-bottom: $spacing__macro--xs;
   overflow: hidden;
   // min-height: 50vh;
 
@@ -357,7 +357,7 @@ export default {
 
     &__results {
       > div + div {
-        margin-top: 10rem;
+        margin-top: $spacing__macro--sm;
       }
 
       &__placeholder {

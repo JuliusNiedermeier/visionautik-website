@@ -29,11 +29,11 @@ export default {
 
 <style lang="scss" scoped>
 .carousel-placeholder-content-component {
-  margin: 0 2rem;
+  margin: 0 $spacing__micro--xl;
 
   small {
     display: block;
-    margin: 1rem 0;
+    margin: $spacing__micro--md 0;
   }
 }
 </style>

@@ -38,9 +38,9 @@ export default {
 
 <style lang="scss" scoped>
 .mega-menu-component {
-  background-color: $color--grey--light;
+  background-color: $color__grey--light;
   overflow: hidden;
-  padding-top: 8rem;
+  padding-top: $spacing__macro--xs;
 
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
   transition: clip-path $duration--fast ease;
@@ -48,13 +48,13 @@ export default {
   @include desktops {
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     padding-top: unset;
-    // border-top: 1px solid $color--lilac--base;
+    // border-top: 1px solid $color__lilac--base;
   }
 
   &__body {
     @include page-margin;
-    // border-top: 1px solid $color--lilac--base;
-    padding: 2rem 0;
+    // border-top: 1px solid $color__lilac--base;
+    padding: $spacing__micro--xl 0;
     max-height: 75vh;
     overflow-y: auto;
   }
@@ -69,7 +69,7 @@ export default {
     .mega-menu-component__body {
       @keyframes slidein {
         from {
-          transform: translateX(-2rem);
+          transform: translateX(-$spacing__micro--xl);
         }
 
         to {

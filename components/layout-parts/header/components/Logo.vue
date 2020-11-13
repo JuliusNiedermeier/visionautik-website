@@ -1,22 +1,22 @@
 <template>
   <div class="logo-component">
     <div class="logo-component__border">
-      <span>Visionautik</span>
-      <span>Akademie</span>
+      <small>Visionautik</small>
+      <small>Akademie</small>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: "va-logo",
+  name: 'va-logo',
 }
 </script>
 
 <style lang="scss" scoped>
 .logo-component {
-  padding: 0.3rem;
-  background-color: $color--blue--base;
+  padding: $spacing__micro--xs;
+  background-color: $color__blue--base;
   width: min-content;
   height: min-content;
 
@@ -24,11 +24,10 @@ export default {
     display: flex;
     flex-direction: column;
     border: 1px solid white;
-    padding: 0.5rem 1rem;
+    padding: $spacing__micro--sm $spacing__micro--md;
 
-    span {
+    small {
       color: white;
-      font-size: 1.6rem;
       text-transform: uppercase;
 
       &:nth-child(2) {

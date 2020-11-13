@@ -1,23 +1,37 @@
 // Colors
-$color--red--base: #d1020b;
-$color--red--lighter: #e53535;
-$color--red--light: lighten($color--red--base, 20);
+$color__red--base: #d1020b;
+$color__red--lighter: #e53535;
+$color__red--light: lighten($color__red--base, 20);
 
-$color--blue--base: #001063;
-$color--blue--lighter: #051986;
-$color--blue--light: #4540b7;
+$color__blue--base: #001063;
+$color__blue--lighter: #051986;
+$color__blue--light: #4540b7;
 
-$color--grey--light: #f7f7f7;
-$color--grey--dark: #f0f0f0;
+$color__grey--light: #f7f7f7;
+$color__grey--dark: #f0f0f0;
 
-$color--lilac--base: #e3e2f3;
+$color__lilac--base: #e3e2f3;
 
 // Motion
-$duration--slow: 800ms;
-$duration--medium: 500ms;
-$duration--fast: 200ms;
+$duration__slow: 800ms;
+$duration__medium: 500ms;
+$duration__fast: 200ms;
 
 // Spacing
+$spacing__micro--xs: 0.25rem;
+$spacing__micro--sm: 0.5rem;
+$spacing__micro--md: 1rem;
+$spacing__micro--lg: 1.5rem;
+$spacing__micro--xl: 2rem;
+
+$spacing__macro--xs: 5rem;
+$spacing__macro--sm: 10rem;
+$spacing__macro--md: 15rem;
+$spacing__macro--lg: 20rem;
+$spacing__macro--xl: 30rem;
+$spacing__macro--xxl: 40rem;
+
+$spacing__breakpoint--desktop: 992px;
 
 // Font
-$letter-spacing--wide: 2rem;
+$letter-spacing__wide: 2rem;

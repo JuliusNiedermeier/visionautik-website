@@ -22,7 +22,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: $color--blue--base;
+  color: $color__blue--base;
 
   &__label {
     text-transform: uppercase;
@@ -30,10 +30,10 @@ export default {
 
   &:hover {
     background: none;
-    color: $color--blue--base;
+    color: $color__blue--base;
 
     .mega-menu-link-component__icon {
-      color: $color--red--base;
+      color: $color__red--base;
     }
   }
 }

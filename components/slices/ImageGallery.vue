@@ -8,7 +8,7 @@
         @click="showImage(index)"
       >
         <div class="image-gallery-slice__gallery__thumbnail__overlay">
-          <va-icon name="add" size="2rem" />
+          <va-icon name="add" />
         </div>
         <img :src="item.image.thumbnail.url" />
       </div>
@@ -91,7 +91,7 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: transparentize($color--blue--base, $amount: 0.25);
+        background-color: transparentize($color__blue--base, $amount: 0.25);
         color: white;
         display: flex;
         justify-content: center;
@@ -113,7 +113,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: transparentize($color--grey--dark, $amount: 0.1);
+    background-color: transparentize($color__grey--dark, $amount: 0.1);
     z-index: 1;
     opacity: 0;
     transition: opacity $duration--fast ease;
@@ -123,7 +123,7 @@ export default {
     align-items: center;
 
     @include desktops {
-      padding: 5rem;
+      padding: $spacing__macro--xs;
     }
 
     img {

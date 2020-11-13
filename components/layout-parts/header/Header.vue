@@ -101,7 +101,7 @@ export default {
   background-color: white;
 
   &__navigation {
-    padding: 1rem 0;
+    padding: $spacing__micro--md 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

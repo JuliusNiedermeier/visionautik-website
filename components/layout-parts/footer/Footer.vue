@@ -44,22 +44,22 @@ export default {
 
 <style lang="scss" scoped>
 .global-footer {
-  background-color: $color--blue--base;
+  background-color: $color__blue--base;
   color: lightgray;
   &__body {
     @include page-margin;
-    padding-top: 10rem;
-    padding-bottom: 5rem;
+    padding-top: $spacing__macro--sm;
+    padding-bottom: $spacing__macro--xs;
     display: grid;
-    grid-gap: 3rem;
+    grid-gap: $spacing__micro--xl;
     grid-template-areas:
       'contact-area'
       'newsletter-area'
       'link-area';
 
     @include desktops {
-      padding-top: 10rem;
-      padding-bottom: 10rem;
+      padding-top: $spacing__macro--sm;
+      padding-bottom: $spacing__macro--sm;
 
       grid-template-areas:
         'contact-area newsletter-area'
@@ -70,7 +70,7 @@ export default {
       grid-area: contact-area;
       h3 {
         margin-top: 0;
-        margin-bottom: 0.5rem;
+        margin-bottom: $spacing__micro--sm;
       }
 
       p {
@@ -92,12 +92,12 @@ export default {
     }
   }
   &__legal-bar {
-    background-color: $color--blue--lighter;
+    background-color: $color__blue--lighter;
 
     &__body {
       @include page-margin;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+      padding-top: $spacing__micro--md;
+      padding-bottom: $spacing__micro--md;
 
       display: flex;
       flex-direction: row;

@@ -76,7 +76,7 @@
 
   a {
     font-size: 1.8rem;
-    color: $color--blue--lighter;
+    color: $color__blue--lighter;
     font-style: normal;
     transition: all $duration--fast ease;
     text-decoration: none;
@@ -129,7 +129,7 @@
       position: absolute;
       top: 0;
       font-size: 6.5rem;
-      color: $color--red--base;
+      color: $color__red--base;
       font-style: italic;
       font-weight: normal;
       font-family: serif;
@@ -145,7 +145,7 @@
 
   button {
     padding: 1rem 1.5rem;
-    background-color: $color--blue--base;
+    background-color: $color__blue--base;
     color: white;
     border: none;
     border-radius: 0;
@@ -165,11 +165,11 @@
 
     &:hover {
       cursor: pointer;
-      background-color: $color--blue--lighter;
+      background-color: $color__blue--lighter;
     }
 
     &:active {
-      background-color: $color--blue--light;
+      background-color: $color__blue--light;
     }
 
     &:disabled {
@@ -181,17 +181,17 @@
   input {
     border: none;
     outline: none;
-    background-color: $color--grey--light;
+    background-color: $color__grey--light;
     padding: 1rem 1.5rem;
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     font-size: 1.6rem;
 
     &:hover {
-      background-color: $color--grey--dark;
+      background-color: $color__grey--dark;
     }
 
     &:focus {
-      background-color: $color--lilac--base;
+      background-color: $color__lilac--base;
     }
   }
 
@@ -203,12 +203,12 @@
 
   select {
     padding: 1rem 1.5rem;
-    border: 1px solid $color--blue--base;
+    border: 1px solid $color__blue--base;
     outline: none;
     font-family: inherit;
     font-weight: bold;
-    background-color: $color--lilac--base;
-    color: $color--blue--base;
+    background-color: $color__lilac--base;
+    color: $color__blue--base;
     border-radius: 0;
 
     &:hover {

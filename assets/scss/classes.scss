@@ -6,21 +6,21 @@
 }
 
 .invert-color:not(.prevent-invert-color) {
-  color: $color--grey--light;
+  color: $color__grey--light;
 
   & a:not(.prevent-invert-color) {
-    color: $color--grey--light;
+    color: $color__grey--light;
   }
 
   & blockquote:not(.prevent-invert-color) {
     &::before {
-      color: $color--grey--light;
+      color: $color__grey--light;
     }
   }
 
   & button:not(.prevent-invert-color) {
-    background-color: $color--grey--dark;
-    color: $color--blue--base;
+    background-color: $color__grey--dark;
+    color: $color__blue--base;
 
     &:hover {
       cursor: pointer;
@@ -28,20 +28,20 @@
     }
 
     &:active {
-      background-color: $color--lilac--base;
+      background-color: $color__lilac--base;
     }
   }
 
   & input:not(.prevent-invert-color) {
-    background-color: $color--blue--lighter;
-    color: $color--grey--light;
+    background-color: $color__blue--lighter;
+    color: $color__grey--light;
 
     &:hover {
-      background-color: $color--blue--light;
+      background-color: $color__blue--light;
     }
 
     &:focus {
-      background-color: $color--blue--light;
+      background-color: $color__blue--light;
     }
   }
 }

@@ -58,8 +58,8 @@ export default {
 <style lang="scss" scoped>
 .our-vision-section {
   @include fill-screen-width;
-  background-color: $color--grey--dark;
-  padding: 20rem 0;
+  background-color: $color__grey--dark;
+  padding: $spacing__macro--lg 0;
 
   &__body {
     @include page-margin;
@@ -68,7 +68,7 @@ export default {
     align-items: stretch;
 
     &__text {
-      margin-right: 2rem;
+      margin-right: $spacing__micro--xl;
 
       &__heading {
         margin-top: 0;

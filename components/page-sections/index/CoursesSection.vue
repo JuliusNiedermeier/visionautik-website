@@ -139,9 +139,9 @@ export default {
 
 <style lang="scss" scoped>
 .courses-section-component {
-  background-color: $color--grey--light;
+  background-color: $color__grey--light;
   @include fill-screen-width;
-  padding: 20rem 0;
+  padding: $spacing__macro--lg 0;
   overflow-x: hidden;
 
   &__body {
@@ -150,7 +150,7 @@ export default {
     &__heading {
       text-align: center;
       margin-top: 0;
-      margin-bottom: 5rem;
+      margin-bottom: $spacing__macro--xs;
     }
 
     &__head-section {
@@ -162,15 +162,15 @@ export default {
 
     &__carousel {
       li + li {
-        margin-left: 2rem;
+        margin-left: $spacing__micro--xl;
       }
 
       &__placeholder {
-        margin: 0 2rem;
+        margin: 0 $spacing__micro--xl;
 
         small {
           display: block;
-          margin: 1rem 0;
+          margin: $spacing__micro--md 0;
         }
       }
     }

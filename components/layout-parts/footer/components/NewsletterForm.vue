@@ -1,16 +1,24 @@
 <template>
   <form class="newsletter-form-component" @submit.prevent>
     <input :placeholder="$t('layout.footer.newsletterForm.namePlaceholder')" />
-    <input type="email" :placeholder="$t('layout.footer.newsletterForm.emailPlaceholder')" required />
+    <input
+      type="email"
+      :placeholder="$t('layout.footer.newsletterForm.emailPlaceholder')"
+      required
+    />
     <div class="newsletter-form-component__gdpr-consent">
       <input type="checkbox" required />
       <label>
         <nuxt-link to="/privacy">
-          <small>{{$t('layout.footer.newsletterForm.gdprConsentLabel')}}</small>
+          <small>{{
+            $t('layout.footer.newsletterForm.gdprConsentLabel')
+          }}</small>
         </nuxt-link>
       </label>
     </div>
-    <button type="submit" class>{{$t('layout.footer.newsletterForm.submitButtonLabel')}}</button>
+    <button type="submit" class>
+      {{ $t('layout.footer.newsletterForm.submitButtonLabel') }}
+    </button>
   </form>
 </template>
 
@@ -29,19 +37,19 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 1rem 1.5rem;
-    background-color: $color--blue--lighter;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding: $spacing__micro--md $spacing__micro--lg;
+    background-color: $color__blue--lighter;
+    margin-top: $spacing__micro--sm;
+    margin-bottom: $spacing__micro--sm;
 
     input {
       margin-left: 0;
-      margin-right: 1rem;
+      margin-right: $spacing__micro--md;
     }
   }
 
   button {
-    background-color: $color--blue--lighter;
+    background-color: $color__blue--lighter;
     align-self: flex-start;
 
     @include desktops {
