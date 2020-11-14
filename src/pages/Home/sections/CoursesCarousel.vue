@@ -1,12 +1,12 @@
 <template>
-  <div class="courses-section-component">
-    <div class="courses-section-component__body">
-      <div class="courses-section-component__body__head-section">
-        <h2 class="courses-section-component__body__head-section__heading">
+  <div class="va-ps--CoursesCarousel">
+    <div class="va-ps--CoursesCarousel__body">
+      <div class="va-ps--CoursesCarousel__body__head-section">
+        <h2 class="va-ps--CoursesCarousel__body__head-section__heading">
           {{ heading }}
         </h2>
         <button
-          class="courses-section-component__body__head-section__button"
+          class="va-ps--CoursesCarousel__body__head-section__button"
           @click="
             $router.push({
               path: '/offers',
@@ -29,7 +29,7 @@
           }}
         </button>
       </div>
-      <div class="courses-section-component__body__carousel">
+      <div class="va-ps--CoursesCarousel__body__carousel">
         <va-carousel gap displayPlaceholder>
           <va-offer
             v-for="(course, index) in courses"
@@ -138,7 +138,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.courses-section-component {
+.va-ps--CoursesCarousel {
   background-color: $color__grey--light;
   @include fill-screen-width;
   padding: $spacing__macro--lg 0;

@@ -1,18 +1,18 @@
 <template>
-  <div class="filter-section">
-    <div class="filter-section__offer-category-filter">
+  <div class="va-ps--Filter">
+    <div class="va-ps--Filter__offer-category-filter">
       <button
         v-for="(category, categoryKey) in categories"
         :key="categoryKey"
         @click="toggleOfferCategory(categoryKey)"
-        class="filter-section__offer-category-filter__button"
+        class="va-ps--Filter__offer-category-filter__button"
         :class="{ checked: category.enabled }"
       >
         {{ $t(`types.${category.typeName}.categories.${categoryKey}.plural`) }}
         <va-icon :name="category.enabled ? 'check' : 'add'" />
       </button>
     </div>
-    <div class="filter-section__search-bar">
+    <div class="va-ps--Filter__search-bar">
       <input
         category="text"
         :placeholder="
@@ -22,17 +22,17 @@
         "
         v-model="searchString"
       />
-      <div class="filter-section__search-bar__search-icon">
+      <div class="va-ps--Filter__search-bar__search-icon">
         <va-icon name="search" />
       </div>
     </div>
-    <div class="filter-section__target-groups">
-      <div class="filter-section__target-groups__filter">
+    <div class="va-ps--Filter__target-groups">
+      <div class="va-ps--Filter__target-groups__filter">
         <p
           v-for="(targetGroup, index) in targetGroups.items"
           :key="index"
           @click="targetGroups.activeIndex = index"
-          class="filter-section__target-groups__filter__target-group"
+          class="va-ps--Filter__target-groups__filter__target-group"
           :class="{ active: index === targetGroups.activeIndex }"
         >
           {{
@@ -49,7 +49,7 @@
         @click="
           targetGroups.infoContentExpanded = !targetGroups.infoContentExpanded
         "
-        class="filter-section__target-groups__info-button"
+        class="va-ps--Filter__target-groups__info-button"
       >
         <span>Info</span
         ><va-icon
@@ -59,7 +59,7 @@
         />
       </button>
     </div>
-    <div class="filter-section__target-group-info">
+    <div class="va-ps--Filter__target-group-info">
       <va-slice-content
         v-if="targetGroups.activeIndex > 0 && targetGroups.infoContentExpanded"
         :documentType="$api.types.collections.offers.typeName"
@@ -220,7 +220,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.filter-section {
+.va-ps--Filter {
   padding-top: $spacing__macro--xs;
 
   &__offer-category-filter {

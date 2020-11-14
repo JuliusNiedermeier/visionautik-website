@@ -1,9 +1,9 @@
 <template>
-  <div class="results-section">
-    <div class="results-section__body">
-      <div class="results-section__body__results">
+  <div class="va-ps--Results">
+    <div class="va-ps--Results__body">
+      <div class="va-ps--Results__body__results">
         <div
-          class="results-section__body__results__courses"
+          class="va-ps--Results__body__results__courses"
           v-if="results.courses.length > 0"
         >
           <h5>
@@ -51,7 +51,7 @@
           </va-carousel>
         </div>
         <div
-          class="results-section__body__results__events"
+          class="va-ps--Results__body__results__events"
           v-if="results.events.length > 0"
         >
           <h5>
@@ -99,7 +99,7 @@
           </va-carousel>
         </div>
         <div
-          class="results-section__body__results__products"
+          class="va-ps--Results__body__results__products"
           v-if="results.products.length > 0"
         >
           <h5>
@@ -149,7 +149,7 @@
             </template>
           </va-carousel>
         </div>
-        <div class="results-section__body__results__placeholder">
+        <div class="va-ps--Results__body__results__placeholder">
           <va-carousel-placeholder-content
             v-if="resultsCount === 0"
             :heading="
@@ -180,7 +180,7 @@ import Offer from '@/components/elements/Offer'
 import Carousel from '@/components/elements/Carousel'
 import CarouselPlaceholderContent from '@/components/elements/CarouselPlaceholderContent'
 export default {
-  name: 'va-results-section',
+  name: 'va-va-ps--Results',
   components: {
     'va-offer': Offer,
     'va-carousel': Carousel,
@@ -209,6 +209,8 @@ export default {
       return count
     },
   },
+
+  watchQuery: true,
 
   watch: {
     '$route.query'() {
@@ -344,7 +346,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.results-section {
+.va-ps--Results {
   @include fill-screen-width;
   background-color: $color__grey--dark;
   padding-top: $spacing__macro--xs;

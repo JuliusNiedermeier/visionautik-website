@@ -32,7 +32,7 @@ export default {
     url() {
       switch (this.type) {
         case this.$api.types.repeatables.offer.typeName:
-          return `/offers/offer/${this.uid}`
+          return `/offers/activity/${this.uid}`
           break
         case this.$api.types.repeatables.product.typeName:
           return `/offers/product/${this.uid}`

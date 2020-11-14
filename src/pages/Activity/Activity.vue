@@ -16,7 +16,7 @@
 
       <template slot="sidebar-top"><va-sections-overview /></template>
       <template slot="sidebar-bottom"
-        ><va-offer-details /><va-offer-add-to-cart
+        ><va-activity-details /><va-activity-add-to-cart
       /></template>
     </va-sidebar-layout>
   </div>
@@ -26,17 +26,17 @@
 import SidebarLayout from '@/layout/SidebarLayout/SidebarLayout'
 import SliceContent from '@/components/elements/SliceContent'
 import SectionsOverview from '@/layout/SidebarLayout/components/SectionsOverview'
-import OfferDetails from '@/components/page-sections/offers/offer/OfferDetails'
-import OfferAddToCart from '@/components/page-sections/offers/offer/OfferAddToCart'
-import OfferHeaderBody from '@/components/page-sections/offers/OfferHeaderBody'
-import OfferHeaderImage from '@/components/page-sections/offers/OfferHeaderImage'
+import ActivityDetails from './components/ActivityDetails'
+import ActivityAddToCart from './components/ActivityAddToCart'
+import OfferHeaderBody from '@/components/layout-parts/OfferHeaderBody'
+import OfferHeaderImage from '@/components/layout-parts/OfferHeaderImage'
 export default {
   components: {
     'va-sidebar-layout': SidebarLayout,
     'va-slice-content': SliceContent,
     'va-sections-overview': SectionsOverview,
-    'va-offer-details': OfferDetails,
-    'va-offer-add-to-cart': OfferAddToCart,
+    'va-activity-details': ActivityDetails,
+    'va-activity-add-to-cart': ActivityAddToCart,
     'va-offer-header-body': OfferHeaderBody,
     'va-offer-header-image': OfferHeaderImage,
   },

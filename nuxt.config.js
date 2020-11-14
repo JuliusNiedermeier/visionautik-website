@@ -34,18 +34,6 @@ export default {
   loading: { color: 'blue' },
 
   router: {
-    extendRoutes(routes, resolve) {
-      // Configure type param before offer single page
-      // routes = routes.map((route) => {
-      //   console.log(route)
-      //   if (route.name === 'offers-offer') {
-      //     route.name = 'offers-type-offer'
-      //     route.path = '/offers/:type/:offer'
-      //   }
-      //   return route
-      // })
-    },
-
     scrollBehavior(to) {
       if (to.hash) {
         return window.scrollTo({
@@ -85,7 +73,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/snipcart'],
+  buildModules: ['@nuxtjs/router', '@nuxtjs/snipcart'],
   /*
    ** Nuxt.js modules
    */

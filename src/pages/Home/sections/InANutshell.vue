@@ -1,18 +1,18 @@
 <template>
   <div
-    class="in-a-nutshell-section"
+    class="va-ps--InANutshell"
     v-if="heading && videoUrl && videoThumbnailUrl && textColumns"
   >
-    <div class="in-a-nutshell-section__body">
+    <div class="va-ps--InANutshell__body">
       <h2>{{ heading }}</h2>
       <va-video
         :src="videoUrl"
         :thumbnail="videoThumbnailUrl"
         v-if="videoUrl"
         aspectRatio="2.5"
-        class="in-a-nutshell-section__body__video"
+        class="va-ps--InANutshell__body__video"
       />
-      <div class="in-a-nutshell-section__body__columns">
+      <div class="va-ps--InANutshell__body__columns">
         <p v-for="(column, index) in textColumns" :key="index">
           {{ column.in_a_nutshell__column_text }}
         </p>
@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.in-a-nutshell-section {
+.va-ps--InANutshell {
   @include fill-screen-width;
   background-color: $color__grey--light;
   padding: $spacing__macro--lg 0;

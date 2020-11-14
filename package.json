@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@nuxtjs/prismic": "^1.2.4",
+    "@nuxtjs/router": "^1.5.0",
     "@nuxtjs/snipcart": "^1.1.0",
     "js-base64": "^3.5.2",
     "nuxt": "^2.14.7",

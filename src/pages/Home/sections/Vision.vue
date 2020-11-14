@@ -1,8 +1,8 @@
 <template>
-  <div class="our-vision-section" v-if="heading && text && image.url">
-    <div class="our-vision-section__body">
-      <div class="our-vision-section__body__text">
-        <h2 class="our-vision-section__body__text__heading">{{ heading }}</h2>
+  <div class="va-ps--Vision" v-if="heading && text && image.url">
+    <div class="va-ps--Vision__body">
+      <div class="va-ps--Vision__body__text">
+        <h2 class="va-ps--Vision__body__text__heading">{{ heading }}</h2>
         <p>{{ text }}</p>
         <button>
           {{
@@ -12,7 +12,7 @@
           }}
         </button>
       </div>
-      <div class="our-vision-section__body__image">
+      <div class="va-ps--Vision__body__image">
         <img :src="image.url" :alt="image.alt" />
       </div>
     </div>
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.our-vision-section {
+.va-ps--Vision {
   @include fill-screen-width;
   background-color: $color__grey--dark;
   padding: $spacing__macro--lg 0;

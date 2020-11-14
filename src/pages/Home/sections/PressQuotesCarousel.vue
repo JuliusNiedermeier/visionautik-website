@@ -1,7 +1,7 @@
 <template>
-  <div class="press-quote-section" v-if="pressQuotes.length > 0">
+  <div class="va-ps--PressQuotesCarousel" v-if="pressQuotes.length > 0">
     <va-carousel
-      class="press-quote-section__carousel"
+      class="va-ps--PressQuotesCarousel__carousel"
       randomize
       autoplayInterval="5000"
       loop
@@ -10,7 +10,7 @@
       <div
         v-for="(pressQuote, index) in pressQuotes"
         :key="index"
-        class="press-quote-section__carousel__quote"
+        class="va-ps--PressQuotesCarousel__carousel__quote"
       >
         <img :src="pressQuote.general__logo.url" />
 
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.press-quote-section {
+.va-ps--PressQuotesCarousel {
   background-color: $color__grey--light;
   @include fill-screen-width;
   padding-top: $spacing__micro--xl;

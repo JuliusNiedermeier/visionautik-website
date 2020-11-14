@@ -1,8 +1,8 @@
 <template>
-  <div class="featured-section-component" v-if="offerListItems.length >= 3">
-    <div class="featured-section-component__body">
-      <h3 class="featured-section-component__body__heading">{{ heading }}</h3>
-      <div class="featured-section-component__body__articles">
+  <div class="va-ps--Recommendations" v-if="offerListItems.length >= 3">
+    <div class="va-ps--Recommendations__body">
+      <h3 class="va-ps--Recommendations__body__heading">{{ heading }}</h3>
+      <div class="va-ps--Recommendations__body__articles">
         <va-offer
           v-for="courseOfferListItem in offerListItems.filter(
             (item) =>
@@ -201,7 +201,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.featured-section-component {
+.va-ps--Recommendations {
   background-color: $color__grey--dark;
   @include fill-screen-width;
   padding: $spacing__macro--lg 0;

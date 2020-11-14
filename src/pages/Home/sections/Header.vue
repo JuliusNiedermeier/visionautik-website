@@ -1,35 +1,33 @@
 <template>
-  <div class="welcome-section" v-if="videoUrl && heading && subHeading">
-    <div class="welcome-section">
-      <video
-        ref="welcomeSectionVideo"
-        autoplay
-        loop
-        muted
-        palysinline
-        class="welcome-section__video-background"
-      >
-        <source :src="videoUrl" type="video/mp4" v-if="videoUrl" />
-      </video>
-      <div class="welcome-section__overlay">
-        <h1 class="welcome-section__overlay__heading">{{ heading }}</h1>
-        <h5 class="welcome-section__overlay__sub-heading">{{ subHeading }}</h5>
-        <div class="welcome-section__overlay__links">
-          <div class="welcome-section__overlay__links__body">
-            <a
-              v-for="(targetGroupLink, index) in targetGroupLinks"
-              :key="index"
-              @click="
-                $router.push({ path: '/offers', query: targetGroupLink.query })
-              "
-              class="welcome-section__overlay__links__body__link"
-            >
-              <h5 class="welcome-section__overlay__links__body__link__text">
-                {{ targetGroupLink.name }}
-              </h5>
-              <va-icon name="chevron-right" />
-            </a>
-          </div>
+  <div class="va-ps--Header" v-if="videoUrl && heading && subHeading">
+    <video
+      ref="welcomeSectionVideo"
+      autoplay
+      loop
+      muted
+      palysinline
+      class="va-ps--Header__video-background"
+    >
+      <source :src="videoUrl" type="video/mp4" v-if="videoUrl" />
+    </video>
+    <div class="va-ps--Header__overlay">
+      <h1 class="va-ps--Header__overlay__heading">{{ heading }}</h1>
+      <h5 class="va-ps--Header__overlay__sub-heading">{{ subHeading }}</h5>
+      <div class="va-ps--Header__overlay__links">
+        <div class="va-ps--Header__overlay__links__body">
+          <a
+            v-for="(targetGroupLink, index) in targetGroupLinks"
+            :key="index"
+            @click="
+              $router.push({ path: '/offers', query: targetGroupLink.query })
+            "
+            class="va-ps--Header__overlay__links__body__link"
+          >
+            <h5 class="va-ps--Header__overlay__links__body__link__text">
+              {{ targetGroupLink.name }}
+            </h5>
+            <va-icon name="chevron-right" />
+          </a>
         </div>
       </div>
     </div>
@@ -98,7 +96,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.welcome-section {
+.va-ps--Header {
   min-height: 70vh;
   @include fill-screen-width;
 
