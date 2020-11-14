@@ -73,7 +73,11 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/router', '@nuxtjs/snipcart'],
+  buildModules: [
+    '@nuxtjs/router',
+    '@nuxtjs/snipcart',
+    '@nuxt/typescript-build',
+  ],
   /*
    ** Nuxt.js modules
    */

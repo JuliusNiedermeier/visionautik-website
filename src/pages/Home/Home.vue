@@ -1,21 +1,21 @@
 <template>
   <div class="home-page">
     <va-ps--Header />
-    <press-quote-section />
-    <featured-section />
-    <in-a-nutshell-section />
-    <courses-section />
-    <our-vision />
+    <va-ps--PressQuotesCarousel />
+    <va-ps--Recommendations />
+    <va-ps--InANutshell />
+    <va-ps--CoursesCarousel />
+    <va-ps--Vision />
   </div>
 </template>
 
-<script>
-import Header from './sections/Header'
-import PressQuotesCarousel from './sections/PressQuotesCarousel'
-import Recommendations from './sections/Recommendations'
-import InANutshell from './sections/InANutshell'
-import CoursesCarousel from './sections/CoursesCarousel'
-import Vision from './sections/Vision'
+<script lang="ts">
+import Header from './sections/Header.vue'
+import PressQuotesCarousel from './sections/PressQuotesCarousel.vue'
+import Recommendations from './sections/Recommendations.vue'
+import InANutshell from './sections/InANutshell.vue'
+import CoursesCarousel from './sections/CoursesCarousel.vue'
+import Vision from './sections/Vision.vue'
 export default {
   name: 'va-pg--Home',
   components: {
