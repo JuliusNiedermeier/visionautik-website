@@ -1,0 +1,38 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "dev:lt": "lt --port 3000 --subdomain visionautikde",
+    "dev:host": "nuxt --hostname 192.168.178.52 --port 3000",
+    "dev:host:lt": "lt --port 3000 --local-host 192.168.178.52 --subdomain visionautikde",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "export": "nuxt export",
+    "serve": "nuxt serve",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@nuxtjs/prismic": "^1.2.4",
+    "@nuxtjs/router": "^1.5.0",
+    "@nuxtjs/snipcart": "^1.1.0",
+    "js-base64": "^3.5.2",
+    "nuxt": "^2.14.7",
+    "nuxt-i18n": "^6.15.3"
+  },
+  "devDependencies": {
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@vue/test-utils": "^1.1.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^26.6.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "html-minifier": "^4.0.0",
+    "jest": "^26.6.0",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.1.2",
+    "sass-loader": "^8.0.2",
+    "vue-jest": "^3.0.7"
+  }
+}
