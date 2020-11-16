@@ -12,6 +12,8 @@ Vue.use(Router)
 export function createRouter() {
   return new Router({
     mode: 'history',
+    linkActiveClass: 'nuxt-link-active',
+    linkExactActiveClass: 'nuxt-link-exact-active',
     routes: [
       {
         name: 'home',

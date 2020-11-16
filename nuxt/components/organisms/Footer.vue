@@ -2,9 +2,15 @@
   <footer class="va-or--Footer invert-color">
     <div class="va-or--Footer__body">
       <div class="va-or--Footer__body__contact-area">
-        <h3>Visionautik Akademie</h3>
-        <p>{{ $t('layout.footer.address') }}</p>
-        <button>{{ $t('layout.footer.contactButton') }}</button>
+        <h3 class="va-or--Footer__body__contact-area__heading">
+          Visionautik Akademie
+        </h3>
+        <p class="va-or--Footer__body__contact-area__address">
+          {{ $t('layout.footer.address') }}
+        </p>
+        <button class="va-or--Footer__body__contact-area__contact-button">
+          {{ $t('layout.footer.contactButton') }}
+        </button>
       </div>
       <div class="va-or--Footer__body__link-area">
         <nuxt-link to="/terms-of-use">
@@ -68,12 +74,13 @@ export default {
 
     &__contact-area {
       grid-area: contact-area;
-      h3 {
+
+      &__heading {
         margin-top: 0;
         margin-bottom: $spacing__micro--sm;
       }
 
-      p {
+      &__address {
         margin-top: 0;
       }
     }

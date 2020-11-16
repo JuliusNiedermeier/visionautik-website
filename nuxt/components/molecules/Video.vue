@@ -95,8 +95,6 @@ export default {
 
     handleVideoTimeUpdate(event) {
       this.currentTime = event.target.currentTime
-      // if (this.duration) return
-      // this.duration = event.target.duration
     },
 
     handleBottomControlsMouseover(event) {
@@ -184,6 +182,23 @@ export default {
       }
     }
 
+    &.initial {
+      opacity: 1;
+      background-color: transparent;
+
+      &:hover {
+        background-color: transparentize($color: black, $amount: 0.75);
+      }
+    }
+
+    &.initial &__play-state-icon {
+      opacity: 1;
+    }
+
+    &.initial &__bottom-controls {
+      opacity: 0;
+    }
+
     &__bottom-controls {
       position: absolute;
       bottom: 0;
@@ -192,7 +207,6 @@ export default {
       padding: $spacing__micro--xl 0;
       margin: 0 $spacing__micro--xl;
       cursor: pointer;
-      // transform: translateY($spacing__micro--xl);
 
       &__progress-bar {
         position: relative;
@@ -231,22 +245,6 @@ export default {
 
       &:hover &__progress-bar__mouse-position-indicator {
         display: initial;
-      }
-    }
-
-    &.initial {
-      opacity: 1;
-      background-color: transparent;
-
-      &:hover {
-        background-color: transparentize($color: black, $amount: 0.75);
-      }
-
-      .va-mo--Video__controls__play-state-icon {
-        opacity: 1;
-      }
-      .va-mo--Video__controls__bottom-controls {
-        opacity: 0;
       }
     }
   }

@@ -1,10 +1,14 @@
 <template>
   <div class="va-mo--ContentPlaceholder">
-    <h3>{{ heading }}</h3>
-    <small>
+    <h3 class="va-mo--ContentPlaceholder__heading">{{ heading }}</h3>
+    <small class="va-mo--ContentPlaceholder__body">
       {{ body }}
     </small>
-    <button v-if="buttonLabel || buttonIconName" @click="$emit('click')">
+    <button
+      class="va-mo--ContentPlaceholder__button"
+      v-if="buttonLabel || buttonIconName"
+      @click="$emit('click')"
+    >
       <span>{{ buttonLabel }}</span
       ><va-at--Icon v-if="buttonIconName" :name="buttonIconName" />
     </button>
@@ -32,7 +36,7 @@ export default {
 .va-mo--ContentPlaceholder {
   margin: 0 $spacing__micro--xl;
 
-  small {
+  &__body {
     display: block;
     margin: $spacing__micro--md 0;
   }

@@ -1,8 +1,14 @@
 <template>
   <div class="va-at--NavigationMenuToggle" :class="toggleState">
-    <div />
-    <div />
-    <div />
+    <div
+      class="va-at--NavigationMenuToggle__line va-at--NavigationMenuToggle__line--top"
+    />
+    <div
+      class="va-at--NavigationMenuToggle__line va-at--NavigationMenuToggle__line--center"
+    />
+    <div
+      class="va-at--NavigationMenuToggle__line va-at--NavigationMenuToggle__line--bottom"
+    />
   </div>
 </template>
 
@@ -31,7 +37,7 @@ export default {
   width: $spacing__micro--xl + $spacing__micro--md;
   cursor: pointer;
 
-  div {
+  &__line {
     height: 1px;
     width: 100%;
     transform-origin: right;
@@ -41,30 +47,26 @@ export default {
     transition-duration: $duration--fast;
   }
 
-  &.expanded {
-    :nth-child(1) {
-      width: 33%;
-    }
-
-    :nth-child(2) {
-      width: 66%;
-    }
+  &.expanded &__line--top {
+    width: 33%;
   }
 
-  &.expanded--mega-menu {
-    :nth-child(1) {
-      transform: rotate(-45deg);
-      width: 90%;
-    }
+  &.expanded &__line--center {
+    width: 66%;
+  }
 
-    :nth-child(2) {
-      width: 0;
-    }
+  &.expanded--mega-menu &__line--top {
+    transform: rotate(-45deg);
+    width: 90%;
+  }
 
-    :nth-child(3) {
-      transform: rotate(45deg);
-      width: 90%;
-    }
+  &.expanded--mega-menu &__line--center {
+    width: 0;
+  }
+
+  &.expanded--mega-menu &__line--bottom {
+    transform: rotate(45deg);
+    width: 90%;
   }
 }
 </style>

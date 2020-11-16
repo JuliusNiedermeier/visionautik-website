@@ -4,20 +4,25 @@
     :class="toggleState ? 'expanded' : 'collapsed'"
   >
     <ul class="va-mo--NavigationMenu__list">
-      <li v-for="navigationLink in navigationLinks" :key="navigationLink.name">
+      <li
+        class="va-mo--NavigationMenu__list__item"
+        v-for="navigationLink in navigationLinks"
+        :key="navigationLink.name"
+      >
         <nuxt-link
           :to="navigationLink.url"
           @click.native="handleLinkClick(navigationLink)"
           @mouseenter.native="handleLinkClick(navigationLink)"
           :event="navigationLink.megaMenuComponent ? '' : 'click'"
+          class="va-mo--NavigationMenu__list__item__link"
           :class="{
-            'va-mo--NavigationMenu__list__item--only-exact-active':
+            'va-mo--NavigationMenu__list__item__link--root':
               navigationLink.isRoot,
           }"
           ><small>{{ navigationLink.name }}</small></nuxt-link
         >
       </li>
-      <li>
+      <li class="va-mo--NavigationMenu__list__item">
         <nuxt-link to="cart">
           <button class="va-mo--NavigationMenu__list__cart-button">
             <va-at--Icon name="cart" />
@@ -113,19 +118,7 @@ export default {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
     .va-mo--NavigationMenu__list {
-      @keyframes slidein {
-        from {
-          transform: translateX(-$spacing__micro--xl);
-        }
-
-        to {
-          transform: translateX(0);
-        }
-      }
-
-      animation-name: slidein;
-      animation-duration: $duration--medium;
-      animation-timing-function: ease;
+      @include slide-animation();
     }
   }
 
@@ -150,41 +143,38 @@ export default {
       width: initial;
       margin: initial;
       text-align: initial;
-    }
-
-    li {
-      padding: $spacing__micro--xl;
-    }
-
-    @include desktops {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
       align-items: center;
+    }
 
-      li {
+    &__item {
+      padding: $spacing__micro--xl;
+
+      @include desktops {
         padding: 0;
         margin-left: $spacing__micro--xl;
       }
-    }
 
-    a {
-      font-weight: bold;
-      text-transform: uppercase;
-      color: $color__blue--base;
+      &__link {
+        font-weight: bold;
+        text-transform: uppercase;
+        color: $color__blue--base;
 
-      &:hover {
-        background: none;
-        padding: initial;
+        &:hover {
+          color: $color__blue--light;
+          background: none;
+        }
+
+        &.nuxt-link-active:not(&--root) {
+          color: $color__red--base;
+        }
+
+        &.nuxt-link-exact-active {
+          color: $color__red--base;
+        }
       }
-    }
-
-    .nuxt-link-active:not(.va-mo--NavigationMenu__list__item--only-exact-active) {
-      color: $color__red--base;
-    }
-
-    .nuxt-link-exact-active {
-      color: $color__red--base;
     }
 
     &__cart-button {

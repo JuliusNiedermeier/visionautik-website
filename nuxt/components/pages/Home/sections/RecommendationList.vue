@@ -4,6 +4,7 @@
       <h3 class="va-ps--RecommendationList__body__heading">{{ heading }}</h3>
       <div class="va-ps--RecommendationList__body__articles">
         <va-mo--Offer
+          class="va-ps--RecommendationList__body__articles__item"
           v-for="courseOfferListItem in offerListItems.filter(
             (item) =>
               item.type === $api.types.repeatables.offer.typeName &&
@@ -15,9 +16,14 @@
           :title="courseOfferListItem.general__heading"
           :description="courseOfferListItem.general__excerpt"
           :type="$api.types.repeatables.offer.typeName"
-          :tag="$t('types.repeatables.course.tag')"
+          :tag="
+            $t(
+              `types.${$api.types.repeatables.offer.typeName}.categories.course.singular`
+            )
+          "
         />
         <va-mo--Offer
+          class="va-ps--RecommendationList__body__articles__item"
           v-for="eventOfferListItem in offerListItems.filter(
             (item) =>
               item.type === $api.types.repeatables.offer.typeName &&
@@ -29,9 +35,14 @@
           :title="eventOfferListItem.general__heading"
           :description="eventOfferListItem.general__excerpt"
           :type="$api.types.repeatables.offer.typeName"
-          :tag="$t('types.repeatables.event.tag')"
+          :tag="
+            $t(
+              `types.${$api.types.repeatables.offer.typeName}.categories.event.singular`
+            )
+          "
         />
         <va-mo--Offer
+          class="va-ps--RecommendationList__body__articles__item"
           v-for="blogPostOfferListItem in offerListItems.filter(
             (item) => item.type === $api.types.repeatables.blogPost.typeName
           )"
@@ -41,7 +52,9 @@
           :title="blogPostOfferListItem.general__heading"
           :description="blogPostOfferListItem.general__excerpt"
           :type="$api.types.repeatables.blogPost.typeName"
-          :tag="$t('types.repeatables.blogPost.tag')"
+          :tag="
+            $t(`types.${$api.types.repeatables.blogPost.typeName}.singular`)
+          "
         />
       </div>
     </div>
@@ -222,20 +235,22 @@ export default {
       justify-content: space-evenly;
       align-items: flex-start;
 
-      > * + * {
-        margin-top: $spacing__micro--xl;
-      }
-
       @include desktops {
         flex-direction: row;
+      }
 
-        > * {
+      &__item {
+        @include desktops {
           flex: 1;
         }
 
-        > * + * {
-          margin-left: $spacing__micro--xl;
-          margin-top: 0;
+        & + & {
+          margin-top: $spacing__micro--xl;
+
+          @include desktops {
+            margin-left: $spacing__micro--xl;
+            margin-top: 0;
+          }
         }
       }
     }

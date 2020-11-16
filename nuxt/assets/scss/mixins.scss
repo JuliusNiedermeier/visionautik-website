@@ -76,3 +76,39 @@
     background: linear-gradient($degree, black 0%, transparent 100%);
   }
 }
+
+@mixin slide-animation(
+  $axis: 'horizontal',
+  $direction: 'forward',
+  $duration: $duration--medium
+) {
+  animation-timing-function: ease;
+  animation-duration: $duration;
+  animation-direction: $direction;
+
+  @if $axis == 'horizontal' {
+    @keyframes slide-right {
+      from {
+        transform: translateX(-$spacing__micro--xl);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+    animation-name: slide-right;
+  } @else if $axis == 'vertical' {
+    @keyframes slide-down {
+      from {
+        opacity: 0;
+        transform: translateX(-$spacing__micro--xl);
+      }
+
+      to {
+        opacity: initial;
+        transform: translateX(0);
+      }
+    }
+    animation-name: slide-down;
+  }
+}

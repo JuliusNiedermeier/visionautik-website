@@ -12,9 +12,12 @@
         :key="index"
         class="va-ps--PressQuoteCarousel__carousel__quote"
       >
-        <img :src="pressQuote.general__logo.url" />
+        <img
+          class="va-ps--PressQuoteCarousel__carousel__quote__press-logo"
+          :src="pressQuote.general__logo.url"
+        />
 
-        <p>
+        <p class="va-ps--PressQuoteCarousel__carousel__quote__body">
           <small>{{ pressQuote.general__text }}</small>
         </p>
         <p></p>
@@ -72,7 +75,7 @@ export default {
         min-width: 60%;
       }
 
-      img {
+      &__press-logo {
         width: 100%;
         max-width: 300px;
         max-height: 80px;

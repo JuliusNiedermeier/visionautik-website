@@ -357,16 +357,13 @@ export default {
   &__body {
     @include page-margin;
 
-    &__results {
-      > div + div {
-        margin-top: $spacing__macro--sm;
-      }
+    &__results__products,
+    &__results__events {
+      margin-top: $spacing__macro--sm;
+    }
 
-      &__placeholder {
-        * {
-          margin-left: 0;
-        }
-      }
+    &__results__placeholder > * {
+      margin-left: 0;
     }
   }
 }

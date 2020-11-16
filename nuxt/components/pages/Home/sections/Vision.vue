@@ -12,8 +12,12 @@
           }}
         </button>
       </div>
-      <div class="va-ps--Vision__body__image">
-        <img :src="image.url" :alt="image.alt" />
+      <div class="va-ps--Vision__body__image-wrapper">
+        <img
+          class="va-ps--Vision__body__image-wrapper__image"
+          :src="image.url"
+          :alt="image.alt"
+        />
       </div>
     </div>
   </div>
@@ -64,32 +68,45 @@ export default {
 
   &__body {
     @include page-margin;
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+
+    @include desktops {
+      display: flex;
+      flex-direction: row;
+    }
 
     &__text {
-      margin-right: $spacing__micro--xl;
+      flex: 1;
+
+      @include desktops {
+        margin-right: $spacing__micro--xl;
+      }
 
       &__heading {
         margin-top: 0;
       }
     }
 
-    &__image {
+    &__image-wrapper {
       position: relative;
-      overflow: hidden;
+      flex: 1;
+      height: $spacing--macro--md;
+      margin-top: $spacing--micro--xl;
 
-      img {
-        object-fit: cover;
-        position: absolute;
+      @include desktops {
+        height: initial;
+        margin-top: initial;
+      }
+
+      &__image {
         width: 100%;
         height: 100%;
-      }
-    }
+        object-fit: cover;
 
-    > * {
-      flex: 1;
+        @include desktops {
+          position: absolute;
+          object-fit: cover;
+        }
+      }
     }
   }
 }

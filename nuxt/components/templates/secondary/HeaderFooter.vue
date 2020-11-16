@@ -1,7 +1,9 @@
 <template>
   <div class="va-tp--HeaderFooter">
     <va-or--Header />
-    <slot />
+    <div class="va-tp--HeaderFooter__page">
+      <slot />
+    </div>
     <va-or--Footer />
   </div>
 </template>
@@ -25,7 +27,7 @@ export default {
   justify-content: space-between;
   min-height: 100vh;
 
-  > :nth-child(2) {
+  &__page {
     @include page-margin;
   }
 }

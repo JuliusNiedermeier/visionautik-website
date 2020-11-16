@@ -1,7 +1,5 @@
 <template>
-  <div class="va-at--Tag">
-    <small>{{ tag }}</small>
-  </div>
+  <small class="va-at--Tag">{{ tag }}</small>
 </template>
 
 <script>
@@ -16,11 +14,9 @@ export default {
   background-color: $color__lilac--base;
   padding: $spacing__micro--xs $spacing__micro--md;
 
-  small {
-    color: $color__blue--light;
-    margin: 0;
-    margin: 0;
-    font-weight: bold;
-  }
+  color: $color__blue--light;
+  margin: 0;
+  margin: 0;
+  font-weight: bold;
 }
 </style>

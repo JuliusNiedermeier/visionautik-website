@@ -7,7 +7,11 @@
       required
     />
     <div class="va-mo--NewsletterForm__gdpr-consent">
-      <input type="checkbox" required />
+      <input
+        class="va-mo--NewsletterForm__gdpr-consent__checkbox"
+        type="checkbox"
+        required
+      />
       <label>
         <nuxt-link to="/privacy">
           <small>{{
@@ -16,7 +20,7 @@
         </nuxt-link>
       </label>
     </div>
-    <button type="submit" class>
+    <button type="submit" class="va-mo--NewsletterForm__submit-button">
       {{ $t('layout.footer.newsletterForm.submitButtonLabel') }}
     </button>
   </form>
@@ -42,13 +46,13 @@ export default {
     margin-top: $spacing__micro--sm;
     margin-bottom: $spacing__micro--sm;
 
-    input {
+    &__checkbox {
       margin-left: 0;
       margin-right: $spacing__micro--md;
     }
   }
 
-  button {
+  &__submit-button {
     background-color: $color__blue--lighter;
     align-self: flex-start;
 

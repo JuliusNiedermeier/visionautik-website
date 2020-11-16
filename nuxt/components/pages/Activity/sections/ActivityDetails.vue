@@ -1,31 +1,50 @@
 <template>
   <div class="va-ps--ActivityDetails">
-    <div>
-      <va-el--Icon
+    <div class="va-ps--ActivityDetails__item">
+      <va-at--Icon
+        class="va-ps--ActivityDetails__item__icon"
         :name="offer.general__category === 'course' ? 'date-range' : 'date'"
       />
-      <small>{{
+      <small class="va-ps--ActivityDetails__item__text">{{
         $intlFormatter.date(new Date(offer.general__start_time || null))
       }}</small>
-      <small v-if="offer.general__category === 'course'">
+      <small
+        class="va-ps--ActivityDetails__item__text va-ps--ActivityDetails__item__text--seperator"
+      >
+        -
+      </small>
+      <small
+        class="va-ps--ActivityDetails__item__text"
+        v-if="offer.general__category === 'course'"
+      >
         {{
           $intlFormatter.date(new Date(offer.general__closing_time || null))
         }}</small
       >
     </div>
-    <div v-if="offer.general__category === 'event'">
-      <va-el--Icon name="clock" />
-      <small
+    <div
+      class="va-ps--ActivityDetails__item"
+      v-if="offer.general__category === 'event'"
+    >
+      <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="clock" />
+      <small class="va-ps--ActivityDetails__item__text"
         >{{ $intlFormatter.time(new Date(offer.general__start_time || null)) }}
+      </small>
+      <small
+        class="va-ps--ActivityDetails__item__text va-ps--ActivityDetails__item__text--seperator"
+      >
         -
+      </small>
+      <small class="va-ps--ActivityDetails__item__text">
         {{
           $intlFormatter.time(new Date(offer.general__closing_time || null))
         }}</small
       >
     </div>
-    <div>
-      <va-el--Icon name="location" />
+    <div class="va-ps--ActivityDetails__item">
+      <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="location" />
       <a
+        class="va-ps--ActivityDetails__item__text"
         :href="offer.general__venue_link.url"
         target="_blank"
         v-if="offer.general__venue_link"
@@ -33,9 +52,11 @@
         <small>{{ offer.general__venue }}</small>
       </a>
     </div>
-    <div>
-      <va-el--Icon name="people" />
-      <small>Max. {{ offer.general__maximum_attendance }} Teilnehmer</small>
+    <div class="va-ps--ActivityDetails__item">
+      <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="people" />
+      <small class="va-ps--ActivityDetails__item__text">
+        Max. {{ offer.general__maximum_attendance }} Teilnehmer
+      </small>
     </div>
   </div>
 </template>
@@ -83,17 +104,21 @@ export default {
 .va-ps--ActivityDetails {
   margin-bottom: $spacing__micro--xl;
 
-  > div {
+  &__item {
     display: flex;
     align-items: center;
 
-    > * + * {
-      margin-left: $spacing__micro--md;
+    &__icon {
+      margin-right: $spacing__micro--md;
     }
-  }
 
-  > div + div {
-    margin-top: $spacing__micro--md;
+    &__text--seperator {
+      margin: 0 $spacing--micro--sm;
+    }
+
+    & + & {
+      margin-top: $spacing__micro--md;
+    }
   }
 }
 </style>

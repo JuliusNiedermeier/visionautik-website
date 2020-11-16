@@ -13,7 +13,11 @@
         class="va-ps--InANutshell__body__video"
       />
       <div class="va-ps--InANutshell__body__columns">
-        <p v-for="(column, index) in textColumns" :key="index">
+        <p
+          class="va-ps--InANutshell__body__columns__body"
+          v-for="(column, index) in textColumns"
+          :key="index"
+        >
           {{ column.in_a_nutshell__column_text }}
         </p>
       </div>
@@ -81,7 +85,7 @@ export default {
       @include desktops {
         display: flex;
 
-        > * + * {
+        &__body + &__body {
           margin-left: $spacing__micro--xl;
         }
       }

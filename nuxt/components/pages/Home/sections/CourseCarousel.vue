@@ -159,21 +159,6 @@ export default {
       justify-content: space-between;
       align-items: center;
     }
-
-    &__carousel {
-      li + li {
-        margin-left: $spacing__micro--xl;
-      }
-
-      &__placeholder {
-        margin: 0 $spacing__micro--xl;
-
-        small {
-          display: block;
-          margin: $spacing__micro--md 0;
-        }
-      }
-    }
   }
 }
 </style>

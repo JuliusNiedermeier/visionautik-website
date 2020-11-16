@@ -21,8 +21,14 @@
           )
         }}
       </h3>
-      <prismic-rich-text :field="pricingTier.primary.description" />
-      <button @click="handleSelect(pricingTier.primary.heading)">
+      <prismic-rich-text
+        class="va-sl--PricingPlanList__pricing-tier__description"
+        :field="pricingTier.primary.description"
+      />
+      <button
+        class="va-sl--PricingPlanList__pricing-tier__button"
+        @click="handleSelect(pricingTier.primary.heading)"
+      >
         Diesen Plan auswählen
       </button>
       <!-- <p>Nach dem 23. März 2020:</p> -->
@@ -99,7 +105,7 @@ export default {
       font-weight: bold;
     }
 
-    button {
+    &__button {
       align-self: strech;
     }
   }

@@ -48,12 +48,10 @@ export default {
   @include desktops {
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     padding-top: unset;
-    // border-top: 1px solid $color__lilac--base;
   }
 
   &__body {
     @include page-margin;
-    // border-top: 1px solid $color__lilac--base;
     padding: $spacing__micro--xl 0;
     max-height: 75vh;
     overflow-y: auto;
@@ -67,19 +65,7 @@ export default {
     }
 
     .va-mo--MegaMenu__body {
-      @keyframes slidein {
-        from {
-          transform: translateX(-$spacing__micro--xl);
-        }
-
-        to {
-          transform: translateX(0);
-        }
-      }
-
-      animation-name: slidein;
-      animation-duration: $duration--medium;
-      animation-timing-function: ease;
+      @include slide-animation();
 
       @include desktops {
         animation: none;

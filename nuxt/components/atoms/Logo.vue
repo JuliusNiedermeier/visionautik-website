@@ -1,8 +1,12 @@
 <template>
   <div class="va-at--Logo">
     <div class="va-at--Logo__border">
-      <small>Visionautik</small>
-      <small>Akademie</small>
+      <small class="va-at--Logo__border__line va-at--Logo__border__line--top"
+        >Visionautik</small
+      >
+      <small class="va-at--Logo__border__line va-at--Logo__border__line--bottom"
+        >Akademie</small
+      >
     </div>
   </div>
 </template>
@@ -26,11 +30,11 @@ export default {
     border: 1px solid white;
     padding: $spacing__micro--sm $spacing__micro--md;
 
-    small {
+    &__line {
       color: white;
       text-transform: uppercase;
 
-      &:nth-child(2) {
+      &--bottom {
         letter-spacing: 0.2rem;
       }
     }

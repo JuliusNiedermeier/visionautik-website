@@ -46,14 +46,12 @@ export default {
   display: flex;
   padding-bottom: $spacing__micro--xl;
 
-  & > * {
+  > * {
     scroll-snap-align: start;
   }
 
-  &.gap {
-    > * + * {
-      margin-left: $spacing__micro--xl;
-    }
+  &.gap > * + * {
+    margin-left: $spacing__micro--xl;
   }
 
   &__placeholder {

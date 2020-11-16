@@ -7,7 +7,9 @@
         {{ description }}
       </small>
       <div class="va-mo--Offer__info__bottom">
-        <h6 v-if="price">{{ price }}€</h6>
+        <h6 class="va-mo--Offer__info__bottom__price" v-if="price">
+          {{ price }}€
+        </h6>
         <va-at--tag :tag="tag" v-if="tag" />
       </div>
     </div>
@@ -85,7 +87,7 @@ export default {
       justify-content: space-between;
       align-items: center;
 
-      h6 {
+      &__price {
         margin: 0;
       }
     }

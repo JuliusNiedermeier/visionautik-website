@@ -172,10 +172,9 @@ export default {
             @include background-gradient(90deg, 'red');
           }
 
-          &:nth-child(2) {
+          & + & {
             @include desktops {
               margin-left: $spacing__micro--xl;
-              margin-right: $spacing__micro--xl;
             }
           }
         }

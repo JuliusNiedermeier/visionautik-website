@@ -54,6 +54,10 @@ export default {
       @include background-gradient(90deg, 'dark-transparent');
       color: white;
 
+      @include desktops {
+        padding-right: $spacing__macro--xl + $spacing__micro--xl;
+      }
+
       &__body {
         height: 100%;
         @include page-margin;
@@ -61,12 +65,6 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-
-        > * {
-          @include desktops {
-            padding-right: $spacing__macro--xl + $spacing__micro--xl;
-          }
-        }
       }
     }
   }

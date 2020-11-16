@@ -8,12 +8,17 @@
         class="va-ps--Filter__offer-category-filter__button"
         :class="{ checked: category.enabled }"
       >
-        {{ $t(`types.${category.typeName}.categories.${categoryKey}.plural`) }}
+        <span>
+          {{
+            $t(`types.${category.typeName}.categories.${categoryKey}.plural`)
+          }}</span
+        >
         <va-at--Icon :name="category.enabled ? 'check' : 'add'" />
       </button>
     </div>
     <div class="va-ps--Filter__search-bar">
       <input
+        class="va-ps--Filter__search-bar__input"
         category="text"
         :placeholder="
           $t(
@@ -237,10 +242,6 @@ export default {
         margin-left: $spacing__micro--xl;
       }
 
-      & > * {
-        margin-left: $spacing__micro--md;
-      }
-
       &:not(.checked) {
         background: none;
         background-color: $color__lilac--base;
@@ -255,7 +256,7 @@ export default {
     display: flex;
     margin-bottom: $spacing__micro--xl;
 
-    & input {
+    &__input {
       flex: 1;
       padding: $spacing__micro--lg $spacing__micro--xl;
       border: 1px solid $color__lilac--base;
@@ -317,10 +318,6 @@ export default {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-
-      > * + * {
-        margin-left: $spacing__micro--md;
-      }
     }
   }
 }

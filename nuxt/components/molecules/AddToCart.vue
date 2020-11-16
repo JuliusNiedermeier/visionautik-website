@@ -2,13 +2,23 @@
   <div class="va-mo--AddToCart">
     <div class="va-mo--AddToCart__custom-fields">
       <select
+        class="va-mo--AddToCart__custom-fields__select"
         v-for="customField in customFields"
         :key="customField.key"
         :data-custom-field-key="customField.key"
         @change="handleCustomFieldSelectionChange"
       >
-        <option disabled selected value hidden>Select an option</option>
         <option
+          class="va-mo--AddToCart__custom-fields__select__option va-mo--AddToCart__custom-fields__select__option--placeholder"
+          disabled
+          selected
+          value
+          hidden
+        >
+          Select an option
+        </option>
+        <option
+          class="va-mo--AddToCart__custom-fields__select__option"
           v-for="option in customField.options"
           :key="option.name"
           :selected="$route.query[customField.key] === option.name"
@@ -106,7 +116,7 @@ export default {
 <style lang="scss" scoped>
 .va-mo--AddToCart {
   &__custom-fields {
-    select {
+    &__select {
       width: 100%;
       margin-bottom: $spacing__micro--xl;
     }
