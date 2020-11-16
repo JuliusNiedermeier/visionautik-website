@@ -7,37 +7,14 @@ This repository contains the rebuild of the official Visionautik Akademie websit
 - [Nuxt.js](https://nuxtjs.org/)
 - [Prismic](https://prismic.io/)
 - [Snipcart](https://snipcart.com/)
-- [Firebase](https://firebase.google.com/)
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Installation
 
 After cloning this repository and installing all dependencies run `npm run dev` to serve the page on `localhost:3000`.
-
-## Deployment
-
-See pre-demploy.md for all pre deployment steps.
-
-### Deployment
-
-Login to the Firebase account you want to deploy to:
-```bash
-firebase login
-```
-
-```bash
-# deploy functions
-firebase deploy --only functions
-
-# deploy hosting
-firebase deploy --only hosting
-
-# deploy everything
-firebase deploy
-```
 
 ## Versioning
 
