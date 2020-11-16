@@ -30,40 +30,7 @@ import Video from '@/components/molecules/Video'
 export default {
   name: 'va-ps--InANutshell',
   components: { 'va-mo--Video': Video },
-  data() {
-    return {
-      heading: null,
-      videoUrl: null,
-      videoThumbnailUrl: null,
-      textColumns: null,
-    }
-  },
-
-  async fetch() {
-    const type = this.$cms.types.pages.index.typeName
-
-    const query = new this.$cms.Query(
-      [this.$prismic.predicates.at('document.type', type)],
-      {
-        fetch: [
-          type + '.in_a_nutshell__heading',
-          type + '.in_a_nutshell__video',
-          type + '.in_a_nutshell__video_thumbnail',
-          type + '.in_a_nutshell__text_columns',
-        ],
-      }
-    )
-
-    const response = await query.get()
-    if (!response) return
-
-    const data = response.results[0].data
-
-    this.heading = data.in_a_nutshell__heading
-    this.videoUrl = data.in_a_nutshell__video.url
-    this.videoThumbnailUrl = data.in_a_nutshell__video_thumbnail.url
-    this.textColumns = data.in_a_nutshell__text_columns
-  },
+  props: ['heading', 'videoUrl', 'videoThumbnailUrl', 'textColumns'],
 }
 </script>
 

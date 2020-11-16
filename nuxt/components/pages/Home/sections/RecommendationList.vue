@@ -66,10 +66,10 @@ import Offer from '@/components/molecules/Offer'
 export default {
   name: 'va-ps--RecommendationList',
   components: { 'va-mo--Offer': Offer },
+  props: ['heading'],
 
   data() {
     return {
-      heading: null,
       offerListItems: [],
     }
   },
@@ -155,19 +155,6 @@ export default {
   },
 
   async fetch() {
-    //Fetch heading
-    const indexPageType = this.$cms.types.pages.index.typeName
-
-    const headingQuery = new this.$cms.Query(
-      [this.$prismic.predicates.at('document.type', indexPageType)],
-      { fetch: [indexPageType + '.recommendations__heading'] }
-    )
-
-    const headingResponse = await headingQuery.get()
-    if (!headingResponse) return
-
-    this.heading = headingResponse.results[0].data.recommendations__heading
-
     // Fetch recommended offer items
     let course = this.fetchOfferByCategory('course')
     let event = this.fetchOfferByCategory('event')

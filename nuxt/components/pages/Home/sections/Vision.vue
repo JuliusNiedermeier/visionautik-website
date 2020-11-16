@@ -1,5 +1,5 @@
 <template>
-  <div class="va-ps--Vision" v-if="heading && text && image.url">
+  <div class="va-ps--Vision">
     <div class="va-ps--Vision__body">
       <div class="va-ps--Vision__body__text">
         <h2 class="va-ps--Vision__body__text__heading">{{ heading }}</h2>
@@ -15,8 +15,7 @@
       <div class="va-ps--Vision__body__image-wrapper">
         <img
           class="va-ps--Vision__body__image-wrapper__image"
-          :src="image.url"
-          :alt="image.alt"
+          :src="imageUrl"
         />
       </div>
     </div>
@@ -26,37 +25,7 @@
 <script>
 export default {
   name: 'va-ps--Vision',
-  data() {
-    return {
-      heading: null,
-      text: null,
-      image: {},
-    }
-  },
-
-  async fetch() {
-    const type = this.$cms.types.pages.index.typeName
-
-    const query = new this.$cms.Query(
-      [this.$prismic.predicates.at('document.type', type)],
-      {
-        fetch: [
-          type + '.our_vision__heading',
-          type + '.our_vision__text',
-          type + '.our_vision__image',
-        ],
-      }
-    )
-
-    const response = await query.get()
-    if (!response) return
-
-    const data = response.results[0].data
-
-    this.heading = data.our_vision__heading
-    this.text = data.our_vision__text
-    this.image = data.our_vision__image
-  },
+  props: ['heading', 'text', 'imageUrl'],
 }
 </script>
 

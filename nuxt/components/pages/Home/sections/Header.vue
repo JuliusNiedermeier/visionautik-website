@@ -1,5 +1,5 @@
 <template>
-  <div class="va-ps--Header" v-if="videoUrl && heading && subHeading">
+  <div class="va-ps--Header">
     <video
       ref="welcomeSectionVideo"
       autoplay
@@ -41,17 +41,7 @@ export default {
 
   components: { 'va-at--Icon': Icon },
 
-  activated() {
-    this.$refs.welcomeSectionVideo.play()
-  },
-
-  data() {
-    return {
-      videoUrl: null,
-      heading: null,
-      subHeading: null,
-    }
-  },
+  props: ['videoUrl', 'heading', 'subHeading'],
 
   computed: {
     targetGroupLinks() {
@@ -72,27 +62,8 @@ export default {
     },
   },
 
-  async fetch() {
-    const type = this.$cms.types.pages.index.typeName
-    const query = new this.$cms.Query(
-      [this.$prismic.predicates.at('document.type', type)],
-      {
-        fetch: [
-          type + '.welcome__background_video',
-          type + '.welcome__heading',
-          type + '.welcome__sub_heading',
-        ],
-      }
-    )
-
-    const response = await query.get()
-    if (!response) return
-
-    const data = response.results[0].data
-
-    this.heading = data.welcome__heading
-    this.subHeading = data.welcome__sub_heading
-    this.videoUrl = data.welcome__background_video.url
+  activated() {
+    this.$refs.welcomeSectionVideo.play()
   },
 }
 </script>

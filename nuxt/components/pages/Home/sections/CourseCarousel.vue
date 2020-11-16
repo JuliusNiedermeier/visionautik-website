@@ -80,9 +80,10 @@ export default {
     'va-mo--ContentPlaceholder': ContentPlaceholder,
   },
 
+  props: ['heading'],
+
   data() {
     return {
-      heading: null,
       courses: [],
     }
   },

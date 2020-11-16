@@ -36,7 +36,7 @@ export default (context) => {
       const valid = this.validate(apiResponse, this.options.fetch)
 
       if (!valid && options.fallback) {
-        if (options.critical) {
+        if (options.redirectOnError) {
           context.error({
             statusCode: 404,
             message: 'Missing content',

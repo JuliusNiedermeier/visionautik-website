@@ -1,11 +1,26 @@
 <template>
   <div class="va-pa--Home">
-    <va-ps--Header />
+    <va-ps--Header
+      :videoUrl="pageDocument.welcome__background_video.url"
+      :heading="pageDocument.welcome__heading"
+      :subHeading="pageDocument.welcome__sub_heading"
+    />
     <va-ps--PressQuoteCarousel />
-    <va-ps--RecommendationList />
-    <va-ps--InANutshell />
-    <va-ps--CourseCarousel />
-    <va-ps--Vision />
+    <va-ps--RecommendationList
+      :heading="pageDocument.recommendations__heading"
+    />
+    <va-ps--InANutshell
+      :heading="pageDocument.in_a_nutshell__heading"
+      :videoUrl="pageDocument.in_a_nutshell__video.url"
+      :videoThumbnailUrl="pageDocument.in_a_nutshell__video_thumbnail.url"
+      :textColumns="pageDocument.in_a_nutshell__text_columns"
+    />
+    <va-ps--CourseCarousel :heading="pageDocument.courses__heading" />
+    <va-ps--Vision
+      :heading="pageDocument.our_vision__heading"
+      :text="pageDocument.our_vision__text"
+      :imageUrl="pageDocument.our_vision__image.url"
+    />
   </div>
 </template>
 
@@ -25,6 +40,27 @@ export default {
     'va-ps--InANutshell': InANutshell,
     'va-ps--CourseCarousel': CourseCarousel,
     'va-ps--Vision': Vision,
+  },
+
+  data() {
+    return {
+      pageDocument: {
+        welcome__background_video: { url: null },
+        in_a_nutshell__video: { url: null },
+        in_a_nutshell__video_thumbnail: { url: null },
+        our_vision__image: { url: null },
+      },
+    }
+  },
+
+  async fetch() {
+    const pageType = this.$cms.types.pages.index.typeName
+    const query = new this.$cms.Query([
+      this.$prismic.predicates.at('document.type', pageType),
+    ])
+    const queryResult = await query.get({ redirectOnError: true })
+
+    this.pageDocument = queryResult.results[0].data
   },
 }
 </script>
