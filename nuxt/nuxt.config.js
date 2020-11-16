@@ -62,7 +62,7 @@ export default {
    */
   plugins: [
     '@/plugins/nuxt-i18n-fetch',
-    '@/plugins/api',
+    '@/plugins/cms',
     '@/plugins/intlFormatter',
   ],
   /*
