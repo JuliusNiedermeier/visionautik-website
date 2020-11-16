@@ -73,7 +73,11 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/router', '@nuxtjs/snipcart'],
+  buildModules: [
+    '@nuxtjs/router',
+    '@nuxtjs/snipcart',
+    // '@nuxtjs/google-analytics',
+  ],
   /*
    ** Nuxt.js modules
    */
@@ -87,7 +91,12 @@ export default {
     '@nuxtjs/style-resources',
     // i18n
     'nuxt-i18n',
+    // Adds a sitemap. Always add this module at the end of the modules array!
+    // '@nuxtjs/sitemap',
   ],
+
+  // Server middleware
+  serverMiddleware: [{ path: '/api', handler: '@/api/index.js' }],
 
   // Prismic - configuration
   prismic: {
