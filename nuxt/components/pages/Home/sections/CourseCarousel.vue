@@ -24,7 +24,7 @@
         >
           {{
             $t(
-              `types.${$api.types.pages.index.typeName}.coursesSection.allCourses`
+              `types.${$cms.types.pages.index.typeName}.coursesSection.allCourses`
             )
           }}
         </button>
@@ -38,23 +38,23 @@
             :image="course.general__featured_image.thumbnail.url"
             :title="course.general__heading"
             :description="course.general__excerpt"
-            :type="$api.types.repeatables.offer.typeName"
+            :type="$cms.types.repeatables.offer.typeName"
           />
           <template slot="placeholder">
             <va-mo--ContentPlaceholder
               :heading="
                 $t(
-                  `types.${$api.types.pages.index.typeName}.coursesSection.placeholderHeading`
+                  `types.${$cms.types.pages.index.typeName}.coursesSection.placeholderHeading`
                 )
               "
               :body="
                 $t(
-                  `types.${$api.types.pages.index.typeName}.coursesSection.placeholderBody`
+                  `types.${$cms.types.pages.index.typeName}.coursesSection.placeholderBody`
                 )
               "
               :buttonLabel="
                 $t(
-                  `types.${$api.types.pages.index.typeName}.coursesSection.notify`
+                  `types.${$cms.types.pages.index.typeName}.coursesSection.notify`
                 )
               "
               buttonIconName="addNotification"
@@ -89,9 +89,9 @@ export default {
 
   async fetch() {
     // Fetch heading
-    const indexPageType = this.$api.types.pages.index.typeName
+    const indexPageType = this.$cms.types.pages.index.typeName
 
-    const headingQuery = new this.$api.Query(
+    const headingQuery = new this.$cms.Query(
       [this.$prismic.predicates.at('document.type', indexPageType)],
       {
         fetch: [indexPageType + '.courses__heading'],
@@ -106,9 +106,9 @@ export default {
     this.heading = headingData.courses__heading
 
     // Fetch courses
-    const offerRepeatableType = this.$api.types.repeatables.offer.typeName
+    const offerRepeatableType = this.$cms.types.repeatables.offer.typeName
 
-    const coursesQuery = new this.$api.Query(
+    const coursesQuery = new this.$cms.Query(
       [
         this.$prismic.predicates.at(
           `my.${offerRepeatableType}.general__category`,

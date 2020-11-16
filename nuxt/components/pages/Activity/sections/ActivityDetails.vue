@@ -77,8 +77,8 @@ export default {
   },
 
   async fetch() {
-    const type = this.$api.types.repeatables.offer.typeName
-    const query = new this.$api.Query(
+    const type = this.$cms.types.repeatables.offer.typeName
+    const query = new this.$cms.Query(
       [this.$prismic.predicates.at(`my.${type}.uid`, this.$route.params.offer)],
       {
         fetch: [
@@ -92,10 +92,10 @@ export default {
       }
     )
 
-    const apiResponse = await query.get()
+    const cmsResponse = await query.get()
 
-    if (!apiResponse) return
-    this.offer = apiResponse.results[0].data
+    if (!cmsResponse) return
+    this.offer = cmsResponse.results[0].data
   },
 }
 </script>

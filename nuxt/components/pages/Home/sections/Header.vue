@@ -65,7 +65,7 @@ export default {
           query: { targetGroup: 'businesses' },
         },
         {
-          name: this.$t('global.targetGroups.facilitatJors.for'),
+          name: this.$t('global.targetGroups.facilitators.for'),
           query: { targetGroup: 'facilitators' },
         },
       ]
@@ -73,8 +73,8 @@ export default {
   },
 
   async fetch() {
-    const type = this.$api.types.pages.index.typeName
-    const query = new this.$api.Query(
+    const type = this.$cms.types.pages.index.typeName
+    const query = new this.$cms.Query(
       [this.$prismic.predicates.at('document.type', type)],
       {
         fetch: [

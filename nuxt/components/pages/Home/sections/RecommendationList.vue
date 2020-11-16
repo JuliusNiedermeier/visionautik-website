@@ -7,7 +7,7 @@
           class="va-ps--RecommendationList__body__articles__item"
           v-for="courseOfferListItem in offerListItems.filter(
             (item) =>
-              item.type === $api.types.repeatables.offer.typeName &&
+              item.type === $cms.types.repeatables.offer.typeName &&
               item.general__category === 'course'
           )"
           :key="courseOfferListItem.uid"
@@ -15,10 +15,10 @@
           :image="courseOfferListItem.general__featured_image.thumbnail.url"
           :title="courseOfferListItem.general__heading"
           :description="courseOfferListItem.general__excerpt"
-          :type="$api.types.repeatables.offer.typeName"
+          :type="$cms.types.repeatables.offer.typeName"
           :tag="
             $t(
-              `types.${$api.types.repeatables.offer.typeName}.categories.course.singular`
+              `types.${$cms.types.repeatables.offer.typeName}.categories.course.singular`
             )
           "
         />
@@ -26,7 +26,7 @@
           class="va-ps--RecommendationList__body__articles__item"
           v-for="eventOfferListItem in offerListItems.filter(
             (item) =>
-              item.type === $api.types.repeatables.offer.typeName &&
+              item.type === $cms.types.repeatables.offer.typeName &&
               item.general__category === 'event'
           )"
           :key="eventOfferListItem.uid"
@@ -34,26 +34,26 @@
           :image="eventOfferListItem.general__featured_image.thumbnail.url"
           :title="eventOfferListItem.general__heading"
           :description="eventOfferListItem.general__excerpt"
-          :type="$api.types.repeatables.offer.typeName"
+          :type="$cms.types.repeatables.offer.typeName"
           :tag="
             $t(
-              `types.${$api.types.repeatables.offer.typeName}.categories.event.singular`
+              `types.${$cms.types.repeatables.offer.typeName}.categories.event.singular`
             )
           "
         />
         <va-mo--Offer
           class="va-ps--RecommendationList__body__articles__item"
           v-for="blogPostOfferListItem in offerListItems.filter(
-            (item) => item.type === $api.types.repeatables.blogPost.typeName
+            (item) => item.type === $cms.types.repeatables.blogPost.typeName
           )"
           :key="blogPostOfferListItem.uid"
           :uid="blogPostOfferListItem.uid"
           :image="blogPostOfferListItem.general__featured_image.thumbnail.url"
           :title="blogPostOfferListItem.general__heading"
           :description="blogPostOfferListItem.general__excerpt"
-          :type="$api.types.repeatables.blogPost.typeName"
+          :type="$cms.types.repeatables.blogPost.typeName"
           :tag="
-            $t(`types.${$api.types.repeatables.blogPost.typeName}.singular`)
+            $t(`types.${$cms.types.repeatables.blogPost.typeName}.singular`)
           "
         />
       </div>
@@ -77,8 +77,8 @@ export default {
   methods: {
     getRequiredFieldsByType(types) {
       const typeNames = {
-        offer: this.$api.types.repeatables.offer.typeName,
-        blogPost: this.$api.types.repeatables.blogPost.typeName,
+        offer: this.$cms.types.repeatables.offer.typeName,
+        blogPost: this.$cms.types.repeatables.blogPost.typeName,
       }
       let fields = []
       if (types.includes(typeNames.offer)) {
@@ -100,8 +100,8 @@ export default {
     },
 
     fetchOfferByCategory(category) {
-      const typeName = this.$api.types.repeatables.offer.typeName
-      const query = new this.$api.Query(
+      const typeName = this.$cms.types.repeatables.offer.typeName
+      const query = new this.$cms.Query(
         [
           this.$prismic.predicates.at(
             `my.${typeName}.general__category`,
@@ -119,8 +119,8 @@ export default {
     },
 
     fetchBlogPost() {
-      const typeName = this.$api.types.repeatables.blogPost.typeName
-      const query = new this.$api.Query(
+      const typeName = this.$cms.types.repeatables.blogPost.typeName
+      const query = new this.$cms.Query(
         [this.$prismic.predicates.at('document.type', typeName)],
         {
           orderings: '[document.first_publication_date desc]',
@@ -138,10 +138,10 @@ export default {
         idPredicates.push(this.$prismic.predicates.not('document.id', id))
       })
       const types = [
-        this.$api.types.repeatables.offer.typeName,
-        this.$api.types.repeatables.blogPost.typeName,
+        this.$cms.types.repeatables.offer.typeName,
+        this.$cms.types.repeatables.blogPost.typeName,
       ]
-      const query = new this.$api.Query(
+      const query = new this.$cms.Query(
         [this.$prismic.predicates.any('document.type', types), ...idPredicates],
         {
           orderings: '[document.first_publication_date desc]',
@@ -156,9 +156,9 @@ export default {
 
   async fetch() {
     //Fetch heading
-    const indexPageType = this.$api.types.pages.index.typeName
+    const indexPageType = this.$cms.types.pages.index.typeName
 
-    const headingQuery = new this.$api.Query(
+    const headingQuery = new this.$cms.Query(
       [this.$prismic.predicates.at('document.type', indexPageType)],
       { fetch: [indexPageType + '.recommendations__heading'] }
     )

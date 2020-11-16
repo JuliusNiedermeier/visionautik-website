@@ -84,16 +84,16 @@ export default {
         this.$prismic.predicates.at('document.type', this.documentType)
       )
     }
-    const query = new this.$api.Query(predicates, { fetch })
+    const query = new this.$cms.Query(predicates, { fetch })
 
-    const apiResponse = await query.get()
+    const cmsResponse = await query.get()
 
-    if (!apiResponse) return
+    if (!cmsResponse) return
 
     this.slices = []
 
     for (const sliceZone of this.sliceZones) {
-      this.slices = [...this.slices, ...apiResponse.results[0].data[sliceZone]]
+      this.slices = [...this.slices, ...cmsResponse.results[0].data[sliceZone]]
     }
 
     // const sectionAnchors = this.slices

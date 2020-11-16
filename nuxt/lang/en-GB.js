@@ -1,4 +1,4 @@
-import types from '@/plugins/api/types'
+import types from '@/plugins/cms/types'
 
 export default {
   notifications: {

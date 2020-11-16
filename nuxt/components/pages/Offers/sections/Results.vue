@@ -11,7 +11,7 @@
             {{
               $t(
                 `types.${
-                  $api.types.repeatables.offer.typeName
+                  $cms.types.repeatables.offer.typeName
                 }.categories.course.${
                   results.courses.length > 1 ? 'plural' : 'singular'
                 }`
@@ -32,17 +32,17 @@
               <va-mo--ContentPlaceholder
                 :heading="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.courseResultsPlaceholder.heading`
+                    `types.${$cms.types.collections.offers.typeName}.courseResultsPlaceholder.heading`
                   )
                 "
                 :body="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.courseResultsPlaceholder.body`
+                    `types.${$cms.types.collections.offers.typeName}.courseResultsPlaceholder.body`
                   )
                 "
                 :buttonLabel="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.courseResultsPlaceholder.buttonLabel`
+                    `types.${$cms.types.collections.offers.typeName}.courseResultsPlaceholder.buttonLabel`
                   )
                 "
                 buttonIconName="addNotification"
@@ -59,7 +59,7 @@
             {{
               $t(
                 `types.${
-                  $api.types.repeatables.offer.typeName
+                  $cms.types.repeatables.offer.typeName
                 }.categories.event.${
                   results.events.length > 1 ? 'plural' : 'singular'
                 }`
@@ -80,17 +80,17 @@
               <va-mo--ContentPlaceholder
                 :heading="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.eventResultsPlaceholder.heading`
+                    `types.${$cms.types.collections.offers.typeName}.eventResultsPlaceholder.heading`
                   )
                 "
                 :body="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.eventResultsPlaceholder.body`
+                    `types.${$cms.types.collections.offers.typeName}.eventResultsPlaceholder.body`
                   )
                 "
                 :buttonLabel="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.eventResultsPlaceholder.buttonLabel`
+                    `types.${$cms.types.collections.offers.typeName}.eventResultsPlaceholder.buttonLabel`
                   )
                 "
                 buttonIconName="addNotification"
@@ -106,7 +106,7 @@
             {{ results.products.length }}
             {{
               $t(
-                `types.${$api.types.repeatables.product.typeName}.${
+                `types.${$cms.types.repeatables.product.typeName}.${
                   results.courses.length > 1 ? 'plural' : 'singular'
                 }`
               )
@@ -123,7 +123,7 @@
               :type="result.type"
               :tag="
                 $t(
-                  `types.${$api.types.repeatables.product.typeName}.categories.${result.data.general__category}.singular`
+                  `types.${$cms.types.repeatables.product.typeName}.categories.${result.data.general__category}.singular`
                 )
               "
             />
@@ -131,17 +131,17 @@
               <va-mo--ContentPlaceholder
                 :heading="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.productResultsPlaceholder.heading`
+                    `types.${$cms.types.collections.offers.typeName}.productResultsPlaceholder.heading`
                   )
                 "
                 :body="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.productResultsPlaceholder.body`
+                    `types.${$cms.types.collections.offers.typeName}.productResultsPlaceholder.body`
                   )
                 "
                 :buttonLabel="
                   $t(
-                    `types.${$api.types.collections.offers.typeName}.productResultsPlaceholder.buttonLabel`
+                    `types.${$cms.types.collections.offers.typeName}.productResultsPlaceholder.buttonLabel`
                   )
                 "
                 buttonIconName="addNotification"
@@ -154,17 +154,17 @@
             v-if="resultsCount === 0"
             :heading="
               $t(
-                `types.${$api.types.collections.offers.typeName}.resultsPlaceholder.heading`
+                `types.${$cms.types.collections.offers.typeName}.resultsPlaceholder.heading`
               )
             "
             :body="
               $t(
-                `types.${$api.types.collections.offers.typeName}.resultsPlaceholder.body`
+                `types.${$cms.types.collections.offers.typeName}.resultsPlaceholder.body`
               )
             "
             :buttonLabel="
               $t(
-                `types.${$api.types.collections.offers.typeName}.resultsPlaceholder.buttonLabel`
+                `types.${$cms.types.collections.offers.typeName}.resultsPlaceholder.buttonLabel`
               )
             "
             buttonIconName="addNotification"
@@ -230,19 +230,19 @@ export default {
 
       if (this.query.exclude) {
         const offerCategories = [
-          ...this.$api.types.repeatables.offer.categories,
-          ...this.$api.types.repeatables.product.categories,
+          ...this.$cms.types.repeatables.offer.categories,
+          ...this.$cms.types.repeatables.product.categories,
         ]
 
         const includedCategories = offerCategories.filter((category) => {
           return !this.query.exclude.includes(category)
         })
 
-        requiresOffer = this.$api.types.repeatables.offer.categories.some(
+        requiresOffer = this.$cms.types.repeatables.offer.categories.some(
           (category) => includedCategories.includes(category)
         )
 
-        requiresProduct = this.$api.types.repeatables.product.categories.some(
+        requiresProduct = this.$cms.types.repeatables.product.categories.some(
           (category) => includedCategories.includes(category)
         )
       } else {
@@ -251,10 +251,10 @@ export default {
       }
 
       if (requiresOffer) {
-        types.push(this.$api.types.repeatables.offer.typeName)
+        types.push(this.$cms.types.repeatables.offer.typeName)
       }
       if (requiresProduct)
-        types.push(this.$api.types.repeatables.product.typeName)
+        types.push(this.$cms.types.repeatables.product.typeName)
 
       return types
     },
@@ -272,10 +272,10 @@ export default {
 
       if (this.query.exclude) {
         for (const type of this.getRequiredTypes()) {
-          const typeKey = Object.keys(this.$api.types.repeatables).find(
-            (key) => this.$api.types.repeatables[key].typeName === type
+          const typeKey = Object.keys(this.$cms.types.repeatables).find(
+            (key) => this.$cms.types.repeatables[key].typeName === type
           )
-          for (const category of this.$api.types.repeatables[typeKey]
+          for (const category of this.$cms.types.repeatables[typeKey]
             .categories) {
             if (this.query.exclude.includes(category)) {
               predicates.push(
@@ -315,31 +315,31 @@ export default {
       return
     }
 
-    const query = new this.$api.Query(this.getPredicates())
+    const query = new this.$cms.Query(this.getPredicates())
 
-    const apiResponse = await query.get()
+    const cmsResponse = await query.get()
 
-    if (!apiResponse) {
+    if (!cmsResponse) {
       this.results.courses = []
       this.results.events = []
       this.results.products = []
       return
     }
 
-    this.results.courses = apiResponse.results.filter((result) => {
+    this.results.courses = cmsResponse.results.filter((result) => {
       return (
-        result.type === this.$api.types.repeatables.offer.typeName &&
+        result.type === this.$cms.types.repeatables.offer.typeName &&
         result.data.general__category === 'course'
       )
     })
-    this.results.events = apiResponse.results.filter((result) => {
+    this.results.events = cmsResponse.results.filter((result) => {
       return (
-        result.type === this.$api.types.repeatables.offer.typeName &&
+        result.type === this.$cms.types.repeatables.offer.typeName &&
         result.data.general__category === 'event'
       )
     })
-    this.results.products = apiResponse.results.filter(
-      (result) => result.type === this.$api.types.repeatables.product.typeName
+    this.results.products = cmsResponse.results.filter(
+      (result) => result.type === this.$cms.types.repeatables.product.typeName
     )
   },
 }

@@ -3,18 +3,18 @@
     <va-te--HeaderAndSidebar>
       <template slot="header-image">
         <va-ps--ActivityHeaderImage
-          :type="$api.types.repeatables.offer.typeName"
+          :type="$cms.types.repeatables.offer.typeName"
         />
       </template>
       <template slot="header-body">
         <va-ps--ActivityHeaderBody
-          :type="$api.types.repeatables.offer.typeName"
+          :type="$cms.types.repeatables.offer.typeName"
         />
       </template>
       <template slot="main"
         ><va-or--SliceContent
           :sliceZones="['content__slices', 'pricing_tiers__slices']"
-          :documentType="$api.types.repeatables.offer.typeName"
+          :documentType="$cms.types.repeatables.offer.typeName"
           :documentUID="$route.params.offer"
       /></template>
 

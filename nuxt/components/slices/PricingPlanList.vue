@@ -17,7 +17,7 @@
       <h3 class="va-sl--PricingPlanList__pricing-tier__price">
         {{
           $intlFormatter.currency(
-            $api.payment.getCurrentPriceFromPricingTier(pricingTier)
+            $cms.payment.getCurrentPriceFromPricingTier(pricingTier)
           )
         }}
       </h3>

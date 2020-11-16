@@ -38,18 +38,18 @@ export default {
   },
 
   async fetch() {
-    const query = new this.$api.Query([
+    const query = new this.$cms.Query([
       this.$prismic.predicates.at(
         'document.type',
-        this.$api.types.repeatables.pressQuote.typeName
+        this.$cms.types.repeatables.pressQuote.typeName
       ),
     ])
 
-    const apiResponse = await query.get()
-    if (!apiResponse) return
+    const cmsResponse = await query.get()
+    if (!cmsResponse) return
 
     this.pressQuotes = []
-    for (const result of apiResponse.results) {
+    for (const result of cmsResponse.results) {
       this.pressQuotes = [...this.pressQuotes, result.data]
     }
   },

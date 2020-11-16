@@ -7,7 +7,7 @@
         <button>
           {{
             $t(
-              `types.${$api.types.pages.index.typeName}.ourVisionSection.readMore`
+              `types.${$cms.types.pages.index.typeName}.ourVisionSection.readMore`
             )
           }}
         </button>
@@ -35,9 +35,9 @@ export default {
   },
 
   async fetch() {
-    const type = this.$api.types.pages.index.typeName
+    const type = this.$cms.types.pages.index.typeName
 
-    const query = new this.$api.Query(
+    const query = new this.$cms.Query(
       [this.$prismic.predicates.at('document.type', type)],
       {
         fetch: [

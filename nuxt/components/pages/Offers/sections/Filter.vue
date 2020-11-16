@@ -22,7 +22,7 @@
         category="text"
         :placeholder="
           $t(
-            `types.${$api.types.collections.offers.typeName}.searchBarPlaceholder`
+            `types.${$cms.types.collections.offers.typeName}.searchBarPlaceholder`
           )
         "
         v-model="searchString"
@@ -43,7 +43,7 @@
           {{
             $t(
               index === 0
-                ? `types.${$api.types.collections.offers.typeName}.allTargetGroupsLabel`
+                ? `types.${$cms.types.collections.offers.typeName}.allTargetGroupsLabel`
                 : `global.targetGroups.${targetGroup.label}.for`
             )
           }}
@@ -67,7 +67,7 @@
     <div class="va-ps--Filter__target-group-info">
       <va-or--SliceContent
         v-if="targetGroups.activeIndex > 0 && targetGroups.infoContentExpanded"
-        :documentType="$api.types.collections.offers.typeName"
+        :documentType="$cms.types.collections.offers.typeName"
         :sliceZones="[targetGroups.items[targetGroups.activeIndex].sliceZone]"
         :key="targetGroups.activeIndex"
       />
@@ -121,13 +121,13 @@ export default {
     }
 
     assignCategories(
-      this.$api.types.repeatables.offer.categories,
-      this.$api.types.repeatables.offer.typeName
+      this.$cms.types.repeatables.offer.categories,
+      this.$cms.types.repeatables.offer.typeName
     )
 
     assignCategories(
-      this.$api.types.repeatables.product.categories,
-      this.$api.types.repeatables.product.typeName
+      this.$cms.types.repeatables.product.categories,
+      this.$cms.types.repeatables.product.typeName
     )
 
     const query = this.$route.query
@@ -201,22 +201,22 @@ export default {
 
     async fetchTargetGroupInfoContent(fetchIndex) {
       if (fetchIndex) {
-        const type = this.$api.types.collections.offers.typeName
-        const query = new this.$api.Query(
+        const type = this.$cms.types.collections.offers.typeName
+        const query = new this.$cms.Query(
           [this.$prismic.predicates.at('document.type', type)],
           {
             fetch: [`${type}.${this.targetGroups.items[fetchIndex].sliceZone}`],
           }
         )
 
-        const apiResponse = await query.get()
+        const cmsResponse = await query.get()
 
-        if (!apiResponse) return
+        if (!cmsResponse) return
 
         this.targetGroups.items[
           this.targetGroups.activeIndex
         ].infoContentSlices =
-          apiResponse.results[0].data[
+          cmsResponse.results[0].data[
             this.targetGroups.items[this.targetGroups.activeIndex].sliceZone
           ]
       }

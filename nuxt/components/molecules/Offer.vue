@@ -33,13 +33,13 @@ export default {
   computed: {
     url() {
       switch (this.type) {
-        case this.$api.types.repeatables.offer.typeName:
+        case this.$cms.types.repeatables.offer.typeName:
           return `/offers/activity/${this.uid}`
           break
-        case this.$api.types.repeatables.product.typeName:
+        case this.$cms.types.repeatables.product.typeName:
           return `/offers/product/${this.uid}`
           break
-        case this.$api.types.repeatables.blogPost.typeName:
+        case this.$cms.types.repeatables.blogPost.typeName:
           return `/blog/${this.uid}`
           break
         default:

@@ -22,7 +22,7 @@ export default {
   props: ['type'],
 
   async fetch() {
-    const query = new this.$api.Query(
+    const query = new this.$cms.Query(
       [
         this.$prismic.predicates.at(
           `my.${this.type}.uid`,
@@ -37,10 +37,10 @@ export default {
       }
     )
 
-    const apiResponse = await query.get()
+    const cmsResponse = await query.get()
 
-    if (!apiResponse) return
-    this.offer = apiResponse.results[0].data
+    if (!cmsResponse) return
+    this.offer = cmsResponse.results[0].data
   },
 }
 </script>
