@@ -62,10 +62,10 @@ export default {
         },
         {
           name: this.$t('global.targetGroups.businesses.for'),
-          query: { targetGroup: 'business' },
+          query: { targetGroup: 'businesses' },
         },
         {
-          name: this.$t('global.targetGroups.facilitators.for'),
+          name: this.$t('global.targetGroups.facilitatJors.for'),
           query: { targetGroup: 'facilitators' },
         },
       ]
