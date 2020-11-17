@@ -52,61 +52,10 @@ export default {
     'va-sl--SectionAnchor': SectionAnchor,
   },
   props: {
-    documentType: String,
-    documentUID: String,
-    sliceZones: Array,
-  },
-
-  data() {
-    return {
-      slices: [],
-    }
-  },
-
-  async fetch() {
-    const fetch = this.sliceZones.map(
-      (sliceZone) => `${this.documentType}.${sliceZone}`
-    )
-
-    if (!fetch.length > 0) return
-
-    let predicates = []
-
-    if (this.documentUID) {
-      predicates.push(
-        this.$prismic.predicates.at(
-          `my.${this.documentType}.uid`,
-          this.documentUID
-        )
-      )
-    } else {
-      predicates.push(
-        this.$prismic.predicates.at('document.type', this.documentType)
-      )
-    }
-    const query = new this.$cms.Query(predicates, { fetch })
-
-    const cmsResponse = await query.get()
-
-    if (!cmsResponse) return
-
-    this.slices = []
-
-    for (const sliceZone of this.sliceZones) {
-      this.slices = [...this.slices, ...cmsResponse.results[0].data[sliceZone]]
-    }
-
-    // const sectionAnchors = this.slices
-    //   .filter((slice) => slice.slice_type === 'section_anchor')
-    //   .map((slice) => {
-    //     return {
-    //       label: slice.primary.label,
-    //       id: slice.primary.id,
-    //       color: slice.primary.color,
-    //     }
-    //   })
-
-    // this.$store.commit('sliceContent/setSectionAnchors', sectionAnchors)
+    slices: {
+      type: Array,
+      default: () => [],
+    },
   },
 }
 </script>

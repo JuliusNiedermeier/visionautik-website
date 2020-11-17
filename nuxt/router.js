@@ -27,7 +27,7 @@ export function createRouter() {
       },
       {
         name: 'activity',
-        path: '/offers/activity/:offer',
+        path: '/offers/activity/:uid',
         component: Activity,
       },
       {

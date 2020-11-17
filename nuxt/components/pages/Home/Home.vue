@@ -1,25 +1,23 @@
 <template>
   <div class="va-pa--Home">
     <va-ps--Header
-      :videoUrl="pageDocument.welcome__background_video.url"
-      :heading="pageDocument.welcome__heading"
-      :subHeading="pageDocument.welcome__sub_heading"
+      :videoUrl="document.welcome__background_video.url"
+      :heading="document.welcome__heading"
+      :subHeading="document.welcome__sub_heading"
     />
     <va-ps--PressQuoteCarousel />
-    <va-ps--RecommendationList
-      :heading="pageDocument.recommendations__heading"
-    />
+    <va-ps--RecommendationList :heading="document.recommendations__heading" />
     <va-ps--InANutshell
-      :heading="pageDocument.in_a_nutshell__heading"
-      :videoUrl="pageDocument.in_a_nutshell__video.url"
-      :videoThumbnailUrl="pageDocument.in_a_nutshell__video_thumbnail.url"
-      :textColumns="pageDocument.in_a_nutshell__text_columns"
+      :heading="document.in_a_nutshell__heading"
+      :videoUrl="document.in_a_nutshell__video.url"
+      :videoThumbnailUrl="document.in_a_nutshell__video_thumbnail.url"
+      :textColumns="document.in_a_nutshell__text_columns"
     />
-    <va-ps--CourseCarousel :heading="pageDocument.courses__heading" />
+    <va-ps--CourseCarousel :heading="document.courses__heading" />
     <va-ps--Vision
-      :heading="pageDocument.our_vision__heading"
-      :text="pageDocument.our_vision__text"
-      :imageUrl="pageDocument.our_vision__image.url"
+      :heading="document.our_vision__heading"
+      :text="document.our_vision__text"
+      :imageUrl="document.our_vision__image.url"
     />
   </div>
 </template>
@@ -44,7 +42,7 @@ export default {
 
   data() {
     return {
-      pageDocument: {
+      document: {
         welcome__background_video: { url: null },
         in_a_nutshell__video: { url: null },
         in_a_nutshell__video_thumbnail: { url: null },
@@ -60,7 +58,7 @@ export default {
     ])
     const queryResult = await query.get({ redirectOnError: true })
 
-    this.pageDocument = queryResult.results[0].data
+    this.document = queryResult.results[0].data
   },
 }
 </script>

@@ -1,12 +1,11 @@
 <template>
   <div class="va-ps--ActivityAddToCart">
     <va-mo--AddToCart
-      v-if="!$fetchState.pending"
       :url="$route.path"
-      :id="uid"
-      :name="offer.general__heading"
-      :description="offer.general__excerpt"
-      :image="offer.general__featured_image.url"
+      :id="$route.params.uid"
+      :name="heading"
+      :description="excerpt"
+      :image="featuredImage"
       basePrice="0"
       :customFields="[
         {
@@ -26,55 +25,25 @@ export default {
 
   components: { 'va-mo--AddToCart': AddToCart },
 
-  data() {
-    return {
-      offer: {},
-      uid: null,
-      pricingTiers: [],
-    }
-  },
-
-  async fetch() {
-    const type = this.$cms.types.repeatables.offer.typeName
-    const query = new this.$cms.Query(
-      [this.$prismic.predicates.at(`my.${type}.uid`, this.$route.params.offer)],
-      {
-        fetch: [
-          type + '.general__heading',
-          type + '.general__excerpt',
-          type + '.general__featured_image',
-          type + '.pricing_tiers__slices',
-        ],
-      }
-    )
-
-    const cmsResponse = await query.get()
-
-    if (!cmsResponse) return
-    this.offer = cmsResponse.results[0].data
-    this.uid = cmsResponse.results[0].uid
-
-    if (this.pricingTiers.length > 0) this.pricingTiers = []
-    for (const pricingTier of this.offer.pricing_tiers__slices) {
-      this.pricingTiers = [
-        ...this.pricingTiers,
-        {
-          name: pricingTier.primary.heading,
-          price: this.$cms.payment.getCurrentPriceFromPricingTier(pricingTier),
-        },
-      ]
-    }
+  props: {
+    heading: String,
+    excerpt: String,
+    featuredImage: String,
+    pricingTierSlices: {
+      default: () => [],
+    },
   },
 
   computed: {
     pricingPlanFieldOptions() {
-      const pricingPlanOptions = this.pricingTiers.map((pricingTier) => {
+      return this.pricingTierSlices.map((pricingTier) => {
         return {
-          name: pricingTier.name,
-          priceDifference: pricingTier.price,
+          name: pricingTier.primary.heading,
+          priceDifference: this.$cms.payment.getCurrentPriceFromPricingTier(
+            pricingTier
+          ),
         }
       })
-      return pricingPlanOptions
     },
   },
 }

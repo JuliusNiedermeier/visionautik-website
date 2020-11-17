@@ -89,24 +89,6 @@ export default {
   },
 
   async fetch() {
-    // Fetch heading
-    const indexPageType = this.$cms.types.pages.index.typeName
-
-    const headingQuery = new this.$cms.Query(
-      [this.$prismic.predicates.at('document.type', indexPageType)],
-      {
-        fetch: [indexPageType + '.courses__heading'],
-      }
-    )
-
-    const headingResponse = await headingQuery.get()
-    if (!headingResponse) return
-
-    const headingData = headingResponse.results[0].data
-
-    this.heading = headingData.courses__heading
-
-    // Fetch courses
     const offerRepeatableType = this.$cms.types.repeatables.offer.typeName
 
     const coursesQuery = new this.$cms.Query(

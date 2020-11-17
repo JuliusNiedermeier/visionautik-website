@@ -3,10 +3,10 @@
     <div class="va-ps--ActivityDetails__item">
       <va-at--Icon
         class="va-ps--ActivityDetails__item__icon"
-        :name="offer.general__category === 'course' ? 'date-range' : 'date'"
+        :name="typeCategory === 'course' ? 'date-range' : 'date'"
       />
       <small class="va-ps--ActivityDetails__item__text">{{
-        $intlFormatter.date(new Date(offer.general__start_time || null))
+        $intlFormatter.date(new Date(startTime || null))
       }}</small>
       <small
         class="va-ps--ActivityDetails__item__text va-ps--ActivityDetails__item__text--seperator"
@@ -15,20 +15,15 @@
       </small>
       <small
         class="va-ps--ActivityDetails__item__text"
-        v-if="offer.general__category === 'course'"
+        v-if="typeCategory === 'course'"
       >
-        {{
-          $intlFormatter.date(new Date(offer.general__closing_time || null))
-        }}</small
+        {{ $intlFormatter.date(new Date(closingTime || null)) }}</small
       >
     </div>
-    <div
-      class="va-ps--ActivityDetails__item"
-      v-if="offer.general__category === 'event'"
-    >
+    <div class="va-ps--ActivityDetails__item" v-if="typeCategory === 'event'">
       <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="clock" />
       <small class="va-ps--ActivityDetails__item__text"
-        >{{ $intlFormatter.time(new Date(offer.general__start_time || null)) }}
+        >{{ $intlFormatter.time(new Date(startTime || null)) }}
       </small>
       <small
         class="va-ps--ActivityDetails__item__text va-ps--ActivityDetails__item__text--seperator"
@@ -36,26 +31,23 @@
         -
       </small>
       <small class="va-ps--ActivityDetails__item__text">
-        {{
-          $intlFormatter.time(new Date(offer.general__closing_time || null))
-        }}</small
+        {{ $intlFormatter.time(new Date(closingTime || null)) }}</small
       >
     </div>
     <div class="va-ps--ActivityDetails__item">
       <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="location" />
       <a
         class="va-ps--ActivityDetails__item__text"
-        :href="offer.general__venue_link.url"
+        :href="venueUrl"
         target="_blank"
-        v-if="offer.general__venue_link"
       >
-        <small>{{ offer.general__venue }}</small>
+        <small>{{ venueLabel }}</small>
       </a>
     </div>
     <div class="va-ps--ActivityDetails__item">
       <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="people" />
       <small class="va-ps--ActivityDetails__item__text">
-        Max. {{ offer.general__maximum_attendance }} Teilnehmer
+        Max. {{ maximumAttendance }} Teilnehmer
       </small>
     </div>
   </div>
@@ -70,33 +62,14 @@ export default {
     'va-at--Icon': Icon,
   },
 
-  data() {
-    return {
-      offer: {},
-    }
-  },
-
-  async fetch() {
-    const type = this.$cms.types.repeatables.offer.typeName
-    const query = new this.$cms.Query(
-      [this.$prismic.predicates.at(`my.${type}.uid`, this.$route.params.offer)],
-      {
-        fetch: [
-          type + '.general__start_time',
-          type + '.general__closing_time',
-          type + '.general__venue',
-          type + '.general__venue_link',
-          type + '.general__maximum_attendance',
-          type + '.general__category',
-        ],
-      }
-    )
-
-    const cmsResponse = await query.get()
-
-    if (!cmsResponse) return
-    this.offer = cmsResponse.results[0].data
-  },
+  props: [
+    'startTime',
+    'closingTime',
+    'venueLabel',
+    'venueUrl',
+    'maximumAttendance',
+    'typeCategory',
+  ],
 }
 </script>
 

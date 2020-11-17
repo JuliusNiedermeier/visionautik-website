@@ -1,15 +1,7 @@
 <template>
   <div class="va-tp--HeaderAndSidebar">
     <div class="va-tp--HeaderAndSidebar__header">
-      <div class="va-tp--HeaderAndSidebar__header__image">
-        <!-- <slot name="header" /> -->
-        <slot name="header-image" />
-      </div>
-      <div class="va-tp--HeaderAndSidebar__header__overlay">
-        <div class="va-tp--HeaderAndSidebar__header__overlay__body">
-          <slot name="header-body" />
-        </div>
-      </div>
+      <slot name="header" />
     </div>
     <div class="va-tp--HeaderAndSidebar__body">
       <aside class="va-tp--HeaderAndSidebar__body__sidebar">
@@ -40,33 +32,6 @@ export default {
     height: $spacing__macro--xxl;
     position: relative;
     overflow: hidden;
-
-    &__image {
-      height: 100%;
-    }
-
-    &__overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      @include background-gradient(90deg, 'dark-transparent');
-      color: white;
-
-      @include desktops {
-        padding-right: $spacing__macro--xl + $spacing__micro--xl;
-      }
-
-      &__body {
-        height: 100%;
-        @include page-margin;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-      }
-    }
   }
 
   &__body {
