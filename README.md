@@ -1,3 +1,4 @@
+![GitHub repo size](https://img.shields.io/github/repo-size/Visionautik-Akademie/Visionautik-de)
 ![GitHub issues](https://img.shields.io/github/issues/Visionautik-Akademie/Visionautik-de)
 
 # Official website rebuild of the Visionautik Akademie
