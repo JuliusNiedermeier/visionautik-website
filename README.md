@@ -1,9 +1,9 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Visionautik-Akademie/Visionautik-de)
 ![GitHub issues](https://img.shields.io/github/issues/Visionautik-Akademie/Visionautik-de)
 
-# Official website rebuild of the Visionautik Akademie
+# Visionautik Akademie website rebuild
 
-This repository contains the rebuild of the official Visionautik Akademie website.
+This repository contains the rebuild of the official website currently hosted under [visionautik.de](visionautik.de)
 
 ## Built With
 
@@ -28,5 +28,3 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 - **[Julius Niedermeier](https://github.com/JuliusNiedermeier)** - _Initial work_
 
 See also the list of [contributors](https://github.com/Visionautik-Akademie/Visionautik-de/contributors) who participated in this project.
-
-## Acknowledgments
