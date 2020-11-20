@@ -1,3 +1,5 @@
+![GitHub issues](https://img.shields.io/github/issues/Visionautik-Akademie/Visionautik-de)
+
 # Official website rebuild of the Visionautik Akademie
 
 This repository contains the rebuild of the official Visionautik Akademie website.
