@@ -44,8 +44,10 @@ export default {
   watch: {
     showModal(showModal) {
       if (showModal) {
+        this.$store.commit('modalBackdrop/activate', 1)
         window.addEventListener('scroll', this.handleScroll)
       } else {
+        this.$store.commit('modalBackdrop/deactivate')
         window.removeEventListener('scroll', this.handleScroll)
       }
     },
@@ -69,7 +71,7 @@ export default {
   &__gallery {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 0;
+    // gap: $spacing--micro--md;
 
     @include desktops {
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -114,25 +116,20 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: transparentize($color__grey--dark, $amount: 0.1);
-    z-index: 1;
+    z-index: 2;
+    @include page-margin;
     opacity: 0;
     transition: opacity $duration--fast ease;
     pointer-events: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    @include desktops {
-      padding: $spacing__macro--xs;
-    }
+    padding: $spacing--micro--xl 0;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transform: scale(0.9);
-      transition: transform $duration--fast ease;
     }
 
     &.show {

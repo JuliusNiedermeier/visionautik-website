@@ -1,11 +1,13 @@
 <template>
+  <!-- FIXME: customFieldsValidated returns true if ppid is defined but it doesn't match with any customField -->
   <div class="va-mo--AddToCart">
     <div class="va-mo--AddToCart__custom-fields">
       <select
         class="va-mo--AddToCart__custom-fields__select"
+        :class="{ required: customField.required }"
         v-for="customField in customFields"
-        :key="customField.key"
-        :data-custom-field-key="customField.key"
+        :key="customField.queryKey"
+        :data-query-key="customField.queryKey"
         @change="handleCustomFieldSelectionChange"
       >
         <option
@@ -15,98 +17,160 @@
           value
           hidden
         >
-          Select an option
+          {{ customField.label }}
         </option>
         <option
           class="va-mo--AddToCart__custom-fields__select__option"
           v-for="option in customField.options"
-          :key="option.name"
-          :selected="$route.query[customField.key] === option.name"
+          :key="option.id"
+          :selected="$route.query[customField.queryKey] === option.id"
         >
-          {{ option.name }}
+          {{ option.label }}
         </option>
       </select>
     </div>
-    <small class="va-mo--AddToCart__price" v-if="currentPrice">
-      {{ $intlFormatter.currency(currentPrice) }}
-    </small>
-    <button
-      class="va-mo--AddToCart__button snipcart-add-item"
-      :disabled="!currentPrice"
-      v-bind="{
-        ...$snipcart.bindProduct({
-          id,
-          price: basePrice,
-          storeUrl: url,
-          name,
-          description,
-        }),
-        ...$snipcart.customfields(customFieldsFormatted),
-      }"
+    <va-at--Price :price="calculatedPrice" v-if="customFieldsValidated">
+      <small class="va-mo--AddToCart__price" slot-scope="{ priceLabel }">
+        {{ priceLabel }}
+      </small>
+    </va-at--Price>
+    <va-at--Button
+      class="va-mo--AddToCart__button"
+      :class="{ 'snipcart-add-item': product.category !== 'event' }"
+      :iconName="product.category !== 'event' ? 'cart' : 'open'"
+      :disabled="!customFieldsValidated"
+      v-bind="buttonAttributes"
+      grow
     >
-      Add to cart
-    </button>
+      {{
+        product.category !== 'event'
+          ? $t('global.ecommerce.addToCart')
+          : $t('global.ecommerce.toEventbrite')
+      }}
+    </va-at--Button>
   </div>
 </template>
 
 <script>
+import Price from '@/components/atoms/Price.vue'
+import Button from '@/components/atoms/Button.vue'
 export default {
   name: 'va-mo--AddToCart',
+  components: { 'va-at--Price': Price, 'va-at--Button': Button },
 
   props: {
     disabled: Boolean,
-    id: String,
-    url: String,
-    basePrice: Number | String,
-    name: String,
-    description: String,
-    image: String,
+    product: Object,
     customFields: Array,
+    quantity: Number,
   },
 
   computed: {
-    customFieldsFormatted() {
-      const customFields = []
-      for (const customField of this.customFields) {
-        if (!customField.options.length > 0) continue
-        const fieldLabel = customField.label
-        const fieldOptions = customField.options
-          .map(
-            (option) =>
-              `${option.name}[${option.priceDifference > 0 ? '+' : ''}${
-                option.priceDifference
-              }]`
-          )
-          .join('|')
-        const fieldDefaultOption = this.$route.query[customField.key]
-        customFields.push({
-          name: fieldLabel,
-          options: fieldOptions,
-          value: fieldDefaultOption
-            ? fieldDefaultOption
-            : this.customFields[0].options[0].name,
-        })
+    productFormatted() {
+      return {
+        storeUrl: this.$route.path,
+        id: this.product.id,
+        name: this.product.name,
+        description: this.product.description,
+        price: this.product.price,
+        quantity: this.quantity | 1,
       }
-      return customFields
     },
 
-    currentPrice() {
-      let currentPrice = this.basePrice
-      for (const customField of this.customFields) {
-        let selectedOption = customField.options.find(
-          (option) => option.name === this.$route.query[customField.key]
+    customFieldsFormatted() {
+      return this.customFields
+        .filter((customField) => customField.options.length > 0)
+        .map((customField) => {
+          const formatted = {
+            name: customField.label,
+            required: customField.required,
+            options: customField.options
+              .map(
+                (option) =>
+                  `${option.label}[${option.priceDifference > 0 ? '+' : ''}${
+                    option.priceDifference
+                  }]`
+              )
+              .join('|'),
+          }
+
+          if (this.$route.query[customField.queryKey]) {
+            const selectedOption = customField.options.find(
+              (option) => option.id === this.$route.query[customField.queryKey]
+            )
+
+            if (selectedOption) formatted.value = selectedOption.label
+          }
+
+          return formatted
+        })
+    },
+
+    optionsPriceDifference() {
+      if (this.customFields.length === 0) return this.product.price
+
+      const prices = this.customFields
+        .filter(
+          (customField) =>
+            customField.options &&
+            customField.options.length > 0 &&
+            this.$route.query[customField.queryKey]
         )
-        if (!selectedOption) return null
-        currentPrice += selectedOption.priceDifference
+        .map(
+          (customField) =>
+            customField.options.find(
+              (option) => option.id === this.$route.query[customField.queryKey]
+            )?.priceDifference
+        )
+
+      if (prices.length === 0) return 0
+
+      return prices.reduce((previous, next) => previous + next)
+    },
+
+    customFieldsValidated() {
+      const invalidCustomFields = this.customFields.filter(
+        (customField) =>
+          customField.required && !this.$route.query[customField.queryKey]
+      )
+      return invalidCustomFields.length > 0 ? false : true
+    },
+
+    calculatedPrice() {
+      return this.product.price + this.optionsPriceDifference
+    },
+
+    buttonAttributes() {
+      if (this.product.category !== 'event') {
+        return {
+          ...this.$snipcart.bindProduct(this.productFormatted),
+          ...this.$snipcart.customfields(this.customFieldsFormatted),
+        }
+      } else {
+        return { to: this.product.sellerLink.url }
       }
-      return currentPrice
     },
   },
 
   methods: {
     handleCustomFieldSelectionChange(event) {
+      const customField = this.customFields.find(
+        (customField) => customField.queryKey === event.target.dataset.queryKey
+      )
+
+      if (!customField) return
+
+      const selectedOption = customField.options.find(
+        (option) => option.label === event.target.value
+      )
+
+      if (!selectedOption) return
+
       this.$router.replace({
-        query: { [event.target.dataset.customFieldKey]: event.target.value },
+        query: {
+          ...this.$route.query,
+          [event.target.dataset.queryKey]: selectedOption.id,
+        },
       })
     },
   },

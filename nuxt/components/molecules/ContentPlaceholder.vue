@@ -1,26 +1,34 @@
 <template>
-  <div class="va-mo--ContentPlaceholder">
-    <h3 class="va-mo--ContentPlaceholder__heading">{{ heading }}</h3>
+  <div
+    class="va-mo--ContentPlaceholder"
+    :class="{
+      light: appearance === 'light',
+      dark: appearance === 'dark',
+      centered,
+    }"
+  >
+    <h4 class="va-mo--ContentPlaceholder__heading">{{ heading }}</h4>
     <small class="va-mo--ContentPlaceholder__body">
       {{ body }}
     </small>
-    <button
+    <va-at--Button
       class="va-mo--ContentPlaceholder__button"
       v-if="buttonLabel || buttonIconName"
+      :iconName="buttonIconName"
+      :appearance="appearance"
       @click="$emit('click')"
     >
-      <span>{{ buttonLabel }}</span
-      ><va-at--Icon v-if="buttonIconName" :name="buttonIconName" />
-    </button>
+      {{ buttonLabel }}
+    </va-at--Button>
   </div>
 </template>
 
 <script>
-import Icon from '@/components/atoms/Icon.vue'
+import Button from '@/components/atoms/Button.vue'
 export default {
   name: 'va-mo--ContentPlaceholder',
   components: {
-    'va-at--Icon': Icon,
+    'va-at--Button': Button,
   },
 
   props: {
@@ -28,17 +36,35 @@ export default {
     body: String,
     buttonLabel: String,
     buttonIconName: String,
+    appearance: String,
+    centered: Boolean,
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .va-mo--ContentPlaceholder {
-  margin: 0 $spacing__micro--xl;
+  &__heading {
+    margin: 0;
+    margin-bottom: $spacing__micro--md;
+  }
 
   &__body {
     display: block;
-    margin: $spacing__micro--md 0;
+    margin: 0;
+    margin-bottom: $spacing__micro--xl;
+  }
+
+  &.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  &.light {
+    color: $color--grey--dark;
   }
 }
 </style>

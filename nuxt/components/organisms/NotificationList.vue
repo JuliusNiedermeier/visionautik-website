@@ -1,5 +1,5 @@
 <template>
-  <div class="va-or--NotificationList invert-color">
+  <div class="va-or--NotificationList">
     <va-mo--Notification
       v-for="notification in notifications"
       :key="notification.id"

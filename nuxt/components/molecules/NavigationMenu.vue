@@ -13,7 +13,7 @@
           :to="navigationLink.url"
           @click.native="handleLinkClick(navigationLink)"
           @mouseenter.native="handleLinkClick(navigationLink)"
-          :event="navigationLink.megaMenuComponent ? '' : 'click'"
+          :event="navigationLink.megaMenuComponent ? '' /*'mouseup'*/ : 'click'"
           class="va-mo--NavigationMenu__list__item__link"
           :class="{
             'va-mo--NavigationMenu__list__item__link--root':
@@ -23,24 +23,36 @@
         >
       </li>
       <li class="va-mo--NavigationMenu__list__item">
-        <nuxt-link to="cart">
-          <button class="va-mo--NavigationMenu__list__cart-button">
-            <va-at--Icon name="cart" />
-            <span class="snipcart-items-count"></span>
-            <!-- <span class="snipcart-total-price"></span> -->
-          </button>
-        </nuxt-link>
+        <va-mo--LanguageSwitcher appearance="reduced" short />
+      </li>
+      <li
+        class="va-mo--NavigationMenu__list__item va-mo--NavigationMenu__list__item--cart"
+      >
+        <va-at--Button
+          class="va-mo--NavigationMenu__list__cart-button"
+          iconName="cart"
+          iconPosition="left"
+          appearance="dark"
+          to="/cart"
+        >
+          <span class="snipcart-items-count"></span>
+          <!-- <span class="snipcart-total-price"></span> -->
+        </va-at--Button>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
-import Icon from '@/components/atoms/Icon'
 import OffersMegaMenu from '@/components/organisms/OffersMegaMenu'
+import Button from '@/components/atoms/Button.vue'
+import LanguageSwitcher from '@/components/molecules/LanguageSwitcher.vue'
 export default {
   name: 'va-mo--NavigationMenu',
-  components: { 'va-at--Icon': Icon },
+  components: {
+    'va-at--Button': Button,
+    'va-mo--LanguageSwitcher': LanguageSwitcher,
+  },
 
   props: {
     toggleState: Boolean,
@@ -59,10 +71,10 @@ export default {
           url: '/offers',
           megaMenuComponent: OffersMegaMenu,
         },
-        // {
-        //   name: this.$t('layout.header.navigationMenu.about'),
-        //   url: '/about',
-        // },
+        {
+          name: this.$t('layout.header.navigationMenu.about'),
+          url: '/about',
+        },
         // {
         //   name: this.$t('layout.header.navigationMenu.projects'),
         //   url: '/projects',
@@ -161,10 +173,10 @@ export default {
         font-weight: bold;
         text-transform: uppercase;
         color: $color__blue--base;
+        text-decoration: none;
 
         &:hover {
           color: $color__blue--light;
-          background: none;
         }
 
         &.nuxt-link-active:not(&--root) {
@@ -175,11 +187,10 @@ export default {
           color: $color__red--base;
         }
       }
-    }
 
-    &__cart-button {
-      background-color: $color--lilac--base;
-      color: $color--blue--light;
+      &--cart {
+        margin-left: 0;
+      }
     }
   }
 }

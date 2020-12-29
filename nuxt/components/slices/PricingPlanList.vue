@@ -1,54 +1,97 @@
 <template>
   <div class="va-sl--PricingPlanList">
     <div
-      class="va-sl--PricingPlanList__pricing-tier"
-      v-for="(pricingTier, index) of pricingTierSlices"
-      :key="index"
-      :style="`border-top-color: ${pricingTier.primary.color}`"
+      class="va-sl--PricingPlanList__pricing-plan"
+      v-for="pricingPlan of pricingPlans"
+      :key="pricingPlan.id"
+      :style="`border-top-color: ${pricingPlan.color}`"
+      :class="{
+        selectable: pricingPlan.currentPrice,
+        selected: pricingPlan.id === selectedPricingPlanId,
+      }"
+      @click="handleClick(pricingPlan)"
     >
-      <img
-        class="va-sl--PricingPlanList__pricing-tier__icon"
-        :src="pricingTier.primary.icon.url"
-        v-if="pricingTier.primary.icon"
-      />
-      <h4 class="va-sl--PricingPlanList__pricing-tier__heading">
-        {{ pricingTier.primary.heading }}
-      </h4>
-      <h3 class="va-sl--PricingPlanList__pricing-tier__price">
-        {{
-          $intlFormatter.currency(
-            $cms.payment.getCurrentPriceFromPricingTier(pricingTier)
-          )
-        }}
+      <h3 class="va-sl--PricingPlanList__pricing-plan__heading">
+        {{ pricingPlan.heading }}
       </h3>
+
       <prismic-rich-text
-        class="va-sl--PricingPlanList__pricing-tier__description"
-        :field="pricingTier.primary.description"
+        class="va-sl--PricingPlanList__pricing-plan__description"
+        :field="pricingPlan.description"
       />
-      <button
-        class="va-sl--PricingPlanList__pricing-tier__button"
-        @click="handleSelect(pricingTier.primary.heading)"
-      >
-        Diesen Plan auswählen
-      </button>
-      <!-- <p>Nach dem 23. März 2020:</p> -->
+      <va-at--Price :price="pricingPlan.currentPrice">
+        <h4
+          class="va-sl--PricingPlanList__pricing-plan__price"
+          slot-scope="{ priceLabel }"
+        >
+          {{ priceLabel || $t('slices.pricingPlanList.notAvailableYet') }}
+        </h4>
+      </va-at--Price>
+      <va-at--Price :price="pricingPlan.nextPrice" v-if="pricingPlan.nextPrice">
+        <i
+          class="va-sl--PricingPlanList__pricing-plan__next-price"
+          slot-scope="{ priceLabel }"
+        >
+          <small>
+            {{ priceLabel }}
+            {{ $t('slices.pricingPlanList.nextEffectiveDateLabel') }}
+            {{ $d(new Date(pricingPlan.nextPriceEffectiveDate), 'longDate') }}
+          </small>
+        </i>
+      </va-at--Price>
     </div>
   </div>
 </template>
 
 <script>
+import Button from '@/components/atoms/Button.vue'
+import Price from '@/components/atoms/Price.vue'
+import parseCurrentPriceFromPricingPlanSlice from '@/assets/js/util/parseCurrentPriceFromPricingPlanSlice.js'
+import parseNextPriceOptionFromPricingPlanSlice from '@/assets/js/util/parseNextPriceOptionFromPricingPlanSlice.js'
+import parseLowestPriceFromPricingPlanSlices from '@/assets/js/util/parseLowestPriceFromPricingPlanSlices.js'
 export default {
   name: 'va-sl--PricingPlanList',
+  components: { 'va-at--Button': Button, 'va-at--Price': Price },
   props: {
-    pricingTierSlices: Array,
+    pricingPlanSlices: Array,
+  },
+
+  computed: {
+    pricingPlans() {
+      return this.pricingPlanSlices.map((pricingPlanSlice) => {
+        const pricingPlan = {
+          id: pricingPlanSlice.primary.id,
+          heading: pricingPlanSlice.primary.heading,
+          description: pricingPlanSlice.primary.description,
+          color: pricingPlanSlice.primary.color,
+          currentPrice: parseCurrentPriceFromPricingPlanSlice(pricingPlanSlice),
+        }
+
+        const nextPriceOption = parseNextPriceOptionFromPricingPlanSlice(
+          pricingPlanSlice
+        )
+
+        return {
+          ...pricingPlan,
+          nextPrice: nextPriceOption.price,
+          nextPriceEffectiveDate: nextPriceOption.effectiveDate,
+        }
+      })
+    },
+
+    selectedPricingPlanId() {
+      return this.$route.query.ppid
+    },
+
+    lowestPrice() {
+      return parseLowestPriceFromPricingPlanSlices(this.pricingPlanSlices)
+    },
   },
 
   methods: {
-    handleSelect(pricingTierName) {
-      this.$router.replace({ query: { plan: pricingTierName } })
-      // this.$store.commit('notifications/add', {
-      //   message: 'Deine Auswahl wurde übernommen!',
-      // })
+    handleClick(pricingPlan) {
+      if (pricingPlan.currentPrice)
+        this.$router.replace({ query: { ppid: pricingPlan.id } })
     },
   },
 }
@@ -59,54 +102,56 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+  gap: $spacing--micro--xl;
 
   @include desktops {
     flex-direction: row;
     flex-wrap: wrap;
   }
 
-  &__pricing-tier {
-    padding: $spacing__micro--xl;
-    background-color: $color__grey--light;
+  &__pricing-plan {
+    flex: 1;
+    padding: $spacing--macro--xs $spacing__micro--xl;
+    background-color: $color--lilac--base;
     border-top: $spacing__micro--sm solid $color__grey--dark;
-    border-bottom: $spacing__micro--sm solid $color__grey--dark;
-    text-align: center;
+    min-width: $spacing__macro--xl;
     display: flex;
     flex-direction: column;
-    // align-items: center;
-    min-width: $spacing__macro--xl;
-    flex: 1;
 
-    & + & {
-      margin-top: $spacing__micro--xl;
-    }
+    text-align: left;
 
-    @include desktops {
-      & + & {
-        margin-top: 0;
-        margin-left: $spacing__micro--xl;
+    &.selectable {
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color--lilac--lighter;
       }
     }
 
-    &__icon {
-      width: $spacing__macro--md;
-      align-self: center;
-      margin: $spacing__macro--xs 0;
+    &.selected.selectable {
+      @include background-gradient(90deg, 'blue');
+      color: $color--grey--dark;
     }
 
     &__heading {
       margin: 0;
-      margin-bottom: $spacing__micro--md;
+    }
+
+    &__description {
+      flex: 1;
+      margin-bottom: $spacing--micro--xl;
     }
 
     &__price {
       margin: 0;
-      margin-bottom: $spacing__micro--xl;
-      font-weight: bold;
     }
 
-    &__button {
-      align-self: strech;
+    &.selected.selectable &__price {
+      color: $color--grey--dark;
+    }
+
+    &__next-price {
+      margin: 0;
     }
   }
 }

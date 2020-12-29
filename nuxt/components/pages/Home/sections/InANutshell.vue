@@ -1,20 +1,20 @@
 <template>
-  <div
-    class="va-ps--InANutshell"
+  <va-at--PageSection
+    padding="both"
     v-if="heading && videoUrl && videoThumbnailUrl && textColumns"
   >
-    <div class="va-ps--InANutshell__body">
-      <h2>{{ heading }}</h2>
+    <div class="va-ps--InANutshell">
+      <h2 class="va-ps--InANutshell__heading">{{ heading }}</h2>
       <va-mo--Video
         :src="videoUrl"
         :thumbnail="videoThumbnailUrl"
         v-if="videoUrl"
         aspectRatio="2.5"
-        class="va-ps--InANutshell__body__video"
+        class="va-ps--InANutshell__video"
       />
-      <div class="va-ps--InANutshell__body__columns">
+      <div class="va-ps--InANutshell__columns">
         <p
-          class="va-ps--InANutshell__body__columns__body"
+          class="va-ps--InANutshell__columns__body"
           v-for="(column, index) in textColumns"
           :key="index"
         >
@@ -22,39 +22,32 @@
         </p>
       </div>
     </div>
-  </div>
+  </va-at--PageSection>
 </template>
 
 <script>
+import PageSection from '@/components/atoms/PageSection.vue'
 import Video from '@/components/molecules/Video'
 export default {
   name: 'va-ps--InANutshell',
-  components: { 'va-mo--Video': Video },
+  components: { 'va-mo--Video': Video, 'va-at--PageSection': PageSection },
   props: ['heading', 'videoUrl', 'videoThumbnailUrl', 'textColumns'],
 }
 </script>
 
 <style lang="scss" scoped>
 .va-ps--InANutshell {
-  @include fill-screen-width;
-  background-color: $color__grey--light;
-  padding: $spacing__macro--lg 0;
+  &__video {
+    margin-top: $spacing__macro--xs;
+    margin-bottom: $spacing__micro--xl;
+  }
 
-  &__body {
-    @include page-margin;
+  &__columns {
+    @include desktops {
+      display: flex;
 
-    &__video {
-      margin-top: $spacing__macro--xs;
-      margin-bottom: $spacing__micro--xl;
-    }
-
-    &__columns {
-      @include desktops {
-        display: flex;
-
-        &__body + &__body {
-          margin-left: $spacing__micro--xl;
-        }
+      &__body + &__body {
+        margin-left: $spacing__micro--xl;
       }
     }
   }

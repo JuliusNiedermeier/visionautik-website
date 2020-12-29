@@ -1,48 +1,38 @@
 <template>
   <div class="va-ps--ActivityDetails">
-    <div class="va-ps--ActivityDetails__item">
+    <div class="va-ps--ActivityDetails__item" v-if="startTime">
       <va-at--Icon
         class="va-ps--ActivityDetails__item__icon"
-        :name="typeCategory === 'course' ? 'date-range' : 'date'"
+        name="date-range"
       />
-      <small class="va-ps--ActivityDetails__item__text">{{
-        $intlFormatter.date(new Date(startTime || null))
-      }}</small>
-      <small
-        class="va-ps--ActivityDetails__item__text va-ps--ActivityDetails__item__text--seperator"
-      >
-        -
-      </small>
-      <small
-        class="va-ps--ActivityDetails__item__text"
-        v-if="typeCategory === 'course'"
-      >
-        {{ $intlFormatter.date(new Date(closingTime || null)) }}</small
-      >
-    </div>
-    <div class="va-ps--ActivityDetails__item" v-if="typeCategory === 'event'">
-      <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="clock" />
-      <small class="va-ps--ActivityDetails__item__text"
-        >{{ $intlFormatter.time(new Date(startTime || null)) }}
-      </small>
-      <small
-        class="va-ps--ActivityDetails__item__text va-ps--ActivityDetails__item__text--seperator"
-      >
-        -
-      </small>
       <small class="va-ps--ActivityDetails__item__text">
-        {{ $intlFormatter.time(new Date(closingTime || null)) }}</small
-      >
+        {{ $d(new Date(startTime), 'shortDate') }}
+        <span v-if="closingTime">
+          {{ seperator }} {{ $d(new Date(closingTime), 'shortDate') }}
+        </span>
+      </small>
+    </div>
+    <div
+      class="va-ps--ActivityDetails__item"
+      v-if="showDetailedTimeframe && startTime"
+    >
+      <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="clock" />
+      <small class="va-ps--ActivityDetails__item__text">
+        {{ $d(new Date(startTime), 'time') }}
+        <span v-if="closingTime">
+          {{ seperator }} {{ $d(new Date(closingTime), 'time') }}
+        </span>
+      </small>
     </div>
     <div class="va-ps--ActivityDetails__item">
       <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="location" />
-      <a
+      <va-at--Link
         class="va-ps--ActivityDetails__item__text"
-        :href="venueUrl"
-        target="_blank"
+        :to="venueUrl"
+        newTab
       >
         <small>{{ venueLabel }}</small>
-      </a>
+      </va-at--Link>
     </div>
     <div class="va-ps--ActivityDetails__item">
       <va-at--Icon class="va-ps--ActivityDetails__item__icon" name="people" />
@@ -55,21 +45,27 @@
 
 <script>
 import Icon from '@/components/atoms/Icon'
+import Link from '@/components/atoms/Link.vue'
 export default {
   name: 'va-ps--ActivityDetails',
 
   components: {
     'va-at--Icon': Icon,
+    'va-at--Link': Link,
   },
 
-  props: [
-    'startTime',
-    'closingTime',
-    'venueLabel',
-    'venueUrl',
-    'maximumAttendance',
-    'typeCategory',
-  ],
+  data() {
+    return { seperator: '-' }
+  },
+
+  props: {
+    startTime: String,
+    closingTime: String,
+    venueLabel: String,
+    venueUrl: String,
+    maximumAttendance: Number,
+    showDetailedTimeframe: Boolean,
+  },
 }
 </script>
 

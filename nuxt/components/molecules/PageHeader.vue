@@ -1,5 +1,5 @@
 <template>
-  <div class="va-mo--PageHeader">
+  <div class="va-mo--PageHeader" :class="{ 'sidebar-padding': sidebarPadding }">
     <div class="va-mo--PageHeader__background">
       <img class="va-mo--PageHeader__background__image" :src="imageUrl" />
     </div>
@@ -14,14 +14,17 @@
 <script>
 export default {
   name: 'va-mo--PageHeader',
-  props: ['imageUrl'],
+  props: {
+    imageUrl: String,
+    sidebarPadding: Boolean,
+  },
 }
 </script>
 
 <style lang="scss">
 .va-mo--PageHeader {
   position: relative;
-  height: 100%;
+  height: $spacing--macro--xxl;
 
   &__background {
     height: 100%;
@@ -37,14 +40,10 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
     @include background-gradient(90deg, 'dark-transparent');
     color: white;
-
-    @include desktops {
-      padding-right: $spacing__macro--xl + $spacing__micro--xl;
-    }
 
     &__body {
       height: 100%;
@@ -53,6 +52,12 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+    }
+  }
+
+  &.sidebar-padding &__overlay__body {
+    @include desktops {
+      padding-right: $spacing__macro--xl + $spacing__micro--xl;
     }
   }
 }

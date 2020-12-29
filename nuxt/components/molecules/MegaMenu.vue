@@ -40,21 +40,23 @@ export default {
 .va-mo--MegaMenu {
   background-color: $color__grey--light;
   overflow: hidden;
-  padding-top: $spacing__macro--xs;
 
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
   transition: clip-path $duration--fast ease;
 
   @include desktops {
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    padding-top: unset;
   }
 
   &__body {
     @include page-margin;
     padding: $spacing__micro--xl 0;
-    max-height: 75vh;
+    height: 100%;
     overflow-y: auto;
+
+    @include desktops {
+      max-height: 75vh;
+    }
   }
 
   &.expanded {

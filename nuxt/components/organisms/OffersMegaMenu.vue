@@ -1,38 +1,66 @@
 <template>
   <div class="va-or--OffersMegaMenu">
-    <div class="va-or--OffersMegaMenu__section">
-      <va-mo--MegaMenuLink
-        to="/offers"
-        :label="$t('global.targetGroups.changemakers.for')"
-      />
-      <va-mo--MegaMenuLink
-        to="/offers"
-        :label="$t('global.targetGroups.businesses.for')"
-      />
-      <va-mo--MegaMenuLink
-        to="/offers"
-        :label="$t('global.targetGroups.facilitators.for')"
-      />
-    </div>
-    <div class="va-or--OffersMegaMenu__section"></div>
-    <div class="va-or--OffersMegaMenu__section"></div>
+    <va-at--Button
+      class="va-or--OffersMegaMenu__section"
+      v-for="(section, index) of sections"
+      :key="index"
+      :to="section.to"
+      :appearance="section.appearance || 'dark'"
+      iconName="chevron-right"
+      explode
+    >
+      <small class="va-or--OffersMegaMenu__section__heading">{{
+        section.heading
+      }}</small>
+      <br />
+      <small class="va-or--OffersMegaMenu__section__info">
+        {{ section.info }}
+      </small>
+    </va-at--Button>
   </div>
 </template>
 
 <script>
 import MegaMenuLink from '@/components/molecules/MegaMenuLink'
+import Button from '@/components/atoms/Button.vue'
 export default {
   name: 'va-or--OffersMegaMenu',
-  components: { 'va-mo--MegaMenuLink': MegaMenuLink },
+  components: { 'va-mo--MegaMenuLink': MegaMenuLink, 'va-at--Button': Button },
+
+  computed: {
+    sections() {
+      return [
+        {
+          heading: this.$t('layout.header.offersMegaMenu.allOffers.heading'),
+          info: this.$t('layout.header.offersMegaMenu.allOffers.info'),
+          to: { name: 'offers' },
+        },
+        {
+          heading: this.$t('layout.header.offersMegaMenu.nextEvents.heading'),
+          info: this.$t('layout.header.offersMegaMenu.nextEvents.info'),
+          to: {
+            name: 'offers',
+            query: { exclude: ['course', 'book', 'merchandise', 'download'] },
+          },
+        },
+        {
+          heading: this.$t('layout.header.offersMegaMenu.archive.heading'),
+          info: this.$t('layout.header.offersMegaMenu.archive.info'),
+          to: { name: 'archive' },
+          appearance: 'reduced',
+        },
+      ]
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .va-or--OffersMegaMenu {
-  padding: $spacing__macro--sm 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: strech;
 
   @include desktops {
@@ -42,18 +70,21 @@ export default {
 
   &__section {
     flex: 1;
+    text-align: left;
+    padding: $spacing--micro--xl;
 
     & + & {
-      margin-left: $spacing__macro--md;
+      margin-top: $spacing--micro--xl;
+
+      @include desktops {
+        margin-top: 0;
+        margin-left: $spacing--micro--xl;
+      }
     }
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-
-    > * {
-      padding: $spacing__micro--md 0;
+    &__info {
+      font-weight: normal;
+      text-transform: none;
     }
   }
 }

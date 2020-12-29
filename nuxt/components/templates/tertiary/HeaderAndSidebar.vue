@@ -28,7 +28,6 @@ export default {
 <style lang="scss" scoped>
 .va-tp--HeaderAndSidebar {
   &__header {
-    @include fill-screen-width;
     height: $spacing__macro--xxl;
     position: relative;
     overflow: hidden;
@@ -40,12 +39,17 @@ export default {
     justify-content: space-between;
 
     @include desktops {
+      @include page-margin;
       flex-direction: row-reverse;
     }
 
     &__main {
       flex: 1;
       margin-top: $spacing__micro--xl;
+
+      @include mobile {
+        @include page-margin;
+      }
     }
 
     &__sidebar {
@@ -54,12 +58,11 @@ export default {
       // min-height: min-content;
       overflow: hidden;
       background-color: $color__lilac--base;
-
-      @include mobile {
-        @include fill-screen-width;
-      }
+      display: flex;
+      flex-direction: column-reverse;
 
       @include desktops {
+        flex-direction: column;
         position: sticky;
         bottom: 0;
         align-self: flex-end;

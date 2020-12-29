@@ -8,20 +8,23 @@
         <p class="va-or--Footer__body__contact-area__address">
           {{ $t('layout.footer.address') }}
         </p>
-        <button class="va-or--Footer__body__contact-area__contact-button">
+        <va-at--Button
+          appearance="light"
+          class="va-or--Footer__body__contact-area__contact-button"
+        >
           {{ $t('layout.footer.contactButton') }}
-        </button>
+        </va-at--Button>
       </div>
       <div class="va-or--Footer__body__link-area">
-        <nuxt-link to="/terms-of-use">
+        <va-at--Link to="/terms-of-use" appearance="light">
           <small>{{ $t('layout.footer.termsOfUse') }}</small>
-        </nuxt-link>
-        <nuxt-link to="/privacy">
+        </va-at--Link>
+        <va-at--Link to="/privacy" appearance="light">
           <small>{{ $t('layout.footer.privacyPolicy') }}</small>
-        </nuxt-link>
-        <nuxt-link to="/legal-notice">
+        </va-at--Link>
+        <va-at--Link to="/legal-notice" appearance="light">
           <small>{{ $t('layout.footer.legalNotice') }}</small>
-        </nuxt-link>
+        </va-at--Link>
       </div>
       <va-mo--NewsletterForm class="va-or--Footer__body__newsletter-area" />
     </div>
@@ -29,6 +32,8 @@
       <div class="va-or--Footer__legal-bar__body">
         <small>&copy; 2020 Visionautik e.V.</small>
         <va-mo--LanguageSwitcher
+          dropDownPosition="top"
+          appearance="reduced"
           class="va-or--Footer__legal-bar__body__language-switcher"
         />
       </div>
@@ -37,13 +42,17 @@
 </template>
 
 <script>
-import NewsletterForm from '@/components/molecules/NewsletterForm'
+import Button from '@/components/atoms/Button.vue'
+import Link from '@/components/atoms/Link.vue'
+import NewsletterForm from '@/components/organisms/NewsletterForm'
 import LanguageSwitcher from '@/components/molecules/LanguageSwitcher'
 export default {
   name: 'va-or--Footer',
   components: {
     'va-mo--NewsletterForm': NewsletterForm,
     'va-mo--LanguageSwitcher': LanguageSwitcher,
+    'va-at--Button': Button,
+    'va-at--Link': Link,
   },
 }
 </script>

@@ -1,35 +1,19 @@
 <template>
-  <div class="va-ps--CourseCarousel">
-    <div class="va-ps--CourseCarousel__body">
-      <div class="va-ps--CourseCarousel__body__head-section">
-        <h2 class="va-ps--CourseCarousel__body__head-section__heading">
+  <va-at--PageSection standout padding="both">
+    <div class="va-ps--CourseCarousel">
+      <div class="va-ps--CourseCarousel__head-section">
+        <h2 class="va-ps--CourseCarousel__head-section__heading">
           {{ heading }}
         </h2>
-        <button
-          class="va-ps--CourseCarousel__body__head-section__button"
-          @click="
-            $router.push({
-              path: '/offers',
-              query: {
-                exclude: [
-                  'event',
-                  'product',
-                  'book',
-                  'merchandise',
-                  'download',
-                ],
-              },
-            })
-          "
+        <va-at--Button
+          class="va-ps--CourseCarousel__head-section__button"
+          iconName="chevron-right"
+          :to="allCoursesRoute"
         >
-          {{
-            $t(
-              `types.${$cms.types.pages.index.typeName}.coursesSection.allCourses`
-            )
-          }}
-        </button>
+          {{ buttonLabel }}
+        </va-at--Button>
       </div>
-      <div class="va-ps--CourseCarousel__body__carousel">
+      <div class="va-ps--CourseCarousel__carousel">
         <va-mo--Carousel gap displayPlaceholder>
           <va-mo--Offer
             v-for="(course, index) in courses"
@@ -38,110 +22,113 @@
             :image="course.general__featured_image.thumbnail.url"
             :title="course.general__heading"
             :description="course.general__excerpt"
-            :type="$cms.types.repeatables.offer.typeName"
+            :type="courseType"
+            fixedWidth
+            :price="parseLowestPrice(course.pricing__slices)"
           />
           <template slot="placeholder">
             <va-mo--ContentPlaceholder
-              :heading="
-                $t(
-                  `types.${$cms.types.pages.index.typeName}.coursesSection.placeholderHeading`
-                )
-              "
-              :body="
-                $t(
-                  `types.${$cms.types.pages.index.typeName}.coursesSection.placeholderBody`
-                )
-              "
-              :buttonLabel="
-                $t(
-                  `types.${$cms.types.pages.index.typeName}.coursesSection.notify`
-                )
-              "
+              appearance="dark"
+              :heading="placeholderData.heading"
+              :body="placeholderData.body"
+              :buttonLabel="placeholderData.buttonLabel"
               buttonIconName="addNotification"
+              centered
+              @click="handlePlaceholderClick"
             />
           </template>
         </va-mo--Carousel>
       </div>
     </div>
-  </div>
+  </va-at--PageSection>
 </template>
 
 <script>
+import PageSection from '@/components/atoms/PageSection.vue'
+import Button from '@/components/atoms/Button.vue'
 import Carousel from '@/components/molecules/Carousel'
 import Offer from '@/components/molecules/Offer'
 import Icon from '@/components/atoms/Icon'
 import ContentPlaceholder from '@/components/molecules/ContentPlaceholder'
+import parseLowestPriceFromPricingPlanSlices from '@/assets/js/util/parseLowestPriceFromPricingPlanSlices.js'
+import getOfferCategories from '@/assets/js/util/getOfferCategories.js'
+import { pages, repeatables } from '@/assets/js/types.js'
+import subscribeToNotifications from '@/mixins/usecases/subscribeToNotifications.js'
 export default {
   name: 'va-ps--CourseCarousel',
+  mixins: [subscribeToNotifications],
   components: {
+    'va-at--PageSection': PageSection,
     'va-mo--Offer': Offer,
     'va-mo--Carousel': Carousel,
     'va-at--Icon': Icon,
     'va-mo--ContentPlaceholder': ContentPlaceholder,
+    'va-at--Button': Button,
   },
 
-  props: ['heading'],
+  props: {
+    heading: String,
+    courses: {
+      default: () => [],
+    },
+  },
 
   data() {
     return {
-      courses: [],
+      allCoursesRoute: {
+        name: 'offers',
+        query: {
+          exclude: getOfferCategories({ exclude: ['course'] }).map(
+            (category) => category.label
+          ),
+        },
+      },
+
+      courseType: repeatables.activity.typeName,
     }
   },
 
-  async fetch() {
-    const offerRepeatableType = this.$cms.types.repeatables.offer.typeName
+  computed: {
+    buttonLabel() {
+      return this.$t(`types.${pages.index.typeName}.coursesSection.allCourses`)
+    },
 
-    const coursesQuery = new this.$cms.Query(
-      [
-        this.$prismic.predicates.at(
-          `my.${offerRepeatableType}.general__category`,
-          'course'
-        ),
-      ],
-      {
-        pageSize: 6,
-        fetch: [
-          offerRepeatableType + '.general__heading',
-          offerRepeatableType + '.general__featured_image',
-          offerRepeatableType + '.general__excerpt',
-        ],
+    placeholderData() {
+      return {
+        heading: this.$t(`global.placeholders.courses.heading`),
+        body: this.$t(`global.placeholders.courses.body`),
+        buttonLabel: this.$t(`global.placeholders.courses.buttonLabel`),
       }
-    )
+    },
+  },
 
-    const courseResponse = await coursesQuery.get()
-    if (!courseResponse) return
+  methods: {
+    parseLowestPrice(prcingPlanSlices) {
+      return parseLowestPriceFromPricingPlanSlices.call(this, ...arguments)
+    },
 
-    if (this.courses.length > 0) this.courses = []
-
-    courseResponse.results.forEach((result) => {
-      this.courses.push({ ...result.data, uid: result.uid })
-    })
+    handlePlaceholderClick() {
+      this.subscribeToNotifications([
+        repeatables.activity.categories.find((cat) => cat === 'course'),
+      ])
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .va-ps--CourseCarousel {
-  background-color: $color__grey--light;
-  @include fill-screen-width;
-  padding: $spacing__macro--lg 0;
-  overflow-x: hidden;
+  &__heading {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: $spacing__macro--xs;
+  }
 
-  &__body {
-    @include page-margin;
-
-    &__heading {
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: $spacing__macro--xs;
-    }
-
-    &__head-section {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
+  &__head-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>

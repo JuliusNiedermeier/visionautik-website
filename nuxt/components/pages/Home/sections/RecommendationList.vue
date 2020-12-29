@@ -1,243 +1,91 @@
 <template>
-  <div class="va-ps--RecommendationList" v-if="offerListItems.length >= 3">
-    <div class="va-ps--RecommendationList__body">
-      <h3 class="va-ps--RecommendationList__body__heading">{{ heading }}</h3>
-      <div class="va-ps--RecommendationList__body__articles">
+  <va-at--PageSection
+    padding="bottom"
+    standout
+    v-if="recommendations.length >= 3"
+  >
+    <div class="va-ps--RecommendationList">
+      <div class="va-ps--RecommendationList__items">
         <va-mo--Offer
-          class="va-ps--RecommendationList__body__articles__item"
-          v-for="courseOfferListItem in offerListItems.filter(
-            (item) =>
-              item.type === $cms.types.repeatables.offer.typeName &&
-              item.general__category === 'course'
-          )"
-          :key="courseOfferListItem.uid"
-          :uid="courseOfferListItem.uid"
-          :image="courseOfferListItem.general__featured_image.thumbnail.url"
-          :title="courseOfferListItem.general__heading"
-          :description="courseOfferListItem.general__excerpt"
-          :type="$cms.types.repeatables.offer.typeName"
-          :tag="
-            $t(
-              `types.${$cms.types.repeatables.offer.typeName}.categories.course.singular`
-            )
-          "
-        />
-        <va-mo--Offer
-          class="va-ps--RecommendationList__body__articles__item"
-          v-for="eventOfferListItem in offerListItems.filter(
-            (item) =>
-              item.type === $cms.types.repeatables.offer.typeName &&
-              item.general__category === 'event'
-          )"
-          :key="eventOfferListItem.uid"
-          :uid="eventOfferListItem.uid"
-          :image="eventOfferListItem.general__featured_image.thumbnail.url"
-          :title="eventOfferListItem.general__heading"
-          :description="eventOfferListItem.general__excerpt"
-          :type="$cms.types.repeatables.offer.typeName"
-          :tag="
-            $t(
-              `types.${$cms.types.repeatables.offer.typeName}.categories.event.singular`
-            )
-          "
-        />
-        <va-mo--Offer
-          class="va-ps--RecommendationList__body__articles__item"
-          v-for="blogPostOfferListItem in offerListItems.filter(
-            (item) => item.type === $cms.types.repeatables.blogPost.typeName
-          )"
-          :key="blogPostOfferListItem.uid"
-          :uid="blogPostOfferListItem.uid"
-          :image="blogPostOfferListItem.general__featured_image.thumbnail.url"
-          :title="blogPostOfferListItem.general__heading"
-          :description="blogPostOfferListItem.general__excerpt"
-          :type="$cms.types.repeatables.blogPost.typeName"
-          :tag="
-            $t(`types.${$cms.types.repeatables.blogPost.typeName}.singular`)
-          "
+          class="va-ps--RecommendationList__items__recommendation"
+          v-for="recommendation in recommendations"
+          :key="recommendation.uid"
+          :uid="recommendation.uid"
+          :image="recommendation.general__featured_image.thumbnail.url"
+          :title="recommendation.general__heading"
+          :description="recommendation.general__excerpt"
+          :type="recommendation.type"
+          :tag="getRecommendationTag(recommendation)"
+          :price="parsePriceFromPricingSlices(recommendation.pricing__slices)"
         />
       </div>
     </div>
-  </div>
+  </va-at--PageSection>
 </template>
 
 <script>
+import PageSection from '@/components/atoms/PageSection.vue'
 import Offer from '@/components/molecules/Offer'
+import parseLowestPriceFromPricingPlanSlices from '@/assets/js/util/parseLowestPriceFromPricingPlanSlices.js'
+import { repeatables } from '@/assets/js/types.js'
 export default {
   name: 'va-ps--RecommendationList',
-  components: { 'va-mo--Offer': Offer },
-  props: ['heading'],
-
-  data() {
-    return {
-      offerListItems: [],
-    }
+  components: { 'va-mo--Offer': Offer, 'va-at--PageSection': PageSection },
+  props: {
+    heading: String,
+    recommendations: {
+      default: () => [],
+    },
   },
 
   methods: {
-    getRequiredFieldsByType(types) {
-      const typeNames = {
-        offer: this.$cms.types.repeatables.offer.typeName,
-        blogPost: this.$cms.types.repeatables.blogPost.typeName,
-      }
-      let fields = []
-      if (types.includes(typeNames.offer)) {
-        fields.push(
-          typeNames.offer + '.general__heading',
-          typeNames.offer + '.general__featured_image',
-          typeNames.offer + '.general__excerpt',
-          typeNames.offer + '.general__category'
+    getRecommendationTag(recommendation) {
+      if (recommendation.type === repeatables.activity.typeName) {
+        return this.$tc(
+          `types.${recommendation.type}.categories.${recommendation.general__category}`, 0
         )
+      } else if (recommendation.type === repeatables.blogPost.typeName) {
+        return this.$tc(`types.${recommendation.type}`, 0)
       }
-      if (types.includes(typeNames.blogPost)) {
-        fields.push(
-          typeNames.blogPost + '.general__heading',
-          typeNames.blogPost + '.general__featured_image',
-          typeNames.blogPost + '.general__excerpt'
-        )
-      }
-      return fields
     },
 
-    fetchOfferByCategory(category) {
-      const typeName = this.$cms.types.repeatables.offer.typeName
-      const query = new this.$cms.Query(
-        [
-          this.$prismic.predicates.at(
-            `my.${typeName}.general__category`,
-            category
-          ),
-        ],
-        {
-          orderings: '[document.first_publication_date desc]',
-          pageSize: 1,
-          fetch: this.getRequiredFieldsByType([typeName]),
-        }
-      )
-
-      return query.get()
+    parsePriceFromPricingSlices(pricingSlices) {
+      return parseLowestPriceFromPricingPlanSlices.call(this, ...arguments)
     },
-
-    fetchBlogPost() {
-      const typeName = this.$cms.types.repeatables.blogPost.typeName
-      const query = new this.$cms.Query(
-        [this.$prismic.predicates.at('document.type', typeName)],
-        {
-          orderings: '[document.first_publication_date desc]',
-          pageSize: 1,
-          fetch: this.getRequiredFieldsByType([typeName]),
-        }
-      )
-
-      return query.get()
-    },
-
-    fetchByExcludingIdsHelper(ids, max) {
-      let idPredicates = []
-      ids.forEach((id) => {
-        idPredicates.push(this.$prismic.predicates.not('document.id', id))
-      })
-      const types = [
-        this.$cms.types.repeatables.offer.typeName,
-        this.$cms.types.repeatables.blogPost.typeName,
-      ]
-      const query = new this.$cms.Query(
-        [this.$prismic.predicates.any('document.type', types), ...idPredicates],
-        {
-          orderings: '[document.first_publication_date desc]',
-          pageSize: max || 1,
-          fetch: this.getRequiredFieldsByType(types),
-        }
-      )
-
-      return query.get()
-    },
-  },
-
-  async fetch() {
-    // Fetch recommended offer items
-    let course = this.fetchOfferByCategory('course')
-    let event = this.fetchOfferByCategory('event')
-    let blog_post = this.fetchBlogPost()
-
-    let responses = await Promise.all([course, event, blog_post])
-
-    let fetchedIds = []
-    for (const response of responses) {
-      if (response && response.results_size > 0) {
-        fetchedIds.push(response.results[0].id)
-      }
-    }
-
-    if (fetchedIds.length < 3) {
-      const missingDocumentsCount = 3 - fetchedIds.length
-
-      const newResponse = await this.fetchByExcludingIdsHelper(
-        fetchedIds,
-        missingDocumentsCount
-      )
-
-      for (const result of newResponse.results) {
-        const availableIndex = responses.findIndex((response) => !response)
-        responses[availableIndex] = { results: [result], results_size: 1 }
-      }
-    }
-
-    if (this.offerListItems.length > 0) this.offerListItems = []
-
-    for (const response of responses) {
-      if (response && response.results_size > 0) {
-        this.offerListItems = [
-          ...this.offerListItems,
-          {
-            ...response.results[0].data,
-            uid: response.results[0].uid,
-            type: response.results[0].type,
-          },
-        ]
-      }
-    }
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .va-ps--RecommendationList {
-  background-color: $color__grey--dark;
-  @include fill-screen-width;
-  padding: $spacing__macro--lg 0;
+  padding-top: $spacing--micro--xl;
+  &__heading {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: $spacing__macro--xs;
+  }
 
-  &__body {
-    @include page-margin;
+  &__items {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
 
-    &__heading {
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: $spacing__macro--xs;
+    @include desktops {
+      flex-direction: row;
     }
 
-    &__articles {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: flex-start;
-
+    &__recommendation {
       @include desktops {
-        flex-direction: row;
+        flex: 1;
       }
 
-      &__item {
+      & + & {
+        margin-top: $spacing__micro--xl;
+
         @include desktops {
-          flex: 1;
-        }
-
-        & + & {
-          margin-top: $spacing__micro--xl;
-
-          @include desktops {
-            margin-left: $spacing__micro--xl;
-            margin-top: 0;
-          }
+          margin-left: $spacing__micro--xl;
+          margin-top: 0;
         }
       }
     }

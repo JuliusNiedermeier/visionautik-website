@@ -1,5 +1,5 @@
 <template>
-  <div class="va-mo--Carousel" :class="{ gap: gap }">
+  <div class="va-mo--Carousel" :class="{ gap }">
     <slot />
     <div
       class="va-mo--Carousel__placeholder invert-color"
@@ -44,6 +44,7 @@ export default {
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
   display: flex;
+  align-items: stretch;
   padding-bottom: $spacing__micro--xl;
 
   > * {
@@ -55,15 +56,18 @@ export default {
   }
 
   &__placeholder {
-    height: $spacing__macro--xl;
-    background-color: $color__blue--base;
-    @include background-gradient(45deg, 'blue');
     flex: 1;
+    // height: $spacing__macro--xl;
     min-width: $spacing__macro--xl;
+    // background-color: $color__blue--base;
+    background-color: $color__grey--light;
+    // @include background-gradient(45deg, 'blue');
+    box-sizing: border-box;
+    padding: $spacing--micro--xl;
+
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
   }
 }
 </style>

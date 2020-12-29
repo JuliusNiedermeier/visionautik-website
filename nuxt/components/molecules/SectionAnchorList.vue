@@ -104,12 +104,10 @@ export default {
 
 <style lang="scss" scoped>
 .va-mo--SectionAnchorList {
-  padding: $spacing__micro--xl;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 $spacing__micro--xl;
   height: 100%;
 
   &__item {

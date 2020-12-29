@@ -3,8 +3,8 @@
     <va-at--AirmailStripe />
     <va-or--NotificationList />
     <div class="va-or--Header__navigation">
-      <nuxt-link to="/">
-        <va-at--Logo />
+      <nuxt-link to="/" class="va-or--Header__navigation__home-link">
+        <va-at--Logo class="va-or--Header__navigation__home-link__logo" />
       </nuxt-link>
       <va-mo--NavigationMenu
         class="va-or--Header__navigation__menu"
@@ -108,6 +108,10 @@ export default {
     align-items: center;
 
     @include page-margin;
+
+    &__home-link {
+      text-decoration: none;
+    }
 
     &__menu-toggle {
       z-index: 1;

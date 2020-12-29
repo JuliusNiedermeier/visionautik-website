@@ -18,17 +18,30 @@
       <va-sl--PricingPlanList
         v-if="
           slice.slice_type === 'pricing_section' &&
-          slices.find((slice) => slice.slice_type === 'pricing_tier')
+          slices.find((slice) => slice.slice_type === 'pricing_plan')
         "
-        :pricingTierSlices="
-          slices.filter((slice) => slice.slice_type === 'pricing_tier')
+        :pricingPlanSlices="
+          slices.filter((slice) => slice.slice_type === 'pricing_plan')
         "
       />
       <!-- Image slice -->
-      <va-image-slice :slice="slice" v-if="slice.slice_type === 'image'" />
+      <va-sl--Image :slice="slice" v-if="slice.slice_type === 'image'" />
       <!-- Section anchor slice -->
       <va-sl--SectionAnchor
         v-if="slice.slice_type === 'section_anchor'"
+        :slice="slice"
+      />
+      <va-sl--Quote v-if="slice.slice_type === 'quote'" :slice="slice" />
+      <va-sl--TrainerList
+        v-if="slice.slice_type === 'trainer_section'"
+        :trainers="slice.trainers"
+      />
+      <va-sl--CallToAction
+        v-if="slice.slice_type === 'call_to_action'"
+        :slice="slice"
+      />
+      <va-sl--Accordion
+        v-if="slice.slice_type === 'accordion'"
         :slice="slice"
       />
     </div>
@@ -41,6 +54,10 @@ import ImageGallery from '@/components/slices/ImageGallery'
 import PricingPlanList from '@/components/slices/PricingPlanList'
 import Image from '@/components/slices/Image'
 import SectionAnchor from '@/components/slices/SectionAnchor'
+import Quote from '@/components/slices/Quote.vue'
+import TrainerList from '@/components/slices/TrainerList.vue'
+import CallToAction from '@/components/slices/CallToAction.vue'
+import Accordion from '@/components/slices/Accordion.vue'
 export default {
   name: 'va-or--SliceContent',
 
@@ -50,6 +67,10 @@ export default {
     'va-sl--PricingPlanList': PricingPlanList,
     'va-sl--Image': Image,
     'va-sl--SectionAnchor': SectionAnchor,
+    'va-sl--Quote': Quote,
+    'va-sl--TrainerList': TrainerList,
+    'va-sl--CallToAction': CallToAction,
+    'va-sl--Accordion': Accordion,
   },
   props: {
     slices: {
@@ -64,7 +85,7 @@ export default {
 .va-or--SliceContent {
   &__slice {
     &:not(.hidden) + & {
-      margin-top: $spacing__micro--xl;
+      margin-top: $spacing__macro--xs;
     }
   }
 }

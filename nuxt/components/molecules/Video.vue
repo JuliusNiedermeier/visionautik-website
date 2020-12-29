@@ -114,10 +114,10 @@ export default {
 
     this.duration = video.duration
 
-    const _vm = this
-    video.addEventListener('loadedmetadata', function () {
-      _vm.duration = video.duration
-    })
+    video.addEventListener(
+      'loadedmetadata',
+      () => (this.duration = video.duration)
+    )
 
     const bottomControls = this.$refs.controls.querySelector(
       '.va-mo--Video__controls__bottom-controls'

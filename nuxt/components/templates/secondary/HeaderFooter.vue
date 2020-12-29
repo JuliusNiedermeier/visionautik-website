@@ -28,7 +28,7 @@ export default {
   min-height: 100vh;
 
   &__page {
-    @include page-margin;
+    // @include page-margin;
   }
 }
 </style>
