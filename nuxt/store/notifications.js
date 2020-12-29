@@ -1,12 +1,10 @@
-import { Base64 } from 'js-base64'
-
 export const state = () => ({
   stack: [],
 })
 
 export const mutations = {
   add(state, payload) {
-    if (!payload.id) payload.id = Base64.btoa(Date.now())
+    if (!payload.id) payload.id = Math.random().toString().split('.').pop()
     const idExists = state.stack.find(
       (notification) => notification.id == payload.id
     )

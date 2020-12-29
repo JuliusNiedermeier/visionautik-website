@@ -4,7 +4,8 @@ export const state = () => ({
 })
 
 export const mutations = {
-  activate(state) {
+  activate(state, payload) {
+    state.zIndex = payload || 0
     state.active = true
   },
   deactivate(state) {
