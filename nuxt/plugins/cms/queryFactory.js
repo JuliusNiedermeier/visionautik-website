@@ -1,3 +1,5 @@
+// Will be deprecated in the future!
+
 export default (context) => {
   const $i18n = context.app.i18n
   const $prismic = context.app.$prismic
@@ -55,6 +57,8 @@ export default (context) => {
             $i18n.messages[$i18n.locale].notifications.messages
               .languageNotAvailable,
           id: 'fallback-content-fetched',
+          destroyOnRouteChange: true,
+          destroyOnLocaleChange: true,
         })
       }
 

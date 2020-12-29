@@ -1,7 +1,7 @@
-const getCurrentPriceFromPricingTier = (pricingTier) => {
+const getCurrentPriceFrompricingPlan = (pricingPlan) => {
   let currentPriceOption = null
 
-  for (const priceOption of pricingTier.items) {
+  for (const priceOption of pricingPlan.items) {
     if (!priceOption.effective_date && !currentPriceOption) {
       currentPriceOption = priceOption
       continue
@@ -20,6 +20,6 @@ const getCurrentPriceFromPricingTier = (pricingTier) => {
   return currentPriceOption ? currentPriceOption.price : null
 }
 
-const getNextPriceFromPricingTier = (pricingTier) => {}
+const getNextPriceFrompricingPlan = (pricingPlan) => {}
 
-export default { getCurrentPriceFromPricingTier, getNextPriceFromPricingTier }
+export default { getCurrentPriceFrompricingPlan, getNextPriceFrompricingPlan }

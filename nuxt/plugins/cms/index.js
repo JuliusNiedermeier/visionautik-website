@@ -1,5 +1,5 @@
 import query from './queryFactory'
-import types from './types'
+import types from '@/assets/js/types.js'
 import payment from './payment'
 
 export default (context, inject) => {
