@@ -1,47 +1,47 @@
 // Global classes (error, success)
 @use './variables.scss';
 
-.invert {
-  filter: invert(1) hue-rotate(180deg);
-}
+// .invert {
+//   filter: invert(1) hue-rotate(180deg);
+// }
 
-.invert-color:not(.prevent-invert-color) {
-  color: $color__grey--light;
+// .invert-color:not(.prevent-invert-color) {
+//   color: $color__grey--light;
 
-  & a:not(.prevent-invert-color) {
-    color: $color__grey--light;
-  }
+//   & a:not(.prevent-invert-color) {
+//     color: $color__grey--light;
+//   }
 
-  & blockquote:not(.prevent-invert-color) {
-    &::before {
-      color: $color__grey--light;
-    }
-  }
+//   & blockquote:not(.prevent-invert-color) {
+//     &::before {
+//       color: $color__grey--light;
+//     }
+//   }
 
-  & button:not(.prevent-invert-color) {
-    background-color: $color__grey--dark;
-    color: $color__blue--base;
+//   // & button:not(.prevent-invert-color) {
+//   //   background-color: $color__grey--dark;
+//   //   color: $color__blue--base;
 
-    &:hover {
-      cursor: pointer;
-      background-color: white;
-    }
+//   //   &:hover {
+//   //     cursor: pointer;
+//   //     background-color: white;
+//   //   }
 
-    &:active {
-      background-color: $color__lilac--base;
-    }
-  }
+//   //   &:active {
+//   //     background-color: $color__lilac--base;
+//   //   }
+//   // }
 
-  & input:not(.prevent-invert-color) {
-    background-color: $color__blue--lighter;
-    color: $color__grey--light;
+//   & input:not(.prevent-invert-color) {
+//     background-color: $color__blue--lighter;
+//     color: $color__grey--light;
 
-    &:hover {
-      background-color: $color__blue--light;
-    }
+//     &:hover {
+//       background-color: $color__blue--light;
+//     }
 
-    &:focus {
-      background-color: $color__blue--light;
-    }
-  }
-}
+//     &:focus {
+//       background-color: $color__blue--light;
+//     }
+//   }
+// }

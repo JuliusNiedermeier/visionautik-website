@@ -10,7 +10,9 @@ $color__blue--light: #4540b7;
 $color__grey--light: #f7f7f7;
 $color__grey--dark: #f0f0f0;
 
+$color__lilac--dark: #9a97c7;
 $color__lilac--base: #e3e2f3;
+$color__lilac--lighter: #e8e7f3;
 
 // Motion
 $duration__slow: 800ms;
@@ -34,4 +36,5 @@ $spacing__macro--xxl: 40rem;
 $spacing__breakpoint--desktop: 992px;
 
 // Font
-$letter-spacing__wide: 2rem;
+$font--size--md: 1.6rem;
+$font--letter-spacing--wide: 2rem;

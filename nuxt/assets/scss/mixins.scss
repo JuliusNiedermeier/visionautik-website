@@ -22,34 +22,6 @@
   }
 }
 
-@mixin page-margin--reset {
-  margin: initial;
-  width: initial;
-
-  @include desktops {
-    width: initial;
-    max-width: initial;
-  }
-}
-
-@mixin fill-screen-width {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
-
-@mixin fill-screen-width--reset {
-  width: initial;
-  position: initial;
-  left: initial;
-  right: initial;
-  margin-left: initial;
-  margin-right: initial;
-}
-
 @mixin background-gradient(
   $degree: 90deg,
   $color: 'blue',
@@ -57,15 +29,17 @@
 ) {
   background: $fallback-color;
   @if $color == 'blue' {
-    background: linear-gradient($degree, $color__blue--base 0%, #001aa3 100%);
+    // background: linear-gradient($degree, $color__blue--base 0%, #01198f 100%);
+    background-color: $color--blue--base;
   }
 
   @if $color == 'red' {
-    background: linear-gradient(
-      $degree,
-      $color__red--base 0%,
-      $color__red--light 100%
-    );
+    // background: linear-gradient(
+    //   $degree,
+    //   $color__red--base 0%,
+    //   $color__red--light 100%
+    // );
+    background-color: $color--red--base;
   }
 
   @if $color == 'white' {
@@ -101,12 +75,12 @@
     @keyframes slide-down {
       from {
         opacity: 0;
-        transform: translateX(-$spacing__micro--xl);
+        transform: translateY(-$spacing__micro--xl);
       }
 
       to {
         opacity: initial;
-        transform: translateX(0);
+        transform: translateY(0);
       }
     }
     animation-name: slide-down;
