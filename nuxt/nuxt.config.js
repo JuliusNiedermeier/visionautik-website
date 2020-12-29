@@ -1,4 +1,6 @@
 import path from 'path'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export default {
   /*
@@ -27,7 +29,9 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    // script: [{ src: '/registerServiceWorker.js' }],
   },
+
   /*
    ** Customize the progress-bar color
    */
@@ -61,9 +65,9 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
-    '@/plugins/nuxt-i18n-fetch',
+    '@/plugins/i18nFetch',
     '@/plugins/cms',
-    '@/plugins/intlFormatter',
+    { src: '@/plugins/registerServiceWorker', ssr: false },
   ],
   /*
    ** Auto import components
@@ -100,7 +104,7 @@ export default {
 
   // Prismic - configuration
   prismic: {
-    endpoint: 'https://visionautikde.cdn.prismic.io/api/v2',
+    endpoint: process.env.PRISMIC_ENDPOINT,
     linkResolver: '@/plugins/link-resolver',
     htmlSerializer: '@/plugins/html-serializer',
   },
@@ -135,16 +139,63 @@ export default {
     strategy: 'no_prefix',
     vueI18n: {
       fallbackLocale: 'de',
+      numberFormats: {
+        de: {
+          currency: {
+            style: 'currency',
+            currency: 'EUR',
+          },
+        },
+        en: {
+          currency: {
+            style: 'currency',
+            currency: 'EUR',
+          },
+        },
+      },
+      dateTimeFormats: {
+        de: {
+          shortDate: {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          },
+          longDate: {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          },
+          time: {
+            hour: 'numeric',
+            minute: 'numeric',
+          },
+        },
+        en: {
+          shortDate: {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          },
+          longDate: {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          },
+          time: {
+            hour: 'numeric',
+            minute: 'numeric',
+          },
+        },
+      },
     },
   },
 
   snipcart: {
     // Options available
-    key:
-      'ZjIyODZjN2ItZTc2Yi00YTYwLWFkZTgtNmI1MzgwNGI0M2E5NjM3MzQ5ODk2MDgwNzk1MTA4',
+    key: process.env.SNIPCART_PUBLIC_KEY,
     addProductBehavior: true,
     locales: {} /* not required */,
-    snipcartCustomize: path.join(__dirname, 'snipcart/customize'),
+    // snipcartCustomize: path.join(__dirname, 'snipcart/customize'),
   },
 
   build: {
@@ -176,9 +227,14 @@ export default {
    */
 
   buildDir: '.nuxt',
-  // build: {
-  //   publicPath: '/assets/',
-  //   extractCss: true,
-  // },
+  build: {
+    publicPath: '/assets/',
+    extractCss: true,
+  },
   globalName: 'nuxt',
+
+  publicRuntimeConfig: {
+    webPushPublicKey: process.env.WEBPUSH_PUBLIC_KEY,
+  },
+  privateRuntimeConfig: {},
 }
