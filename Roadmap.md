@@ -31,48 +31,45 @@
 - **Create the offer single page**
 - Add missing static translations
 - Improve typography consistency
+- Make the press quote slides use the full carousel width on mobile devices (add as prop to carousel)
+- Make the "ALL COURSES" button on the homepage link to the offers page (only courses)
+- Apply new modal backdrop system to gallery slice
+- Strech recommended offers to full width when displayed as column (mobile devices)
+- Create custom button component with the following props: label, icon, iconPosition, to, light, reduced, disabled
+- Create custom link component with the following props: label, to. Completely remove styling from a or nuxt-link in main.scss
+- Ensure that the entire content of the sidebar is accessible on smaller monitors
+- Create Trainers slice
+- Forward event purchases to Eventbrite
 
 ## Steps until the site can be used as a simple shop with homepage
 
-- Exclude past offers from search results, recommendations, courses carousel and events carousel
 - Add the latest "Salon of Courage" event to the offers mega menu
 - Add direct links for courses, events, books, merchandise and downloads to the offers mega menu
 - _Make offer and product categories dynamic (optional)_
-- Make the press quote slides use the full carousel width on mobile devices (add as prop to carousel)
-- Make the "ALL COURSES" button on the homepage link to the offers page (only courses)
 - **Create notification service for new offers and products**
 - **Create newsletter system**
 - Make the language switcher component a small drop down that can be displayed in the navigation menu
 - **Create custom snipcart pages (cart, checkout, login, sign up, dashboard)**</span>
-- Apply new modal backdrop system to gallery slice
-- Strech recommended offers to full width when displayed as column (mobile devices)
 - Add a fullscreen button to the video component
 - Vertically center mega menu content on mobile devices
 - Improve target group info button on the offers page for mobile devices
-- Create custom button component with the following props: label, icon, iconPosition, to, light, reduced, disabled
-- Create custom link component with the following props: label, to. Completely remove styling from a or nuxt-link in main.scss
 - Create detailed full-width Offer component
 - On the offers page, display courses and events stacked as full-width columns and only products in a carousel
 - Create the product single page
 - Create Accordion slice
 - Create Column slice
 - Create Call To Action slice
-- Create Trainers slice
-- Forward event purchases to Eventbrite
 
 ### Current bugs:
 
 - Fix horizontal scrolling on safari mobile (overflow-x: scroll; -webkit-overflow-scrolling: touch;)
 - Ensure the carousel is always at the scroll start position on page load
 - Ensure the video header on the home page is playing on Safari mobile or at least display a good looking placeholder
-- Ensure that the entire content of the sidebar is accessible on smaller monitors
 - Fix section anchors overview component
 
 ## Steps to full completion
 
 - **Create the Team Member single page**
-- **Create the Team collection page**
-- **Create the Our Vision page**
 - **Create the Our Story page**
 - **Create the Blog post single page**
 - **Create the Blog post collection page**
