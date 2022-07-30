@@ -21,21 +21,25 @@
       :heading="cms.page.courses__heading"
       :courses="cms.courses"
     />
+
     <va-ps--Vision
       :heading="cms.page.our_vision__heading"
       :text="cms.page.our_vision__text"
       :imageUrl="cms.page.our_vision__image.url"
     />
+
     <va-ps--Team
       id="team"
       :heading="cms.page.team__heading"
       :coreTeamMembers="cms.teamMembers.core"
       :experts="cms.teamMembers.experts"
     />
+
     <va-ps--EventCarousel
       :heading="cms.page.events__heading"
       :events="cms.events"
     />
+
     <va-ps--Testimonials
       :heading="cms.page.testimonials__heading"
       :testimonials="cms.testimonials"
@@ -58,7 +62,7 @@ import Testimonials from './sections/Testimonials.vue'
 import formatCmsResultForProp from '@/mixins/util/formatCmsResultForProp.js'
 import fetchOne from '@/mixins/usecases/fetchOne.js'
 import fetchMany from '@/mixins/usecases/fetchMany.js'
-import queryCms from '@/mixins/util/queryCms.js'
+// import queryCms from '@/mixins/util/queryCms.js'
 import fetchRecommendations from '@/mixins/usecases/fetchRecommendations.js'
 import fetchLatestCourses from '@/mixins/usecases/fetchLatestCourses.js'
 import fetchLatestEvents from '@/mixins/usecases/fetchLatestEvents.js'
@@ -71,7 +75,7 @@ export default {
     formatCmsResultForProp,
     fetchOne,
     fetchMany,
-    queryCms,
+    // queryCms,
     fetchRecommendations,
     fetchLatestCourses,
     fetchLatestEvents,
@@ -114,9 +118,11 @@ export default {
   async fetch() {
     const page = await this.fetchOne(pages.index.typeName)
     if (!page) return
+
     this.$set(this.cms, 'page', page?.results[0].data)
 
     const pressQuotes = await this.fetchMany(repeatables.pressQuote.typeName)
+
     if (pressQuotes) {
       this.cms.pressQuotes = pressQuotes.results.map((pressQuote) =>
         this.formatCmsResultForProp(pressQuote)

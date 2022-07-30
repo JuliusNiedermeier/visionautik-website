@@ -11,9 +11,11 @@
 
 <script>
 import SliceContent from '@/components/organisms/SliceContent'
+import Button from '@/components/atoms/Button.vue'
 import targetGroups from '@/assets/js/targetGroups.js'
 import fetchOne from '@/mixins/usecases/fetchOne.js'
 import { collections } from '@/assets/js/types.js'
+
 export default {
   name: 'va-ps--TargetGroupInfo',
   mixins: [fetchOne],

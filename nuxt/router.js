@@ -4,8 +4,8 @@ import Router from 'vue-router'
 import Home from '@/components/pages/Home/Home.vue'
 import Offers from '@/components/pages/Offers/Offers.vue'
 import Activity from '@/components/pages/Activity/Activity.vue'
-import Product from '@/components/pages/Product/Product.vue'
-import Cart from '@/components/pages/Cart/Cart.vue'
+// import Product from '@/components/pages/Product/Product.vue'
+// import Cart from '@/components/pages/Cart/Cart.vue'
 import About from '@/components/pages/About/About.vue'
 import Playground from '@/components/pages/Playground/Playground.vue'
 import TeamMember from '@/components/pages/TeamMember/TeamMember.vue'
@@ -47,16 +47,16 @@ export function createRouter() {
         path: '/offers/activity/:uid',
         component: Activity,
       },
-      {
-        name: 'product',
-        path: '/offers/product/:uid',
-        component: Product,
-      },
-      {
-        name: 'cart',
-        path: '/cart',
-        component: Cart,
-      },
+      // {
+      //   name: 'product',
+      //   path: '/offers/product/:uid',
+      //   component: Product,
+      // },
+      // {
+      //   name: 'cart',
+      //   path: '/cart',
+      //   component: Cart,
+      // },
       {
         name: 'about',
         path: '/about',

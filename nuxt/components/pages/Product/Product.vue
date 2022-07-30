@@ -1,6 +1,6 @@
 <template>
   <div class="va-pa--Product">
-    <va-mo--PageHeader
+    <!-- <va-mo--PageHeader
       sidebarPadding
       :imageUrl="document.general__featured_image.url"
     >
@@ -22,7 +22,7 @@
           </template>
         </va-at--Sidebar>
       </template>
-    </va-te--Sidebar>
+    </va-te--Sidebar> -->
   </div>
 </template>
 

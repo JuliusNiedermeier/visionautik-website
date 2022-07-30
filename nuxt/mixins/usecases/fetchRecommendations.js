@@ -66,7 +66,7 @@ const fetchPendingContent = function (fetchedIds, pendingDocumentsCount) {
     fetch: getRequiredFieldsByType.apply(this, [typeNames]),
   }
 
-  return this.queryCms([predicate], options, false)
+  return this.queryCms([...predicates], options, false)
 }
 
 export default {
@@ -79,10 +79,10 @@ export default {
         fetchLatestBlogPost.call(this),
       ])
 
-      responses = responses.filter((response) => response.results_size > 0)
+      responses = responses.filter((response) => response?.results_size > 0)
 
       if (responses.length < 3) {
-        responses = responses.push(
+        responses.push(
           await fetchPendingContent.apply(this, [
             responses.map((response) => response.results[0].id),
             3 - responses.length,
@@ -92,7 +92,7 @@ export default {
 
       let results = []
       responses.forEach((response) => {
-        response.results?.forEach((result) => results.push(result))
+        response?.results?.forEach((result) => results.push(result))
       })
 
       return results

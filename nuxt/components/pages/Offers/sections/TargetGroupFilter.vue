@@ -43,7 +43,9 @@ export default {
 
   computed: {
     allTargetGroupsLabel() {
-      return $t(`types.${collections.offers.typeName}.allTargetGroupsLabel`)
+      return this.$t(
+        `types.${collections.offers.typeName}.allTargetGroupsLabel`
+      )
     },
   },
 

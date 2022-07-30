@@ -1,9 +1,15 @@
 <template>
   <div class="va-tp--default">
     <va-tp--HeaderFooter>
-      <!-- <Nuxt class="va-tp--default__page-content" keep-alive :keep-alive-props="{max: 5}" /> -->
+      <!-- <Nuxt
+        class="va-tp--default__page-content"
+        keep-alive
+        :keep-alive-props="{ max: 5 }"
+      />-->
+
       <Nuxt class="va-tp--default__page-content" />
     </va-tp--HeaderFooter>
+
     <div
       class="va-tp--default__backdrop"
       :class="{ active: $store.state.modalBackdrop.active }"
@@ -25,6 +31,7 @@ export default {
 }
 </script>
 
+//
 <style lang="scss" scoped>
 .va-tp--default__backdrop {
   position: fixed;

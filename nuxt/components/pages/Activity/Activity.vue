@@ -15,6 +15,7 @@
         ><va-or--SliceContent
           :slices="[...document.content__slices, ...document.pricing__slices]"
       /></template>
+
       <template slot="sidebar">
         <va-at--Sidebar>
           <template slot="top">
@@ -26,11 +27,13 @@
               :closingTime="document.general__closing_time"
               :venueLabel="document.general__venue"
               :venueUrl="document.general__venue_link.url"
-              :maximumAttendance="document.general__maximum_attendance" />
-            <va-mo--AddToCart
+              :maximumAttendance="document.general__maximum_attendance"
+            />
+            <!-- <va-mo--AddToCart
               :product="product"
               :customFields="[customPricingPlanField]"
-          /></template>
+            /> -->
+          </template>
         </va-at--Sidebar>
       </template>
     </va-te--Sidebar>
@@ -78,10 +81,11 @@ export default {
   },
 
   async fetch() {
-    const response = this.fetchOneByUid(
+    const response = await this.fetchOneByUid(
       repeatables.offer.typeName,
       this.$route.params.uid
     )
+
     if (!response) return
     this.document = formatCmsResultForProp(response.results[0])
 
@@ -93,11 +97,9 @@ export default {
       const trainerIDs = this.document.trainers__list.map(
         (trainerRef) => trainerRef.trainer.id
       )
-
       const trainerResponse = await this.queryCms([
         this.$prismic.predicates.any('document.id', trainerIDs),
       ])
-
       if (!trainerResponse) return
       this.$set(this.document.content__slices, trainerSectionSliceIndex, {
         ...this.document.content__slices[trainerSectionSliceIndex],
@@ -126,9 +128,8 @@ export default {
         return {
           label: pricingPlanSlice.primary.heading,
           id: pricingPlanSlice.primary.id,
-          priceDifference: parseCurrentPriceFromPricingPlanSlice(
-            pricingPlanSlice
-          ),
+          priceDifference:
+            parseCurrentPriceFromPricingPlanSlice(pricingPlanSlice),
         }
       })
       return {

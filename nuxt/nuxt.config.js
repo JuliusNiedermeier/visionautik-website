@@ -1,6 +1,5 @@
 import path from 'path'
-import dotenv from 'dotenv'
-dotenv.config()
+import 'dotenv/config'
 
 export default {
   /*
@@ -58,16 +57,16 @@ export default {
     '@/assets/scss/main.scss',
     '@/assets/scss/classes.scss',
     '@/assets/scss/fonts.scss',
-    '@/assets/scss/snipcart.scss',
+    // '@/assets/scss/snipcart.scss',
   ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
-    '@/plugins/i18nFetch',
-    '@/plugins/cms',
-    { src: '@/plugins/registerServiceWorker', ssr: false },
+    // '@/plugins/i18nFetch',
+    // '@/plugins/cms',
+    // { src: '@/plugins/registerServiceWorker', ssr: false },
   ],
   /*
    ** Auto import components
@@ -79,7 +78,7 @@ export default {
    */
   buildModules: [
     '@nuxtjs/router',
-    '@nuxtjs/snipcart',
+    // '@nuxtjs/snipcart',
     // '@nuxtjs/google-analytics',
   ],
   /*
@@ -100,7 +99,7 @@ export default {
   ],
 
   // Server middleware
-  serverMiddleware: [{ path: '/api', handler: '@/api/index.js' }],
+  // serverMiddleware: [{ path: '/api', handler: '@/api/index.js' }],
 
   // Prismic - configuration
   prismic: {
@@ -133,7 +132,7 @@ export default {
     langDir: './lang/',
     lazy: true,
     defaultLocale: 'de',
-    // vueI18nLoader: true,
+    vueI18nLoader: true,
     parsePages: false,
     seo: false,
     strategy: 'no_prefix',
@@ -190,17 +189,17 @@ export default {
     },
   },
 
-  snipcart: {
-    // Options available
-    key: process.env.SNIPCART_PUBLIC_KEY,
-    addProductBehavior: true,
-    locales: {} /* not required */,
-    // snipcartCustomize: path.join(__dirname, 'snipcart/customize'),
-  },
+  // snipcart: {
+  //   // Options available
+  //   key: process.env.SNIPCART_PUBLIC_KEY,
+  //   addProductBehavior: true,
+  //   locales: {} /* not required */,
+  //   // snipcartCustomize: path.join(__dirname, 'snipcart/customize'),
+  // },
 
   build: {
     // Watch changes in snipcart directory and rebuild the application
-    watch: ['src/snipcart'],
+    // watch: ['src/snipcart'],
 
     postcss: {
       // configure autoprefixer
